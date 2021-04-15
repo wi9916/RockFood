@@ -9,6 +9,8 @@ namespace RockFood.Models
     class Order
     {    
         public int orderId { get; set; }
+        public DateTime dateCreate { get; set; }
+        public DateTime dateDelivery { get; set; }
         public int customerId { get; set; }
         public bool orderStatus { get; set; }
         public IEnumerable<Food> foods { get; set; }
