@@ -11,6 +11,6 @@ namespace RockFood
         public int CompanyId { get; set; }
         public string Name { get; set; }
         public string ImageName { get; set; }
-        public string AboutCompany { get; set; }
+        public string About { get; set; }
     }
 }

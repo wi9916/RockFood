@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,14 +12,19 @@ namespace RockFood.Models
         public string Composition { get; set; }
         public DateTime ProductionDate { get; set; }
         public DateTime UseToDate { get; set; }
-        public ProductType? ProductType { get; set; }
+        public string ProductType { get; set; }
     }
-    [Flags]
-    public enum ProductType
+    public class ProductType : IEnumerable
     {
-        None,
-        Drink,
-        Cake,
-        Salad,
+        public List<string> ProductTypes;
+        public IEnumerator GetEnumerator()
+        {
+            return ProductTypes.GetEnumerator();
+        }
+        public ProductType()
+        {
+            ProductTypes = new List<string>() {"Drink","Cake","Salad","Another" };
+        }
+
     }
 }

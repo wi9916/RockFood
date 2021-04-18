@@ -10,6 +10,6 @@ namespace RockFood.Models
     {
         public string WorkTime { get; set; }
         public IEnumerable<Order> Orders { get; set; }
-        public bool WorkNow { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

@@ -11,9 +11,9 @@ namespace RockFood
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string ImageName { get; set; }
-        public int BompanyId { get; set; }
+        public int CompanyId { get; set; }
         public int SellerId { get; set; }
-        public string AboutItem { get; set; }
+        public string About { get; set; }
         public decimal Prise { get; set; }
         public double Count { get; set; }
     }

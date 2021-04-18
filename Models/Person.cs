@@ -13,7 +13,7 @@ namespace RockFood
         public string ImageName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public string AboutPerson { get; set; }
+        public string About { get; set; }
 
     }
 }

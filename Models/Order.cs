@@ -9,11 +9,20 @@ namespace RockFood.Models
     public class Order
     {    
         public int OrderId { get; set; }
-        public DateTime DateCreate { get; set; }
-        public DateTime DateDelivery { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime DeliveryDate { get; set; }
         public int CustomerId { get; set; }
-        public bool OrderStatus { get; set; }
+        public OrderStatus orderStatus { get; set; }
         public IEnumerable<Food> Foods { get; set; }
         public IEnumerable<Product> Containers { get; set; }
+    }
+    public enum OrderStatus
+    {
+        None,
+        Waiting,
+        Confirmation,
+        OnTheRoad,
+        Performed,
+        Denied,
     }
 }

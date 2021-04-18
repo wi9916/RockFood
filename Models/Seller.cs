@@ -8,6 +8,6 @@ namespace RockFood
 {
     public class Seller: Person
     {
-        public double RatingFromCastomers { get; set; } 
+        public double RatingFromCustomers { get; set; } 
     }
 }
