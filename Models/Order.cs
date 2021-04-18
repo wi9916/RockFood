@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace RockFood.Models
 {
-    class Order
+    public class Order
     {    
-        public int orderId { get; set; }
-        public DateTime dateCreate { get; set; }
-        public DateTime dateDelivery { get; set; }
-        public int customerId { get; set; }
-        public bool orderStatus { get; set; }
-        public IEnumerable<Food> foods { get; set; }
-        public IEnumerable<Container> containers { get; set; }
+        public int OrderId { get; set; }
+        public DateTime DateCreate { get; set; }
+        public DateTime DateDelivery { get; set; }
+        public int CustomerId { get; set; }
+        public bool OrderStatus { get; set; }
+        public IEnumerable<Food> Foods { get; set; }
+        public IEnumerable<Product> Containers { get; set; }
     }
 }

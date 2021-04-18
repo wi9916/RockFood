@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    class Person
+    public class Person
     {
-        public int pesonId { get; set; }
-        public string name { get; set; }
-        public string imageName { get; set; }
-        public string phoneNumber { get; set; }
-        public string email { get; set; }
-        public string aboutPerson { get; set; }
+        public int PesonId { get; set; }
+        public string Name { get; set; }
+        public string ImageName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string AboutPerson { get; set; }
 
     }
 }

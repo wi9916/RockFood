@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RockFood.Models
 {
-    class DeliveryMan: Person
+    public class DeliveryMan : Person
     {
-        public string workTime { get; set; }
-        public IEnumerable<Order> orders { get; set; }
-        public bool workNow { get; set; }
+        public string WorkTime { get; set; }
+        public IEnumerable<Order> Orders { get; set; }
+        public bool WorkNow { get; set; }
     }
 }

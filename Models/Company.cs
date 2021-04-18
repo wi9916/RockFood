@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    class Company
+    public class Company
     {
-        public int companyId { get; set; }
-        public string name { get; set; }
-        public string imageName { get; set; }
-        public string aboutCompany { get; set; }
+        public int CompanyId { get; set; }
+        public string Name { get; set; }
+        public string ImageName { get; set; }
+        public string AboutCompany { get; set; }
     }
 }

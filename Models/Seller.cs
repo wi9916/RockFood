@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    class Seller: Person
+    public class Seller: Person
     {
-        public double ratingFromCastomers { get; set; } 
+        public double RatingFromCastomers { get; set; } 
     }
 }

@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace RockFood.Models
 {
-    class Food: Product
+    public class Food : Product
     {
-        public string composition { get; set; }
-        public DateTime productionDate { get; set; }
-        public DateTime useToDate { get; set; }
+        public string Composition { get; set; }
+        public DateTime ProductionDate { get; set; }
+        public DateTime UseToDate { get; set; }
+        public ProductType? ProductType { get; set; }
+    }
+    [Flags]
+    public enum ProductType
+    {
+        None,
+        Drink,
+        Cake,
+        Salad,
     }
 }
