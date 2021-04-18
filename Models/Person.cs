@@ -8,7 +8,7 @@ namespace RockFood
 {
     public class Person
     {
-        public int PesonId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string ImageName { get; set; }
         public string PhoneNumber { get; set; }
