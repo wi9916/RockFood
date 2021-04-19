@@ -16,7 +16,7 @@ namespace RockFood.Models
     }
     public class ProductType : IEnumerable
     {
-        public List<string> ProductTypes;
+        public IList<string> ProductTypes;
         public IEnumerator GetEnumerator()
         {
             return ProductTypes.GetEnumerator();
