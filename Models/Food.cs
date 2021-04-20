@@ -14,14 +14,14 @@ namespace RockFood.Models
         public DateTime UseToDate { get; set; }
         public string ProductType { get; set; }
     }
-    public class ProductType : IEnumerable
+    public class ProductTypeName : IEnumerable
     {
         public IList<string> ProductTypes;
         public IEnumerator GetEnumerator()
         {
             return ProductTypes.GetEnumerator();
         }
-        public ProductType()
+        public ProductTypeName()
         {
             ProductTypes = new List<string>() {"Drink","Cake","Salad","Another" };
         }
