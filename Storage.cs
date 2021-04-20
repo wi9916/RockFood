@@ -49,6 +49,10 @@ namespace RockFood
                         DialogChooseCustomer();
                         break;
                     case "3":
+<<<<<<< Updated upstream
+=======
+                        DialogPutNewFood();
+>>>>>>> Stashed changes
                         break;                  
                 }
             }
