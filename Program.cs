@@ -6,8 +6,8 @@ namespace RockFood
     {
         static void Main(string[] args)
         {
-            Storage st = new Storage();
-            st.StartWorking();
+            Shop st = new Shop();
+            st.DialogStartWorking();
             Console.WriteLine("Hello World!");
         }
     }
