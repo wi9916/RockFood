@@ -6,6 +6,8 @@ namespace RockFood
     {
         static void Main(string[] args)
         {
+            Storage st = new Storage();
+            st.StartWorking();
             Console.WriteLine("Hello World!");
         }
     }
