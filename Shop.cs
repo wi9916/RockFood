@@ -92,14 +92,7 @@ namespace RockFood
             }
             else
                 Output("Customer Choose Error", "Error");
-        }
-        private void DialogBuyProduct(int customerId, int foodId)
-        {
-            var customer = Customers.First(p => p.Id == customerId);
-            var food = Foods.First(p => p.Id == foodId);
-            Output("You bought " + food.Name + " for price $" + food.Price, customer.Name);
-            TakeFood(foodId, 1);
-        }
+        }       
         private void DialogChooseProduct(int customerId)
         {
             Console.Clear();
@@ -121,6 +114,13 @@ namespace RockFood
             }
             else
                 Output("Product Choose Error", "Error");
+        }
+        private void DialogBuyProduct(int customerId, int foodId)
+        {
+            var customer = Customers.First(p => p.Id == customerId);
+            var food = Foods.First(p => p.Id == foodId);
+            Output("You bought " + food.Name + " for price $" + food.Price, customer.Name);
+            TakeFood(foodId, 1);
         }
     }
 }
