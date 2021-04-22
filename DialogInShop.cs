@@ -87,7 +87,7 @@ namespace RockFood
 
             Speaker.Output("Enter Food Count");
             text = Console.ReadLine();
-            var count = new int();
+            int count = default;
             success = Int32.TryParse(text, out count);           
             if (!success)
                 correctInputFlag = false;
@@ -120,7 +120,7 @@ namespace RockFood
             var text = Console.ReadLine();
             var customerId = new int();
 
-            bool success = Int32.TryParse(text, out customerId);
+            var success = Int32.TryParse(text, out customerId);
             if (success)
             {
                 if (Customers.Exists(x => x.Id == customerId))           
@@ -144,7 +144,7 @@ namespace RockFood
             var text = Console.ReadLine();
             var foodId = new int();
 
-            bool success = Int32.TryParse(text, out foodId);
+            var success = Int32.TryParse(text, out foodId);
             if (success)
             {
                 
