@@ -31,14 +31,10 @@ namespace RockFood
         }
         public bool PutNewFood(Food food)
         {
-            if (Foods is not null)
-            {
-                food.Id = Foods.Count();
-                Foods.Add(food);
-                Speaker.Output("new food: " + food.Name,"Put");
-                return true;
-            }
-            return false;
+            food.Id = Foods.Count();
+            Foods.Add(food);
+            Speaker.Output("new food: " + food.Name, "Put");
+            return true;
         }
         public bool CreateNewCustomer(string name)
         {          
@@ -51,11 +47,37 @@ namespace RockFood
             }
             return false;
         }              
-        public void TakeFood(int foodId, int number)
+        public bool TakeFood(int foodId, int number)
         {
             var index = Foods.FindIndex(f => f.Id == foodId);
-            if(index >= 0)
+            if (index >= 0)
+            {
                 Foods[index].Count -= number;
-        }        
+                Speaker.Output("You bought " + Foods[index].Name + " for price $" + Foods[index].Price, "Buy");
+                return true;
+            }
+            return false;
+        }   
+        public bool InfoAboutFoodOutput(int foodId)
+        {
+            var index = Foods.FindIndex(f => f.Id == foodId);
+            if (index >= 0)
+            {
+                Speaker.Output("Id - " + Foods[index].Id.ToString() + " " + Foods[index].Name + "Count - " 
+                    + Foods[index].Count.ToString() + " $ - " + Foods[index].Price);
+                return true;
+            }
+            return false;           
+        }
+        public bool InfoAboutCustomerOutput(int customerId)
+        {
+            var index = Customers.FindIndex(f => f.Id == customerId);
+            if (index >= 0)
+            {
+                Speaker.Output("Id - " + Customers[index].Id.ToString() + " Name - " + Customers[index].Name);
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -11,8 +11,8 @@ namespace RockFood
     class Program
     {
         static void Main(string[] args)
-        {           
-            Shop st = new Shop();
+        {
+            DialogInShop st = new DialogInShop();
             st.DialogStartWorking();
             Console.WriteLine("Hello World!");
         }
