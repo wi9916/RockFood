@@ -14,7 +14,6 @@ namespace RockFood
         public Storage()
         {
             Foods = new List<Food>();
-
             CreateNewBaseStorage();
         }
 

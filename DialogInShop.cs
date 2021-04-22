@@ -15,7 +15,6 @@ namespace RockFood
         {
             SameStorage = new Storage();
             SameCostumers = new Residents();
-
         }
         public void DialogStartWorking()
         {
@@ -67,7 +66,6 @@ namespace RockFood
                 SameStorage.PutNewFood(new Food { Name = name, Price = price, Count = count });
             else
                 Speaker.Output("Put food Error", "Error");
-
         }
         private void DialogCreateNewCustomer()
         {
@@ -84,7 +82,8 @@ namespace RockFood
             Console.Clear();
             Speaker.Output("List of Customer: ");
             foreach (var customer in SameCostumers.Customers)
-                SameCostumers.OutputInfoAboutCustomer(customer.Id);
+                if(!SameCostumers.OutputInfoAboutCustomer(customer.Id))
+                    Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Customers id");
 
@@ -108,32 +107,32 @@ namespace RockFood
             Speaker.Output("List of Products: ");
             foreach (var food in SameStorage.Foods)
                 if (food.Count > 0)
-                    SameStorage.OutputInfoAboutFood(food.Id);                 
+                    if(!SameStorage.OutputInfoAboutFood(food.Id))
+                        Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Products id");
 
             var text = Console.ReadLine();
-            var foodId = new int();
-
+            int foodId = default;
             var success = Int32.TryParse(text, out foodId);
             if (success)
-            {
-                
-                if(SameStorage.Foods.Exists(x => x.Id == foodId)) 
-                    DialogBuyProduct(customerId, foodId);
-                else
+            {             
+                if(!DialogBuyProduct(customerId, foodId))               
                     Speaker.Output("Product Choose Error", "Error");
             }
             else
                 Speaker.Output("Product Choose Error", "Error");
         }
-        private void DialogBuyProduct(int customerId, int foodId)
+        private bool DialogBuyProduct(int customerId, int foodId)
         {
             var customer = SameCostumers.Customers.First(p => p.Id == customerId);
+            if (!SameStorage.Foods.Exists(x => x.Id == foodId))
+                return false;
+
             var food = SameStorage.Foods.First(p => p.Id == foodId);
-            
-            if(!SameStorage.TakeFood(foodId, 1))
-                Speaker.Output("Product bought Error", "Error");
+            if (!SameStorage.TakeFood(foodId, 1))
+                    Speaker.Output("Product bought Error", "Error");
+            return true;                     
         }
     }
 }

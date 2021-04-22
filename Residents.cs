@@ -12,7 +12,6 @@ namespace RockFood
         public Residents()
         {          
             Customers = new List<Customer>();
-
             CreateNewResidents();
         }
         public void CreateNewResidents()
