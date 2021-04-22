@@ -35,7 +35,7 @@ namespace RockFood
             {
                 food.Id = Foods.Count();
                 Foods.Add(food);
-                Output("new food: " + food.Name,"Put");
+                Speaker.Output("new food: " + food.Name,"Put");
                 return true;
             }
             return false;
@@ -46,7 +46,7 @@ namespace RockFood
             {
                 var id = Customers.Count();
                 Customers.Add(new Customer { Id = id, Name = name });
-                Output("new Customer => " + name, "Create");
+                Speaker.Output("new Customer => " + name, "Create");
                 return true;
             }
             return false;
@@ -56,12 +56,6 @@ namespace RockFood
             var index = Foods.FindIndex(f => f.Id == foodId);
             if(index >= 0)
                 Foods[index].Count -= number;
-        }
-        public void Output(string message, string messageAuthor = "System")
-        {
-            Console.WriteLine("{0}: {1}",messageAuthor, message);
-            if (messageAuthor != "System")
-                Console.ReadKey();
-        }
+        }        
     }
 }

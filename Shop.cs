@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    public class Shop: Storage
+    public class Shop
     {
+        public Storage storage { get; set; }
+        
         public void DialogStartWorking()
         {
             while (true)
             {
                 Console.Clear();
-                Output("Press 1 to create new Customer");
-                Output("Press 2 to choose Customer");
-                Output("Press 3 to put new Food");
+                Speaker.Output("Press 1 to create new Customer");
+                Speaker.Output("Press 2 to choose Customer");
+                Speaker.Output("Press 3 to put new Food");
 
-                var kay = Console.ReadLine().ToString();
-                switch (kay)
+                var key = Console.ReadLine().ToString();
+                switch (key)
                 {
                     case "1":
                         DialogCreateNewCustomer();
@@ -39,17 +41,17 @@ namespace RockFood
             var correctInputFlag = true;
             Console.Clear();
 
-            Output("Enter Food Name");
+            Speaker.Output("Enter Food Name");
             var name = Console.ReadLine().ToString();
 
-            Output("Enter Food Price");
+            Speaker.Output("Enter Food Price");
             var text = Console.ReadLine();
-            var price = new decimal();
-            bool success = Decimal.TryParse(text, out price);
+            decimal price = default;
+            var success = Decimal.TryParse(text, out price);
             if (!success)
                 correctInputFlag = false;
 
-            Output("Enter Food Count");
+            Speaker.Output("Enter Food Count");
             text = Console.ReadLine();
             var count = new int();
             success = Int32.TryParse(text, out count);
@@ -57,29 +59,29 @@ namespace RockFood
                 correctInputFlag = false;
 
             if (correctInputFlag)
-                PutNewFood(new Food { Name = name, Price = price, Count = count });
+                storage.PutNewFood(new Food { Name = name, Price = price, Count = count });
             else
-                Output("Put food Error", "Error");
+                Speaker.Output("Put food Error", "Error");
 
         }
         private void DialogCreateNewCustomer()
         {
             Console.Clear();
-            Output("Enter Customer Name or 9 for exit");
+            Speaker.Output("Enter Customer Name or 9 for exit");
 
             var text = Console.ReadLine().ToString();
             if (text != "9")
-                if (!CreateNewCustomer(text))
-                    Output("Customer creation Error", "Error");
+                if (!storage.CreateNewCustomer(text))
+                    Speaker.Output("Customer creation Error", "Error");
         }
         private void DialogChooseCustomer()
         {
             Console.Clear();
-            Output("List of Customer: ");
-            foreach (var customer in Customers)
-                Output("Id - " + customer.Id.ToString() + " Name - " + customer.Name);
+            Speaker.Output("List of Customer: ");
+            foreach (var customer in storage.Customers)
+                Speaker.Output("Id - " + customer.Id.ToString() + " Name - " + customer.Name);
 
-            Output("Tap Customers id");
+            Speaker.Output("Tap Customers id");
 
             var text = Console.ReadLine();
             var customerId = new int();
@@ -87,21 +89,21 @@ namespace RockFood
             bool success = Int32.TryParse(text, out customerId);
             if (success)
             {
-                if (customerId >= 0 && customerId < Customers.Count())
+                if (customerId >= 0 && customerId < storage.Customers.Count())
                     DialogChooseProduct(customerId);
             }
             else
-                Output("Customer Choose Error", "Error");
+                Speaker.Output("Customer Choose Error", "Error");
         }       
         private void DialogChooseProduct(int customerId)
         {
             Console.Clear();
-            Output("List of Products: ");
-            foreach (var food in Foods)
+            Speaker.Output("List of Products: ");
+            foreach (var food in storage.Foods)
                 if (food.Count > 0)
-                    Output("Id - " + food.Id.ToString() + " " + food.Name + " $ - " + food.Price);
+                    Speaker.Output("Id - " + food.Id.ToString() + " " + food.Name + " $ - " + food.Price);
 
-            Output("Tap Products id");
+            Speaker.Output("Tap Products id");
 
             var text = Console.ReadLine();
             var foodId = new int();
@@ -109,18 +111,18 @@ namespace RockFood
             bool success = Int32.TryParse(text, out foodId);
             if (success)
             {
-                if (foodId >= 0 && foodId < Customers.Count())
+                if (foodId >= 0 && foodId < storage.Customers.Count())
                     DialogBuyProduct(customerId, foodId);
             }
             else
-                Output("Product Choose Error", "Error");
+                Speaker.Output("Product Choose Error", "Error");
         }
         private void DialogBuyProduct(int customerId, int foodId)
         {
-            var customer = Customers.First(p => p.Id == customerId);
-            var food = Foods.First(p => p.Id == foodId);
-            Output("You bought " + food.Name + " for price $" + food.Price, customer.Name);
-            TakeFood(foodId, 1);
+            var customer = storage.Customers.First(p => p.Id == customerId);
+            var food = storage.Foods.First(p => p.Id == foodId);
+            Speaker.Output("You bought " + food.Name + " for price $" + food.Price, customer.Name);
+            storage.TakeFood(foodId, 1);
         }
     }
 }
