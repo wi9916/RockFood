@@ -8,43 +8,14 @@ using System.Threading.Tasks;
 namespace RockFood
 {
     public class DialogInShop
-    {
-        public List<Customer> Customers { get; set; }
+    {       
         public Storage SameStorage { get; set; }
-
+        public Residents SameCostumers { get; set; }
         public DialogInShop()
         {
             SameStorage = new Storage();
-            Customers = new List<Customer>();
+            SameCostumers = new Residents();
 
-            CreateNewBaseShop();
-        }
-        public void CreateNewBaseShop()
-        {
-            Customers.Add(new Customer { Id = 0, Name = "Jon" });
-            Customers.Add(new Customer { Id = 1, Name = "Petro" });          
-        }
-
-        public bool CreateNewCustomer(string name)
-        {
-            if (Customers is not null)
-            {
-                var id = Customers.Count();
-                Customers.Add(new Customer { Id = id, Name = name });
-                Speaker.Output("new Customer => " + name, "Create");
-                return true;
-            }
-            return false;
-        }
-        public bool OutputInfoAboutCustomer(int customerId)
-        {
-            var index = Customers.FindIndex(f => f.Id == customerId);
-            if (index >= 0)
-            {
-                Speaker.Output("Id - " + Customers[index].Id.ToString() + " Name - " + Customers[index].Name);
-                return true;
-            }
-            return false;
         }
         public void DialogStartWorking()
         {
@@ -105,15 +76,15 @@ namespace RockFood
 
             var text = Console.ReadLine().ToString();
             if (text != "9")
-                if (!CreateNewCustomer(text))
+                if (!SameCostumers.CreateNewCustomer(text))
                     Speaker.Output("Customer creation Error", "Error");
         }
         private void DialogChooseCustomer()
         {
             Console.Clear();
             Speaker.Output("List of Customer: ");
-            foreach (var customer in Customers)
-                OutputInfoAboutCustomer(customer.Id);
+            foreach (var customer in SameCostumers.Customers)
+                SameCostumers.OutputInfoAboutCustomer(customer.Id);
 
             Speaker.Output("Tap Customers id");
 
@@ -123,7 +94,7 @@ namespace RockFood
             var success = Int32.TryParse(text, out customerId);
             if (success)
             {
-                if (Customers.Exists(x => x.Id == customerId))           
+                if (SameCostumers.Customers.Exists(x => x.Id == customerId))           
                     DialogChooseProduct(customerId);
                 else
                     Speaker.Output("Customer Choose Error", "Error");
@@ -158,7 +129,7 @@ namespace RockFood
         }
         private void DialogBuyProduct(int customerId, int foodId)
         {
-            var customer = Customers.First(p => p.Id == customerId);
+            var customer = SameCostumers.Customers.First(p => p.Id == customerId);
             var food = SameStorage.Foods.First(p => p.Id == foodId);
             
             if(!SameStorage.TakeFood(foodId, 1))
