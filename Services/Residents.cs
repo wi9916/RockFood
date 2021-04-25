@@ -14,12 +14,12 @@ namespace RockFood
             Customers = new List<Customer>();
             CreateNewResidents();
         }
-        public void CreateNewResidents()
+        public bool CreateNewResidents()
         {
             Customers.Add(new Customer { Id = 0, Name = "Jon" });
             Customers.Add(new Customer { Id = 1, Name = "Petro" });
+            return true;
         }
-
         public bool CreateNewCustomer(string name)
         {
             if (Customers is not null)

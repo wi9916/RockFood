@@ -16,7 +16,6 @@ namespace RockFood
             Foods = new List<Food>();
             CreateNewBaseStorage();
         }
-
         public void CreateNewBaseStorage()
         {                   
             Foods.Add(new Food { Id = 0, Name = "The Best Cakes", Price = 20, Count = 100 });

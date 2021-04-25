@@ -12,8 +12,8 @@ namespace RockFood
     {
         static void Main(string[] args)
         {
-            DialogInShop st = new DialogInShop();
-            st.DialogStartWorking();
+            DialogInShop dialog = new DialogInShop();
+            dialog.DialogStartWorking();
             Console.WriteLine("Hello World!");
         }
     }
