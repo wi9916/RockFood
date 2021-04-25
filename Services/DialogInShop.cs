@@ -1,4 +1,5 @@
-﻿using RockFood.Models;
+﻿using RockFood.Interfaces;
+using RockFood.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    public class DialogInShop
+    public class DialogInShop: IDialogInShop
     {       
         public Storage SameStorage { get; set; }
         public Residents SameCostumers { get; set; }
         public DialogInShop()
-        {
+        {         
             SameStorage = new Storage();
             SameCostumers = new Residents();
         }
@@ -41,7 +42,7 @@ namespace RockFood
             }
         }
 
-        private void DialogPutNewFood()
+        public void DialogPutNewFood()
         {
             var correctInputFlag = true;
             Console.Clear();          
@@ -67,7 +68,7 @@ namespace RockFood
             else
                 Speaker.Output("Put food Error", "Error");
         }
-        private void DialogCreateNewCustomer()
+        public void DialogCreateNewCustomer()
         {
             Console.Clear();
             Speaker.Output("Enter Customer Name or 9 for exit");
@@ -77,7 +78,7 @@ namespace RockFood
                 if (!SameCostumers.CreateNewCustomer(text))
                     Speaker.Output("Customer creation Error", "Error");
         }
-        private void DialogChooseCustomer()
+        public void DialogChooseCustomer()
         {
             Console.Clear();
             Speaker.Output("List of Customer: ");
@@ -100,8 +101,8 @@ namespace RockFood
             }
             else
                 Speaker.Output("Customer Choose Error", "Error");
-        }       
-        private void DialogChooseProduct(int customerId)
+        }
+        public void DialogChooseProduct(int customerId)
         {
             Console.Clear();
             Speaker.Output("List of Products: ");
@@ -123,7 +124,7 @@ namespace RockFood
             else
                 Speaker.Output("Product Choose Error", "Error");
         }
-        private bool DialogBuyProduct(int customerId, int foodId)
+        public bool DialogBuyProduct(int customerId, int foodId)
         {
             var customer = SameCostumers.Customers.First(p => p.Id == customerId);
             if (!SameStorage.Foods.Exists(x => x.Id == foodId))

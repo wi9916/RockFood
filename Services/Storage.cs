@@ -1,4 +1,5 @@
-﻿using RockFood.Models;
+﻿using RockFood.Interfaces;
+using RockFood.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    public class Storage
+    public class Storage: IStorage
     {              
         public List<Food> Foods { get; set; }
 
