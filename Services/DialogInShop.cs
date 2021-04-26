@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    public class DialogInShop: IDialogInShop
+    public class DialogInShop: IDialogable
     {       
         public Storage SameStorage { get; set; }
-        public Residents SameCostumers { get; set; }
+        public Residents SameCustomers { get; set; }
         public DialogInShop()
         {         
             SameStorage = new Storage();
-            SameCostumers = new Residents();
+            SameCustomers = new Residents();
         }
         public void DialogStartWorking()
         {
@@ -75,15 +75,15 @@ namespace RockFood
 
             var text = Console.ReadLine().ToString();
             if (text != "9")
-                if (!SameCostumers.CreateNewCustomer(text))
+                if (!SameCustomers.CreateNewCustomer(text))
                     Speaker.Output("Customer creation Error", "Error");
         }
         public void DialogChooseCustomer()
         {
             Console.Clear();
             Speaker.Output("List of Customer: ");
-            foreach (var customer in SameCostumers.Customers)
-                if(!SameCostumers.OutputInfoAboutCustomer(customer.Id))
+            foreach (var customer in SameCustomers.Customers)
+                if(!SameCustomers.OutputInfoAboutCustomer(customer.Id))
                     Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Customers id");
@@ -94,7 +94,7 @@ namespace RockFood
             var success = Int32.TryParse(text, out customerId);
             if (success)
             {
-                if (SameCostumers.Customers.Exists(x => x.Id == customerId))           
+                if (SameCustomers.Customers.Exists(x => x.Id == customerId))           
                     DialogChooseProduct(customerId);
                 else
                     Speaker.Output("Customer Choose Error", "Error");
@@ -126,7 +126,7 @@ namespace RockFood
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            var customer = SameCostumers.Customers.First(p => p.Id == customerId);
+            var customer = SameCustomers.Customers.First(p => p.Id == customerId);
             if (!SameStorage.Foods.Exists(x => x.Id == foodId))
                 return false;
 

@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    public class Storage: IStorage
-    {              
+    public class Storage: IStoredable
+
+    {
         public List<Food> Foods { get; set; }
 
         public Storage()

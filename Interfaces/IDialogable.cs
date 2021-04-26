@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace RockFood.Interfaces
 {
-    public interface IDialogInShop
+    public interface IDialogable
     {
         Storage SameStorage { get; set; }
-        Residents SameCostumers { get; set; }
+        Residents SameCustomers { get; set; }
         void DialogStartWorking();
         void DialogPutNewFood();
         void DialogCreateNewCustomer();
         void DialogChooseCustomer();
         void DialogChooseProduct(int customerId);
-        bool DialogBuyProduct(int customerId, int foodId);
-        
+        bool DialogBuyProduct(int customerId, int foodId);       
     }
 }

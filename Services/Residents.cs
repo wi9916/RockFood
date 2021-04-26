@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    public class Residents: IResidents
+    public class Residents: ICustomerable
     {
         public List<Customer> Customers { get; set; }
         public Residents()
@@ -34,19 +34,12 @@ namespace RockFood
         }
         public bool OutputInfoAboutCustomer(int customerId)
         {
-            try                      // try/catch only for examle
+            var index = Customers.FindIndex(f => f.Id == customerId);
+            if (index >= 0)
             {
-                var index = Customers.FindIndex(f => f.Id == customerId);
-                if (index >= 0)
-                {
-                    Speaker.Output("Id - " + Customers[index].Id.ToString() + " Name - " + Customers[index].Name);
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Allarm", ex);
-            }          
+                Speaker.Output("Id - " + Customers[index].Id.ToString() + " Name - " + Customers[index].Name);
+                return true;
+            }                 
             return false;
         }
     }

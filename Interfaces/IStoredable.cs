@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RockFood.Interfaces
 {
-    public interface IStorage
+    public interface IStoredable
     {
         List<Food> Foods { get; set; }
         bool PutNewFood(Food food);
