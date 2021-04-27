@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RockFood.Interfaces
 {
-    public interface ICustomerable
+    public interface IResidentable
     {
-        List<Customer> Customers { get; set; }
+        List<IPersonable> Customers { get;}
         bool CreateNewCustomer(string name);
         bool OutputInfoAboutCustomer(int customerId);      
     }

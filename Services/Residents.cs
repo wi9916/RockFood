@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 
 namespace RockFood
 {
-    public class Residents: ICustomerable
+    public class Residents: IResidentable
     {
-        public List<Customer> Customers { get; set; }
+        public List<IPersonable> Customers { get; }
         public Residents()
         {          
-            Customers = new List<Customer>();
+            Customers = new List<IPersonable>();
             CreateNewResidents();
         }
-        public bool CreateNewResidents()
+        private bool CreateNewResidents()
         {           
             Customers.Add(new Customer { Id = 0, Name = "Jon" });
             Customers.Add(new Customer { Id = 1, Name = "Petro" });
             return true;
         }
         public bool CreateNewCustomer(string name)
-        {          
+        {
             if (Customers is not null)
             {
                 var id = Customers.Count();

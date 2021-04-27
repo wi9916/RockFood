@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace RockFood.Interfaces
 {
     public interface IDialogable
-    {
-        Storage SameStorage { get; set; }
-        Residents SameCustomers { get; set; }
+    {     
         void DialogStartWorking();
         void DialogPutNewFood();
         void DialogCreateNewCustomer();

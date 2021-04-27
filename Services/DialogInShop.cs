@@ -9,13 +9,18 @@ using System.Threading.Tasks;
 namespace RockFood
 {
     public class DialogInShop: IDialogable
-    {       
-        public Storage SameStorage { get; set; }
-        public Residents SameCustomers { get; set; }
+    {
+        private readonly IStoredable SameStorage;
+        private readonly IResidentable SameCustomers;
         public DialogInShop()
         {         
             SameStorage = new Storage();
-            SameCustomers = new Residents();
+            SameCustomers = new Residents();           
+        }
+        public DialogInShop(IStoredable _sameStorage, IResidentable _sameCustomers)
+        {
+            SameStorage = _sameStorage;
+            SameCustomers = _sameCustomers;
         }
         public void DialogStartWorking()
         {
@@ -126,13 +131,13 @@ namespace RockFood
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            var customer = SameCustomers.Customers.First(p => p.Id == customerId);
-            if (!SameStorage.Foods.Exists(x => x.Id == foodId))
-                return false;
-
-            var food = SameStorage.Foods.First(p => p.Id == foodId);
-            if (!SameStorage.TakeFood(foodId, 1))
-                    Speaker.Output("Product bought Error", "Error");
+            if (SameCustomers.OutputInfoAboutCustomer(customerId))
+                if (SameStorage.OutputInfoAboutFood(foodId))
+                    if (!SameStorage.TakeFood(foodId, 1))
+                    {
+                        Speaker.Output("Product bought Error", "Error");
+                        return false;
+                    }
             return true;                     
         }
     }

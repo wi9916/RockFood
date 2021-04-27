@@ -9,19 +9,18 @@ using System.Threading.Tasks;
 namespace RockFood
 {
     public class Storage: IStoredable
-
     {
-        public List<Food> Foods { get; set; }
-
+        public List<IFoodable> Foods { get; }
         public Storage()
         {
-            Foods = new List<Food>();
+            Foods = new List<IFoodable>();
             CreateNewBaseStorage();
         }
-        public void CreateNewBaseStorage()
+        private void CreateNewBaseStorage()
         {                   
             Foods.Add(new Food { Id = 0, Name = "The Best Cakes", Price = 20, Count = 100 });
             Foods.Add(new Food { Id = 1, Name = "The Cakes", Price = 30, Count = 100 });
+            Foods[0].Name = "dfhdfhfd";
         }
         public bool PutNewFood(Food food)
         {
@@ -46,7 +45,7 @@ namespace RockFood
             var index = Foods.FindIndex(f => f.Id == foodId);
             if (index >= 0)
             {
-                Speaker.Output("Id - " + Foods[index].Id.ToString() + " " + Foods[index].Name + "Count - " 
+                Speaker.Output("Id - " + Foods[index].Id.ToString() + " " + Foods[index].Name + " Count - " 
                     + Foods[index].Count.ToString() + " $ - " + Foods[index].Price);
                 return true;
             }
