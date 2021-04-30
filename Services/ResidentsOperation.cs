@@ -46,7 +46,7 @@ namespace RockFood.Services
             var index = storage.Customers.FindIndex(f => f.Id == customerId);
             if (index >= 0)
             {
-                Speaker.Output("Id - " + storage.Customers[index].Id.ToString() + " Name - " + storage.Customers[index].Name);
+                Speaker.Output("Person Id - " + storage.Customers[index].Id.ToString() + " Name - " + storage.Customers[index].Name);
                 return true;
             }
             return false;

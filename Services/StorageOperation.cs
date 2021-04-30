@@ -52,7 +52,7 @@ namespace RockFood.Interfaces
             var index = storage.Foods.FindIndex(f => f.Id == foodId);
             if (index >= 0)
             {
-                Speaker.Output("Id - " + storage.Foods[index].Id.ToString() + " " + storage.Foods[index].Name + " Count - "
+                Speaker.Output("Food Id - " + storage.Foods[index].Id.ToString() + " " + storage.Foods[index].Name + " Count - "
                     + storage.Foods[index].Count.ToString() + " $ - " + storage.Foods[index].Price);
                 return true;
             }
