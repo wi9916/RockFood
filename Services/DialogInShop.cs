@@ -1,5 +1,6 @@
 ﻿using RockFood.Interfaces;
 using RockFood.Models;
+using RockFood.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,17 @@ namespace RockFood
 {
     public class DialogInShop: IDialogable
     {
-        private readonly IStoredable sameStorage;
-        private readonly IResidentable sameCustomers;
+        private readonly IStoredOperationable sameStorage;
+        private readonly IResidentOperationable sameCustomers;
         public DialogInShop()
         {         
-            sameStorage = new Storage();
-            sameCustomers = new Residents();           
+            sameStorage = new StorageOperation();
+            sameCustomers = new ResidentsOperation();           
         }
-        public DialogInShop(IStoredable _sameStorage, IResidentable _sameCustomers)
+        public DialogInShop(IStoredOperationable sameStorage, IResidentOperationable sameCustomers)
         {
-            sameStorage = _sameStorage;
-            sameCustomers = _sameCustomers;
+            this.sameStorage = sameStorage;
+            this.sameCustomers = sameCustomers;
         }
         public void DialogStartWorking()
         {
@@ -79,16 +80,16 @@ namespace RockFood
             Speaker.Output("Enter Customer Name or 9 for exit");
 
             var text = Console.ReadLine().ToString();
+            var person = new Customer {Name = text };
             if (text != "9")
-                if (!sameCustomers.CreateNewCustomer(text))
+                if (!sameCustomers.CreateNewCustomer(person))
                     Speaker.Output("Customer creation Error", "Error");
         }
         public void DialogChooseCustomer()
         {
             Console.Clear();
-            Speaker.Output("List of Customer: ");
-            foreach (var customer in sameCustomers.Customers)
-                if(!sameCustomers.OutputInfoAboutCustomer(customer.Id))
+            Speaker.Output("List of Customer: ");           
+            if(!sameCustomers.OutputInfoAboutCustomer())
                     Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Customers id");
@@ -99,7 +100,7 @@ namespace RockFood
             var success = Int32.TryParse(text, out customerId);
             if (success)
             {
-                if (sameCustomers.Customers.Exists(x => x.Id == customerId))           
+                if (sameCustomers.OutputInfoAboutCustomer(customerId))           
                     DialogChooseProduct(customerId);
                 else
                     Speaker.Output("Customer Choose Error", "Error");
@@ -111,10 +112,8 @@ namespace RockFood
         {
             Console.Clear();
             Speaker.Output("List of Products: ");
-            foreach (var food in sameStorage.Foods)
-                if (food.Count > 0)
-                    if(!sameStorage.OutputInfoAboutFood(food.Id))
-                        Speaker.Output("Output Error", "Error");
+            if (!sameStorage.OutputInfoAboutFood())
+                Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Products id");
 

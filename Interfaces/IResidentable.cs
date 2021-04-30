@@ -8,8 +8,6 @@ namespace RockFood.Interfaces
 {
     public interface IResidentable
     {
-        List<IPersonable> Customers { get;}
-        bool CreateNewCustomer(string name);
-        bool OutputInfoAboutCustomer(int customerId);      
+        List<IPersonable> Customers { get;}          
     }
 }
