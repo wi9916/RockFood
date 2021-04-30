@@ -15,11 +15,10 @@ namespace RockFood
             Customers = new List<IPersonable>();
             CreateNewResidents();
         }
-        private bool CreateNewResidents()
+        private void CreateNewResidents()
         {           
             Customers.Add(new Customer { Id = 0, Name = "Jon" });
             Customers.Add(new Customer { Id = 1, Name = "Petro" });
-            return true;
         }
         public bool CreateNewCustomer(string name)
         {

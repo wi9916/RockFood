@@ -10,17 +10,17 @@ namespace RockFood
 {
     public class DialogInShop: IDialogable
     {
-        private readonly IStoredable SameStorage;
-        private readonly IResidentable SameCustomers;
+        private readonly IStoredable sameStorage;
+        private readonly IResidentable sameCustomers;
         public DialogInShop()
         {         
-            SameStorage = new Storage();
-            SameCustomers = new Residents();           
+            sameStorage = new Storage();
+            sameCustomers = new Residents();           
         }
         public DialogInShop(IStoredable _sameStorage, IResidentable _sameCustomers)
         {
-            SameStorage = _sameStorage;
-            SameCustomers = _sameCustomers;
+            sameStorage = _sameStorage;
+            sameCustomers = _sameCustomers;
         }
         public void DialogStartWorking()
         {
@@ -69,7 +69,7 @@ namespace RockFood
                 correctInputFlag = false;
 
             if (correctInputFlag)
-                SameStorage.PutNewFood(new Food { Name = name, Price = price, Count = count });
+                sameStorage.PutNewFood(new Food { Name = name, Price = price, Count = count });
             else
                 Speaker.Output("Put food Error", "Error");
         }
@@ -80,15 +80,15 @@ namespace RockFood
 
             var text = Console.ReadLine().ToString();
             if (text != "9")
-                if (!SameCustomers.CreateNewCustomer(text))
+                if (!sameCustomers.CreateNewCustomer(text))
                     Speaker.Output("Customer creation Error", "Error");
         }
         public void DialogChooseCustomer()
         {
             Console.Clear();
             Speaker.Output("List of Customer: ");
-            foreach (var customer in SameCustomers.Customers)
-                if(!SameCustomers.OutputInfoAboutCustomer(customer.Id))
+            foreach (var customer in sameCustomers.Customers)
+                if(!sameCustomers.OutputInfoAboutCustomer(customer.Id))
                     Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Customers id");
@@ -99,7 +99,7 @@ namespace RockFood
             var success = Int32.TryParse(text, out customerId);
             if (success)
             {
-                if (SameCustomers.Customers.Exists(x => x.Id == customerId))           
+                if (sameCustomers.Customers.Exists(x => x.Id == customerId))           
                     DialogChooseProduct(customerId);
                 else
                     Speaker.Output("Customer Choose Error", "Error");
@@ -111,9 +111,9 @@ namespace RockFood
         {
             Console.Clear();
             Speaker.Output("List of Products: ");
-            foreach (var food in SameStorage.Foods)
+            foreach (var food in sameStorage.Foods)
                 if (food.Count > 0)
-                    if(!SameStorage.OutputInfoAboutFood(food.Id))
+                    if(!sameStorage.OutputInfoAboutFood(food.Id))
                         Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Products id");
@@ -131,9 +131,9 @@ namespace RockFood
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            if (SameCustomers.OutputInfoAboutCustomer(customerId))
-                if (SameStorage.OutputInfoAboutFood(foodId))
-                    if (!SameStorage.TakeFood(foodId, 1))
+            if (sameCustomers.OutputInfoAboutCustomer(customerId))
+                if (sameStorage.OutputInfoAboutFood(foodId))
+                    if (!sameStorage.TakeFood(foodId, 1))
                     {
                         Speaker.Output("Product bought Error", "Error");
                         return false;
