@@ -18,8 +18,8 @@ namespace RockFood
         }
         private void CreateNewBaseStorage()
         {
-            Foods.Add(new Food { Id = 0, Name = "The Best Cakes", Price = 20, Count = 100 });
-            Foods.Add(new Food { Id = 1, Name = "The Cakes", Price = 30, Count = 100 });
+            Foods.Add(new Food { Id = 1, Name = "The Best Cakes", Price = 20, Count = 100 });
+            Foods.Add(new Food { Id = 2, Name = "The Cakes", Price = 30, Count = 100 });
         }
     }
 }

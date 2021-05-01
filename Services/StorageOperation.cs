@@ -8,11 +8,7 @@ namespace RockFood.Interfaces
 {
     public class StorageOperation : IStoredOperationable
     {
-        private readonly IStoredable storage;
-        public StorageOperation()
-        {
-            storage = new Storage();          
-        }
+        private readonly IStoredable storage;      
         public StorageOperation(IStoredable sameFoods)
         {
             storage = sameFoods;
@@ -20,21 +16,20 @@ namespace RockFood.Interfaces
         
         public bool PutNewFood(IFoodable food)
         {
-            food.Id = storage.Foods.Count();
+            food.Id = storage.Foods.Max(f => f.Id) + 1;
             storage.Foods.Add(food);
-            Speaker.Output("new food: " + food.Name, "Put");
+            Speaker.Output(" new food: " + food.Name, "Put");
             return true;
         }
         public bool TakeFood(int foodId, int number)
-        {
+        {            
             var index = storage.Foods.FindIndex(f => f.Id == foodId);
-            if (index >= 0)
-            {
-                storage.Foods[index].Count -= number;
-                Speaker.Output("You bought " + storage.Foods[index].Name + " for price $" + storage.Foods[index].Price, "Buy");
-                return true;
-            }
-            return false;
+            if (index == -1)
+                return false;
+          
+            storage.Foods[index].Count -= number;
+            Speaker.Output("You bought " + storage.Foods[index].Name + " for price $" + storage.Foods[index].Price, "Buy");
+            return true;
         }
         public bool OutputInfoAboutFood()
         {

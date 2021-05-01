@@ -10,11 +10,7 @@ namespace RockFood.Services
 {
     public class ResidentsOperation: IResidentOperationable
     {
-        private readonly IResidentable storage;
-        public ResidentsOperation()
-        {
-            storage = new Residents();
-        }
+        private readonly IResidentable storage;     
         public ResidentsOperation(IResidentable samePersons)
         {
             storage = samePersons;
@@ -22,8 +18,8 @@ namespace RockFood.Services
         public bool CreateNewCustomer(IPersonable person)
         {
             if (storage.Customers is not null)
-            {
-                person.Id = storage.Customers.Count();
+            {              
+                person.Id = storage.Customers.Max(f => f.Id) + 1;
                 storage.Customers.Add(person);
                 Speaker.Output("new Customer => " + person.Name, "Create");
                 return true;
@@ -43,13 +39,12 @@ namespace RockFood.Services
         }
         public bool OutputInfoAboutCustomer(int customerId)
         {
-            var index = storage.Customers.FindIndex(f => f.Id == customerId);
-            if (index >= 0)
-            {
-                Speaker.Output("Person Id - " + storage.Customers[index].Id.ToString() + " Name - " + storage.Customers[index].Name);
-                return true;
-            }
-            return false;
+            var customer = storage.Customers.FirstOrDefault(f => f.Id == customerId);
+            if (customer is null)           
+                return false;
+            
+            Speaker.Output("Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);
+            return true;           
         }       
     }
 }

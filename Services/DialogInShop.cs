@@ -12,12 +12,7 @@ namespace RockFood
     public class DialogInShop: IDialogable
     {
         private readonly IStoredOperationable sameStorage;
-        private readonly IResidentOperationable sameCustomers;
-        public DialogInShop()
-        {         
-            sameStorage = new StorageOperation();
-            sameCustomers = new ResidentsOperation();           
-        }
+        private readonly IResidentOperationable sameCustomers;      
         public DialogInShop(IStoredOperationable sameStorage, IResidentOperationable sameCustomers)
         {
             this.sameStorage = sameStorage;
@@ -56,17 +51,14 @@ namespace RockFood
             var name = Console.ReadLine().ToString();
 
             Speaker.Output("Enter Food Price");
-            var text = Console.ReadLine();
-            decimal price = default;
-            var success = Decimal.TryParse(text, out price);
-            if (!success)
+            var text = Console.ReadLine();            
+ 
+            if (!Decimal.TryParse(text, out var price))
                 correctInputFlag = false;
 
             Speaker.Output("Enter Food Count");
-            text = Console.ReadLine();
-            int count = default;
-            success = Int32.TryParse(text, out count);           
-            if (!success)
+            text = Console.ReadLine();                    
+            if (!int.TryParse(text, out var count))
                 correctInputFlag = false;
 
             if (correctInputFlag)
@@ -94,11 +86,8 @@ namespace RockFood
 
             Speaker.Output("Tap Customers id");
 
-            var text = Console.ReadLine();
-            var customerId = new int();
-
-            var success = Int32.TryParse(text, out customerId);
-            if (success)
+            var text = Console.ReadLine();           
+            if (int.TryParse(text, out var customerId))
             {
                 if (sameCustomers.OutputInfoAboutCustomer(customerId))           
                     DialogChooseProduct(customerId);
@@ -117,10 +106,8 @@ namespace RockFood
 
             Speaker.Output("Tap Products id");
 
-            var text = Console.ReadLine();
-            int foodId = default;
-            var success = Int32.TryParse(text, out foodId);
-            if (success)
+            var text = Console.ReadLine();            
+            if (int.TryParse(text, out var foodId))
             {             
                 if(!DialogBuyProduct(customerId, foodId))               
                     Speaker.Output("Product Choose Error", "Error");

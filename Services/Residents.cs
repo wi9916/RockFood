@@ -17,8 +17,8 @@ namespace RockFood
         }
         private void CreateNewResidents()
         {           
-            Customers.Add(new Customer { Id = 0, Name = "Jon" });
-            Customers.Add(new Customer { Id = 1, Name = "Petro" });
+            Customers.Add(new Customer { Id = 1, Name = "Jon" });
+            Customers.Add(new Customer { Id = 2, Name = "Petro" });
         }     
     }
 }
