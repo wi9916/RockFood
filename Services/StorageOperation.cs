@@ -16,6 +16,9 @@ namespace RockFood.Interfaces
         
         public bool PutNewFood(IFoodable food)
         {
+            if (storage is null)
+                return false;
+
             food.Id = storage.Foods.Max(f => f.Id) + 1;
             storage.Foods.Add(food);
             Speaker.Output(" new food: " + food.Name, "Put");
@@ -44,14 +47,14 @@ namespace RockFood.Interfaces
         }
         public bool OutputInfoAboutFood(int foodId)
         {
-            var index = storage.Foods.FindIndex(f => f.Id == foodId);
-            if (index >= 0)
-            {
-                Speaker.Output("Food Id - " + storage.Foods[index].Id.ToString() + " " + storage.Foods[index].Name + " Count - "
-                    + storage.Foods[index].Count.ToString() + " $ - " + storage.Foods[index].Price);
-                return true;
-            }
-            return false;
+            var foods = storage.Foods.FirstOrDefault(f => f.Id == foodId);
+            if (foods is null)
+                return false;
+
+            Speaker.Output("Food Id - " + foods.Id.ToString() + " " + foods.Name + " Count - "
+                    + foods.Count.ToString() + " $ - " + foods.Price);
+
+            return true;          
         }       
     }
 }

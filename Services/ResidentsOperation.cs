@@ -17,14 +17,13 @@ namespace RockFood.Services
         }
         public bool CreateNewCustomer(IPersonable person)
         {
-            if (storage.Customers is not null)
-            {              
-                person.Id = storage.Customers.Max(f => f.Id) + 1;
-                storage.Customers.Add(person);
-                Speaker.Output("new Customer => " + person.Name, "Create");
-                return true;
-            }
-            return false;
+            if (storage.Customers is null)
+                return false;
+
+            person.Id = storage.Customers.Max(f => f.Id) + 1;
+            storage.Customers.Add(person);
+            Speaker.Output("new Customer => " + person.Name, "Create");
+            return true;          
         }
         public bool OutputInfoAboutCustomer()
         {
