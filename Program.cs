@@ -1,18 +1,15 @@
-﻿using RockFood.Models;
+﻿using RockFood.Interfaces;
+using RockFood.Services;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RockFood
-{  
+{
     class Program
     {
         static void Main(string[] args)
-        {           
-            Console.WriteLine("Hello World!");
+        {
+            DialogInShop dialog = new DialogInShop(new StorageOperation(new Storage()), new ResidentsOperation(new Residents()));
+            dialog.DialogStartWorking();
         }
     }
 }
