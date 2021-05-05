@@ -10,21 +10,21 @@ namespace RockFood.Services
 {
     public static class ContactInfoValidator
     {
-        private readonly static string paternPhone = @"(^\+\d{3}\(\d{2}\)\d{3}\s\d{2}\s\d{2}$)|"+
-                    @"(^\+380\d{9}$)|(^0\d{9}$)|(^0\d{2}\s\d{3}\s\d{2}\s\d{2}$)";
+        private readonly static string patternPhone = @"(^\+\d{3}\(\d{2}\)\d{3}\s\d{2}\s\d{2})|"+
+                    @"(^\+380\d{9})|(^0\d{9})|(^0\d{2}\s\d{3}\s\d{2}\s\d{2})";
 
-        private readonly static string paternAddress = @"(^[А-я]{1,}\s[А-я]{1,}[,]\s[А-я]{1,}\.\s\d{1,}[,]\s[А-я]{1,}\.\s\d{1,}$)|" +
-                    @"(^[А-я]{1,}\s[А-я]{1,}\.\s[А-я]{1,}\.\d{1,}[,]\s[А-я]{1,}\.\d{1,}$)|(^[А-я]{1,}\.[А-я]{1,}\.[А-я]{1,}((\.)|(\s))\d{1,}$)|" +
+        private readonly static string patternAddress = @"(^[А-я]{1,}\s[А-я]{1,}[,]\s[А-я]{1,}\.\s\d{1,}[,]\s[А-я]{1,}\.\s\d{1,})|" +
+                    @"(^[А-я]{1,}\s[А-я]{1,}\.\s[А-я]{1,}\.\d{1,}[,]\s[А-я]{1,}\.\d{1,})|(^[А-я]{1,}\.[А-я]{1,}\.[А-я]{1,}((\.)|(\s))\d{1,})|" +
                     @"(^[А-я]{1,}\.[А-я]{1,}\.[А-я]{1,}((\.)|(\s))\d{1,}[,]\s?[А-я]{1,}\s?\.?\d{1,})";
 
         public static bool CheckAddress(string address)
         {         
-            return Regex.IsMatch(address, paternAddress, RegexOptions.IgnoreCase);
+            return Regex.IsMatch(address, patternAddress, RegexOptions.IgnoreCase);
         }
 
         public static bool CheckPhone(string phoneNumber)
         {
-            return Regex.IsMatch(phoneNumber, paternPhone, RegexOptions.IgnoreCase);
+            return Regex.IsMatch(phoneNumber, patternPhone, RegexOptions.IgnoreCase);
         }
     }
 }
