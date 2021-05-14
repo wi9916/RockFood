@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RockFood.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public  static class WorkingWithFiles
+    public static class WorkingWithFiles
     {      
         public static void AppendLine(string fileName, string infoToWrite)
         {
