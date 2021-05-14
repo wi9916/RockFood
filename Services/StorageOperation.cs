@@ -36,15 +36,11 @@ namespace RockFood.Interfaces
             if (index == -1)
                 return false;
 
-            var message = "Bought food Name: " + storage.Foods[index].Name + ", Count: "
-                + storage.Foods[index].Count + ", Price: " + storage.Foods[index].Price;
-
-            storage.Foods[index].Count -= number;
-            Speaker.Output(message, "Customer");
-
-            message = "Bought food Name: " + storage.Foods[index].Name + ", Take: " + number +
+            var message = "Bought food Name: " + storage.Foods[index].Name + ", Take: " + number +
                 " / " + storage.Foods[index].Count + ", For price: " + storage.Foods[index].Price * number;
 
+            storage.Foods[index].Count -= number;
+            Speaker.Output(message, "Customer");        
             WorkingWithFiles.AppendLine("LoggerBase", message);
             return true;
         }
