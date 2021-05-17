@@ -32,14 +32,17 @@ namespace RockFood.Interfaces
             _logger.AppendLine("LoggerBase", message);
             return true;
         }
-        public bool TakeFood(int foodId, int number)
+        public bool TakeFood(int foodId, double number)
         {            
             var index = storage.Foods.FindIndex(f => f.Id == foodId);
             if (index == -1)
                 return false;
 
+            if(storage.Foods[index].Count- number < 1)
+                number = storage.Foods[index].Count;            
+
             var message = "Bought food Name: " + storage.Foods[index].Name + ", Take: " + number +
-                " / " + storage.Foods[index].Count + ", For price: " + storage.Foods[index].Price * number;
+                " / " + storage.Foods[index].Count + ", For price: " + storage.Foods[index].Price;
 
             storage.Foods[index].Count -= number;
             Speaker.Output(message, "Customer");
