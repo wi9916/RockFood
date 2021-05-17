@@ -10,11 +10,11 @@ namespace RockFood.Interfaces
     public class StorageOperation : IStoredOperationable
     {
         private readonly IStoredable storage;
-        private readonly IWorkingWithFilable logger;
+        private readonly IWorkingWithFilable _logger;
         public StorageOperation(IStoredable sameFoods, IWorkingWithFilable logger)
         {
             storage = sameFoods;
-            this.logger = logger;
+            _logger = logger;
         }
         
         public bool PutNewFood(IFoodable food)
@@ -29,7 +29,7 @@ namespace RockFood.Interfaces
                 + food.Count + ", Price: " + food.Price;
 
             Speaker.Output(message, "Customer");
-            logger.AppendLine("LoggerBase", message);
+            _logger.AppendLine("LoggerBase", message);
             return true;
         }
         public bool TakeFood(int foodId, int number)
@@ -43,7 +43,7 @@ namespace RockFood.Interfaces
 
             storage.Foods[index].Count -= number;
             Speaker.Output(message, "Customer");
-            logger.AppendLine("LoggerBase", message);
+            _logger.AppendLine("LoggerBase", message);
             return true;
         }
         public bool OutputInfoAboutFood()
