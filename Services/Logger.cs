@@ -8,40 +8,40 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class WorkingWithFiles: IWorkingWithFilable
-    {      
-        public void AppendLine(string fileName, string infoToWrite)
-        {
+    public class Logger: ILogger
+    {
+        public void log(string information, string message)
+        {          
             var pathParts = new[]
             {
                 AppDomain.CurrentDomain.BaseDirectory,
-                fileName,
-                fileName + DateTime.Today.ToString("d") + ".txt"
+                information,
+                information + DateTime.Today.ToString("d") + ".txt"
             };
 
             var filePath = Path.Combine(pathParts);
 
             if (!File.Exists(filePath))
-                CreateFile(fileName, filePath);
+                CreateFile(information, filePath);
 
             using var file = new FileStream(filePath, FileMode.Append);
             using var stream = new StreamWriter(file, Encoding.UTF8);
 
             stream.AutoFlush = true;
-            stream.WriteLine(DateTime.Now.ToString("T") + " => " + infoToWrite);
+            stream.WriteLine(DateTime.Now.ToString("T") + " => " + message);
         }
-        public void CreateFile(string fileName, string filePath)
+        private void CreateFile(string information, string filePath)
         {
-            CreateFolder(fileName);
+            CreateFolder(information);
 
             using (File.Create(filePath)) { };
         }
-        public void CreateFolder(string fileName)
+        private void CreateFolder(string information)
         {
             var pathParts = new[]
             {
                 AppDomain.CurrentDomain.BaseDirectory,
-                fileName
+                information
             };
             var folderPath = Path.Combine(pathParts);
 

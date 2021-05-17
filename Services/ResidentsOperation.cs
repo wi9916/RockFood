@@ -11,8 +11,8 @@ namespace RockFood.Services
     public class ResidentsOperation: IResidentOperationable
     {
         private readonly IResidentable storage;
-        private readonly IWorkingWithFilable _logger;
-        public ResidentsOperation(IResidentable samePersons, IWorkingWithFilable logger)
+        private readonly ILogger _logger;
+        public ResidentsOperation(IResidentable samePersons, ILogger logger)
         {
             storage = samePersons;
             _logger = logger;
@@ -27,7 +27,7 @@ namespace RockFood.Services
             person.Id = storage.Customers.Max(f => f.Id) + 1;
             storage.Customers.Add(person);
             Speaker.Output(message, "Create");
-            _logger.AppendLine("LoggerBase", message);
+            _logger.log("LoggerBase", message);
             return true;          
         }
         public bool OutputInfoAboutCustomer()

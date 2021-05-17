@@ -117,8 +117,6 @@ namespace RockFood
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            ValidatorDialog();
-
             if (sameCustomers.OutputInfoAboutCustomer(customerId))
                 if (sameStorage.OutputInfoAboutFood(foodId))
                     if (!sameStorage.TakeFood(foodId, 1))
