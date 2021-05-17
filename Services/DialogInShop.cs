@@ -117,6 +117,8 @@ namespace RockFood
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
+            ValidatorDialog();
+
             if (sameCustomers.OutputInfoAboutCustomer(customerId))
                 if (sameStorage.OutputInfoAboutFood(foodId))
                     if (!sameStorage.TakeFood(foodId, 1))
@@ -125,6 +127,36 @@ namespace RockFood
                         return false;
                     }
             return true;                     
+        }
+        public void ValidatorDialog()
+        {
+            
+            while(true)
+            {
+                Speaker.Output("Tap you phone number: ");
+                var phone = Console.ReadLine();
+                if (ContactInfoValidator.CheckPhone(phone))
+                {
+                    Speaker.Output("Phone number is correct");
+                    break;
+                }
+                else
+                    Speaker.Output("Phone number is not correct");
+            }
+
+            while (true)
+            {
+
+                Speaker.Output("Tap you address: ");
+                var address = Console.ReadLine();
+                if (ContactInfoValidator.CheckAddress(address))
+                {
+                    Speaker.Output("Address is correct");
+                    break;
+                }
+                else
+                    Speaker.Output("Address is not correct");
+            }
         }
     }
 }
