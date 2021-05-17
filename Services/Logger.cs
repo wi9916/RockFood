@@ -11,6 +11,10 @@ namespace RockFood.Services
     public class Logger: ILogger
     {
         public void log(string information, string message)
+        {
+            WriteInFileLog(information,message);
+        }
+        private void WriteInFileLog(string information, string message)
         {          
             var pathParts = new[]
             {
