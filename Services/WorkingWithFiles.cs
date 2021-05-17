@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public static class WorkingWithFiles
+    public class WorkingWithFiles: IWorkingWithFilable
     {      
-        public static void AppendLine(string fileName, string infoToWrite)
+        public void AppendLine(string fileName, string infoToWrite)
         {
             var pathParts = new[]
             {
@@ -30,13 +30,13 @@ namespace RockFood.Services
             stream.AutoFlush = true;
             stream.WriteLine(DateTime.Now.ToString("T") + " => " + infoToWrite);
         }
-        public static void CreateFile(string fileName, string filePath)
+        public void CreateFile(string fileName, string filePath)
         {
             CreateFolder(fileName);
 
             using (File.Create(filePath)) { };
         }
-        public static void CreateFolder(string fileName)
+        public void CreateFolder(string fileName)
         {
             var pathParts = new[]
             {

@@ -12,12 +12,8 @@ namespace RockFood
         public static void Output(string message, string messageAuthor = "System")
         {
             Console.WriteLine("{0}: {1}", messageAuthor, message);
-            if (messageAuthor != "System")
-            {
-                var messageToLogger = messageAuthor + ": " + message;
-                WorkingWithFiles.AppendLine("Logger", messageToLogger);
+            if (messageAuthor != "System")                            
                 Console.ReadKey();
-            }
         }      
     }
 }
