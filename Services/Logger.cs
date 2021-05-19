@@ -1,4 +1,5 @@
 ﻿using RockFood.Interfaces;
+using RockFood.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 namespace RockFood.Services
 {
     public class Logger: ILogger
-    {
-        public void Log(string information, string message)
+    {     
+        public void Log(string information, string message, MessageTypes messageTypes)
         {
-            WriteInFileLog(information,message);
+            WriteInFileLog(information,message,messageTypes);
         }
-        private void WriteInFileLog(string information, string message)
+        private void WriteInFileLog(string information, string message, MessageTypes messageTypes)
         {          
             var pathParts = new[]
             {
@@ -32,7 +33,7 @@ namespace RockFood.Services
             using var stream = new StreamWriter(file, Encoding.UTF8);
 
             stream.AutoFlush = true;
-            stream.WriteLine(DateTime.Now.ToString("T") + " => " + message);
+            stream.WriteLine(DateTime.Now.ToString("T") + " " + messageTypes+" => " + message);
         }
         private void CreateFile(string information, string filePath)
         {
@@ -51,6 +52,6 @@ namespace RockFood.Services
 
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
-        }
-    }
+        }        
+    }    
 }

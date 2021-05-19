@@ -1,4 +1,5 @@
-﻿using RockFood.Services;
+﻿using RockFood.Models;
+using RockFood.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace RockFood.Interfaces
                 + food.Count + ", Price: " + food.Price;
 
             Speaker.Output(message, "Customer");
-            _logger.Log("LoggerBase", message);
+            _logger.Log("Logger", message, MessageTypes.Storag);
             return true;
         }
         public bool TakeFood(int foodId, double number)
@@ -46,7 +47,7 @@ namespace RockFood.Interfaces
 
             storage.Foods[index].Count -= number;
             Speaker.Output(message, "Customer");
-            _logger.Log("LoggerBase", message);
+            _logger.Log("Logger", message,MessageTypes.Storag);
             return true;
         }
         public bool OutputInfoAboutFood()

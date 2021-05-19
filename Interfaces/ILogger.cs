@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RockFood.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace RockFood.Interfaces
 {
     public interface ILogger
     {
-        void Log(string information, string message);     
-    }
+        void Log(string information, string message, MessageTypes messageTypes = MessageTypes.None);     
+    }   
 }
