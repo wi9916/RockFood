@@ -27,7 +27,7 @@ namespace RockFood.Services
             person.Id = _storage.Customers.Max(f => f.Id) + 1;
             _storage.Customers.Add(person);
             Speaker.Output(message, "Create");
-            _logger.Log("Logger", message, MessageTypes.Resident);
+            _logger.Log(message, MessageTypes.Resident);
             return true;          
         }
         public bool OutputInfoAboutCustomer()

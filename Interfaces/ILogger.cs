@@ -9,6 +9,6 @@ namespace RockFood.Interfaces
 {
     public interface ILogger
     {
-        void Log(string information, string message, MessageTypes messageTypes = MessageTypes.None);     
+        void Log(string message, MessageTypes messageTypes = MessageTypes.None);     
     }   
 }
