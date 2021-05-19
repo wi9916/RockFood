@@ -10,7 +10,7 @@ namespace RockFood.Services
 {
     public class Logger: ILogger
     {
-        public void log(string information, string message)
+        public void Log(string information, string message)
         {
             WriteInFileLog(information,message);
         }
@@ -20,7 +20,7 @@ namespace RockFood.Services
             {
                 AppDomain.CurrentDomain.BaseDirectory,
                 information,
-                information + DateTime.Today.ToString("d") + ".txt"
+                information + DateTime.Today.ToString("d/MM/yyyy") + ".txt"
             };
 
             var filePath = Path.Combine(pathParts);

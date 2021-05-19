@@ -29,7 +29,7 @@ namespace RockFood.Interfaces
                 + food.Count + ", Price: " + food.Price;
 
             Speaker.Output(message, "Customer");
-            _logger.log("LoggerBase", message);
+            _logger.Log("LoggerBase", message);
             return true;
         }
         public bool TakeFood(int foodId, double number)
@@ -46,7 +46,7 @@ namespace RockFood.Interfaces
 
             storage.Foods[index].Count -= number;
             Speaker.Output(message, "Customer");
-            _logger.log("LoggerBase", message);
+            _logger.Log("LoggerBase", message);
             return true;
         }
         public bool OutputInfoAboutFood()
