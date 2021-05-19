@@ -20,7 +20,7 @@ namespace RockFood.Services
             {
                 AppDomain.CurrentDomain.BaseDirectory,
                 information,
-                information + DateTime.Today.ToString("d/MM/yyyy") + ".txt"
+                information + DateTime.Today.ToString("d-MM-yyyy") + ".txt"
             };
 
             var filePath = Path.Combine(pathParts);
