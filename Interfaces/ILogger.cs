@@ -8,6 +8,6 @@ namespace RockFood.Interfaces
 {
     public interface ILogger
     {
-        public void log(string information, string message);     
+        void Log(string information, string message);     
     }
 }
