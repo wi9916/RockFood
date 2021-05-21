@@ -12,26 +12,44 @@ namespace RockFood.Services
 {
     public class Serializer: ISerializable
     {
-        private const string _folderPatch = "Serializations/";
-        public void Serialization<T>(T obj,string fileName,string folderPatch = _folderPatch)
+        private readonly string _folderPath;
+        private readonly string _fileName;
+        public Serializer(string fileName)
         {
-            if (!Directory.Exists(folderPatch))
+            _fileName = fileName;
+            _folderPath = CreateFolderPath("Serializations");
+        }               
+        public void Serialization<T>(T obj)
+        {          
+            if (!Directory.Exists(_folderPath))
             {
-                Directory.CreateDirectory(folderPatch);
+                Directory.CreateDirectory(_folderPath);
             }
 
             var jsonString = JsonSerializer.Serialize(obj);
-            File.WriteAllText(folderPatch + fileName, jsonString);          
+            File.WriteAllText(Path.Combine(_folderPath, _fileName), jsonString);
+            Console.WriteLine("Create new {0} wisout serialization",obj.GetType());
+            Console.ReadLine();
         }
-        public T Desialization<T>(T obj, string fileName, string folderPatch = _folderPatch)
+        public T Desialization<T>(T obj)
         {
-            var jsonString = File.ReadAllText(folderPatch + fileName);
+            var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
+            Console.WriteLine("Desialization {0}", obj.GetType());
+            Console.ReadLine();
             return JsonSerializer.Deserialize<T>(jsonString);
         }
-        public bool CheckFile(string fileName, string folderPatch = _folderPatch)
-        {                     
-            return File.Exists(folderPatch + fileName);
+        public bool CheckFile()
+        {           
+            return File.Exists(Path.Combine(_folderPath, _fileName));
+        }    
+        private string CreateFolderPath(string folderName)
+        {
+            var pathParts = new[]
+            {
+                AppDomain.CurrentDomain.BaseDirectory,
+                folderName
+            };
+            return Path.Combine(pathParts);
         }
-
     }
 }

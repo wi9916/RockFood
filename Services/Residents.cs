@@ -13,18 +13,17 @@ namespace RockFood
         public List<Customer> Customers { get; }
         public Residents()
         {
-            string fileSerializer = "customers";
-            var ser = new Serializer();
+            var ser = new Serializer("customers");
             Customers = new List<Customer>();
 
-            if (ser.CheckFile(fileSerializer))
+            if (ser.CheckFile())
             {
-                Customers = ser.Desialization(Customers, fileSerializer);
+                Customers = ser.Desialization(Customers);
             }
             else
             {
                 CreateNewResidents();
-                ser.Serialization(Customers, fileSerializer);
+                ser.Serialization(Customers);
             }
         }
         private void CreateNewResidents()
