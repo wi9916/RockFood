@@ -28,14 +28,12 @@ namespace RockFood.Services
 
             var jsonString = JsonSerializer.Serialize(obj);
             File.WriteAllText(Path.Combine(_folderPath, _fileName), jsonString);
-            Console.WriteLine("Create new {0} wisout serialization",obj.GetType());
-            Console.ReadLine();
+            Speaker.Output("Serialization " +  obj.GetType(), "Serializer");
         }
         public T Desialization<T>(T obj)
         {
             var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
-            Console.WriteLine("Desialization {0}", obj.GetType());
-            Console.ReadLine();
+            Speaker.Output("Desialization " + obj.GetType(), "Serializer");
             return JsonSerializer.Deserialize<T>(jsonString);
         }
         public bool CheckFile()
