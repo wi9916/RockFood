@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockFood
+namespace RockFood.Services
 {
     public class Storage: IStoredable
     {

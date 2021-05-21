@@ -1,4 +1,5 @@
-﻿using RockFood.Models;
+﻿using RockFood.Interfaces;
+using RockFood.Models;
 using RockFood.Services;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockFood.Interfaces
+namespace RockFood.Services
 {
     public class StorageOperation : IStoredOperationable
     {
@@ -26,11 +27,11 @@ namespace RockFood.Interfaces
             food.Id = _storage.Foods.Max(f => f.Id) + 1;
             _storage.Foods.Add(food);
 
-            var message = "Put new food Name: " + food.Name + ", Count: "
+            var message = " Put new food Name: " + food.Name + ", Count: "
                 + food.Count + ", Price: " + food.Price;
 
             Speaker.Output(message, "Customer");
-            _logger.Log(message, MessageTypes.Storag);
+            _logger.Log(base.GetType() + message);
             return true;
         }
         public bool TakeFood(int foodId, double number)
@@ -42,12 +43,12 @@ namespace RockFood.Interfaces
             if(_storage.Foods[index].Count- number < 1)
                 number = _storage.Foods[index].Count;            
 
-            var message = "Bought food Name: " + _storage.Foods[index].Name + ", Take: " + number +
+            var message = " Bought food Name: " + _storage.Foods[index].Name + ", Take: " + number +
                 " / " + _storage.Foods[index].Count + ", For price: " + _storage.Foods[index].Price;
 
             _storage.Foods[index].Count -= number;
             Speaker.Output(message, "Customer");
-            _logger.Log(message,MessageTypes.Storag);
+            _logger.Log(base.GetType() + message, MessageTypes.Information);
             return true;
         }
         public bool OutputInfoAboutFood()

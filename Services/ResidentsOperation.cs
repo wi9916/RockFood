@@ -22,12 +22,12 @@ namespace RockFood.Services
             if (_storage.Customers is null)
                 return false;
 
-            var message = "Create new customer Name: " + person.Name;
+            var message = " Create new customer Name: " + person.Name;
             
             person.Id = _storage.Customers.Max(f => f.Id) + 1;
             _storage.Customers.Add(person);
             Speaker.Output(message, "Create");
-            _logger.Log(message, MessageTypes.Resident);
+            _logger.Log(base.GetType() + message, MessageTypes.Information);
             return true;          
         }
         public bool OutputInfoAboutCustomer()

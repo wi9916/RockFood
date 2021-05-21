@@ -8,9 +8,9 @@ namespace RockFood.Models
 {
     public enum MessageTypes
     {
-        None,
         Error,
-        Storag,
-        Resident
+        Information,
+        Warning,
+        Debug
     }
 }
