@@ -17,7 +17,7 @@ namespace RockFood.Services
             storage = samePersons;
             _logger = logger;
         }
-        public bool CreateNewCustomer(IPersonable person)
+        public bool CreateNewCustomer(Customer person)
         {
             if (storage.Customers is null)
                 return false;

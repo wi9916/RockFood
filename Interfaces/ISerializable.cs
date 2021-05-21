@@ -9,8 +9,8 @@ namespace RockFood.Interfaces
 {
     public interface ISerializable
     {
-        public void Serialization(List<Food> obj, string fileName, string folderPatch);
-        public List<Food> Desialization(string fileName, string folderPatch);
-        public bool CheckFile(string fileName, string folderPatch);       
+        void Serialization<T>(T obj, string fileName, string folderPatch);
+        T Desialization<T>(T obj, string fileName, string folderPatch);
+        bool CheckFile(string fileName, string folderPatch);       
     }
 }

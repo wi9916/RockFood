@@ -14,17 +14,18 @@ namespace RockFood
         public List<Food> Foods { get; set; }
         public Storage()
         {
+            string fileSerializer = "foods";
             var ser = new Serializer();
             Foods = new List<Food>();
-
-            if (ser.CheckFile("foods"))
+            
+            if (ser.CheckFile(fileSerializer))
             {
-                Foods = ser.Desialization("foods");             
+                Foods = ser.Desialization(Foods, fileSerializer);
             }
             else
             {
                 CreateNewBaseStorage();
-                ser.Serialization(Foods, "foods");
+                ser.Serialization(Foods, fileSerializer);
             }
             
         }
@@ -33,6 +34,8 @@ namespace RockFood
             Foods.Add(new Food { Id = 1, Name = "The Best Cakes", Price = 20, Count = 100 });
             Foods.Add(new Food { Id = 2, Name = "The Cakes", Price = 30, Count = 100 });
             Foods.Add(new Food { Id = 3, Name = "Same Cakes", Price = 10, Count = 5 });
+            Foods.Add(new Food { Id = 4, Name = "Gem", Price = 10, Count = 5 });
         }
+
     }
 }

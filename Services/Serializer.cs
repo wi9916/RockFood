@@ -13,7 +13,7 @@ namespace RockFood.Services
     public class Serializer: ISerializable
     {
         private const string _folderPatch = "Serializations/";
-        public void Serialization(List<Food> obj,string fileName,string folderPatch = _folderPatch)
+        public void Serialization<T>(T obj,string fileName,string folderPatch = _folderPatch)
         {
             if (!Directory.Exists(folderPatch))
             {
@@ -23,10 +23,10 @@ namespace RockFood.Services
             var jsonString = JsonSerializer.Serialize(obj);
             File.WriteAllText(folderPatch + fileName, jsonString);          
         }
-        public List<Food> Desialization(string fileName, string folderPatch = _folderPatch)
+        public T Desialization<T>(T obj, string fileName, string folderPatch = _folderPatch)
         {
-            var jsonString = File.ReadAllText(folderPatch + fileName);           
-            return JsonSerializer.Deserialize<List<Food>>(jsonString);
+            var jsonString = File.ReadAllText(folderPatch + fileName);
+            return JsonSerializer.Deserialize<T>(jsonString);
         }
         public bool CheckFile(string fileName, string folderPatch = _folderPatch)
         {                     

@@ -8,6 +8,6 @@ namespace RockFood.Interfaces
 {
     public interface IResidentable
     {
-        List<IPersonable> Customers { get;}          
+        List<Customer> Customers { get;}          
     }
 }

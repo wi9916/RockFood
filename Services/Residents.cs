@@ -1,4 +1,5 @@
 ﻿using RockFood.Interfaces;
+using RockFood.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,28 @@ namespace RockFood
 {
     public class Residents: IResidentable
     {
-        public List<IPersonable> Customers { get; }
+        public List<Customer> Customers { get; }
         public Residents()
-        {          
-            Customers = new List<IPersonable>();
-            CreateNewResidents();
+        {
+            string fileSerializer = "customers";
+            var ser = new Serializer();
+            Customers = new List<Customer>();
+
+            if (ser.CheckFile(fileSerializer))
+            {
+                Customers = ser.Desialization(Customers, fileSerializer);
+            }
+            else
+            {
+                CreateNewResidents();
+                ser.Serialization(Customers, fileSerializer);
+            }
         }
         private void CreateNewResidents()
         {           
             Customers.Add(new Customer { Id = 1, Name = "Jon" });
             Customers.Add(new Customer { Id = 2, Name = "Petro" });
+            Customers.Add(new Customer { Id = 3, Name = "Van" });
         }     
     }
 }
