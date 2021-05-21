@@ -48,7 +48,7 @@ namespace RockFood.Services
 
             _storage.Foods[index].Count -= number;
             Speaker.Output(message, "Customer");
-            _logger.Log(base.GetType() + message, MessageTypes.Information);
+            _logger.Log(base.GetType() + message);
             return true;
         }
         public bool OutputInfoAboutFood()
