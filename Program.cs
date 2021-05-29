@@ -8,7 +8,7 @@ namespace RockFood
     {
         static void Main(string[] args)
         {
-            DialogInShop dialog = new DialogInShop(new StorageOperation(new Storage(), new Logger()), new ResidentsOperation(new Residents(), new Logger()));
+            var dialog = new DialogInShop(new StorageOperation(new Storage(), new Logger()), new ResidentsOperation(new Residents(), new Logger()));
             dialog.DialogStartWorking();
         }
     }

@@ -1,12 +1,12 @@
 ﻿using RockFood.Interfaces;
-using RockFood.Services;
+using RockFood.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockFood
+namespace RockFood.Services
 {
     public class Residents: IResidentable
     {

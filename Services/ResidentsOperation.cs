@@ -10,29 +10,29 @@ namespace RockFood.Services
 {
     public class ResidentsOperation: IResidentOperationable
     {
-        private readonly IResidentable storage;
+        private readonly IResidentable _storage;
         private readonly ILogger _logger;
         public ResidentsOperation(IResidentable samePersons, ILogger logger)
         {
-            storage = samePersons;
+            _storage = samePersons;
             _logger = logger;
         }
         public bool CreateNewCustomer(Customer person)
         {
-            if (storage.Customers is null)
+            if (_storage.Customers is null)
                 return false;
 
-            var message = "Create new customer Name: " + person.Name;
+            var message = " Create new customer Name: " + person.Name;
             
-            person.Id = storage.Customers.Max(f => f.Id) + 1;
-            storage.Customers.Add(person);
+            person.Id = _storage.Customers.Max(f => f.Id) + 1;
+            _storage.Customers.Add(person);
             Speaker.Output(message, "Create");
-            _logger.Log("LoggerBase", message);
+            _logger.Log(base.GetType() + message);
             return true;          
         }
         public bool OutputInfoAboutCustomer()
         {
-            foreach (var customer in storage.Customers)
+            foreach (var customer in _storage.Customers)
                 if (!OutputInfoAboutCustomer(customer.Id))
                 {
                     Speaker.Output("Output Error", "Error");
@@ -43,7 +43,7 @@ namespace RockFood.Services
         }
         public bool OutputInfoAboutCustomer(int customerId)
         {
-            var customer = storage.Customers.FirstOrDefault(f => f.Id == customerId);
+            var customer = _storage.Customers.FirstOrDefault(f => f.Id == customerId);
             if (customer is null)           
                 return false;
             

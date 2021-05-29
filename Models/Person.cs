@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockFood
+namespace RockFood.Models
 {
     public class Person
     {

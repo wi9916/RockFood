@@ -1,4 +1,5 @@
-﻿using RockFood.Interfaces;
+using RockFood.Interfaces;
+using RockFood.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,47 +11,40 @@ namespace RockFood.Services
 {
     public class Logger: ILogger
     {
-        public void Log(string information, string message)
+        private const string _fileName = "Logger";
+        private const string _directoryName = "Logger";
+        public void Log(string message, MessageTypes messageTypes)
         {
-            WriteInFileLog(information,message);
+            WriteInFileLog(message,messageTypes);
         }
-        private void WriteInFileLog(string information, string message)
+        private void WriteInFileLog(string message, MessageTypes messageTypes)
         {          
             var pathParts = new[]
             {
                 AppDomain.CurrentDomain.BaseDirectory,
-                information,
-                information + DateTime.Today.ToString("d-MM-yyyy") + ".txt"
+                _directoryName
             };
-
-            var filePath = Path.Combine(pathParts);
+            var folderPath = Path.Combine(pathParts);
+            var filePath = Path.Combine(folderPath, _fileName + DateTime.Today.ToString("d-MM-yyyy") + ".txt");
 
             if (!File.Exists(filePath))
-                CreateFile(information, filePath);
+                CreateFile(filePath, folderPath);
 
             using var file = new FileStream(filePath, FileMode.Append);
             using var stream = new StreamWriter(file, Encoding.UTF8);
 
             stream.AutoFlush = true;
-            stream.WriteLine(DateTime.Now.ToString("T") + " => " + message);
+            stream.WriteLine(DateTime.Now.ToString("T") + " " + messageTypes+" => " + message);
         }
-        private void CreateFile(string information, string filePath)
-        {
-            CreateFolder(information);
-
+        private void CreateFile(string filePath, string folderPath)
+        {         
+            CreateFolder(folderPath);
             using (File.Create(filePath)) { };
         }
-        private void CreateFolder(string information)
-        {
-            var pathParts = new[]
-            {
-                AppDomain.CurrentDomain.BaseDirectory,
-                information
-            };
-            var folderPath = Path.Combine(pathParts);
-
+        private void CreateFolder(string folderPath)
+        {           
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
-        }
-    }
+        }        
+    }    
 }
