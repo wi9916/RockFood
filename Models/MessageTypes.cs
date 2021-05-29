@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace RockFood.Models
 {
-    public class Seller: Person
+    public enum MessageTypes
     {
-        public double RatingFromCustomers { get; set; } 
+        Error,
+        Information,
+        Warning,
+        Debug
     }
 }

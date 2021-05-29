@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockFood
+namespace RockFood.Services
 {
     public class DialogInShop: IDialogable
     {
@@ -117,8 +117,6 @@ namespace RockFood
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            ValidatorDialog();
-
             if (sameCustomers.OutputInfoAboutCustomer(customerId))
                 if (sameStorage.OutputInfoAboutFood(foodId))
                     if (!sameStorage.TakeFood(foodId, 1))
