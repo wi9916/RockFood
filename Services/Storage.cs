@@ -24,7 +24,7 @@ namespace RockFood
             else
             {
                 CreateNewBaseStorage();
-                ser.Serialization(Foods);
+                ser.Serialize(Foods);
             }
             
         }

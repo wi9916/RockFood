@@ -23,7 +23,7 @@ namespace RockFood
             else
             {
                 CreateNewResidents();
-                ser.Serialization(Customers);
+                ser.Serialize(Customers);
             }
         }
         private void CreateNewResidents()
