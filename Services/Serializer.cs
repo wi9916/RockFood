@@ -19,24 +19,27 @@ namespace RockFood.Services
             _fileName = fileName;
             _folderPath = CreateFolderPath("Serializations");
         }               
-        public void Serialize<T>(T obj)
-        {          
+        public bool Serialize<T>(T obj)
+        {
+            if (CheckFile())
+                return false;
+
             if (!Directory.Exists(_folderPath))
-            {
                 Directory.CreateDirectory(_folderPath);
-            }
 
             var jsonString = JsonSerializer.Serialize(obj);
             File.WriteAllText(Path.Combine(_folderPath, _fileName), jsonString);
             Speaker.Output("Serialization " +  obj.GetType(), "Serializer");
+
+            return true;
         }
-        public T Desialization<T>(T obj)
+        public T Desialize<T>(T obj)
         {
             var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
             Speaker.Output("Desialization " + obj.GetType(), "Serializer");
             return JsonSerializer.Deserialize<T>(jsonString);
         }
-        public bool CheckFile()
+        private bool CheckFile()
         {           
             return File.Exists(Path.Combine(_folderPath, _fileName));
         }    

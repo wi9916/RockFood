@@ -16,17 +16,10 @@ namespace RockFood
         {
             var ser = new Serializer("foods");
             Foods = new List<Food>();
-            
-            if (ser.CheckFile())
-            {
-                Foods = ser.Desialization(Foods);
-            }
-            else
-            {
-                CreateNewBaseStorage();
-                ser.Serialize(Foods);
-            }
-            
+            CreateNewBaseStorage();
+
+            if (!ser.Serialize(Foods))
+                Foods = ser.Desialize(Foods);           
         }
         private void CreateNewBaseStorage()
         {
