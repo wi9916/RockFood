@@ -9,7 +9,7 @@ namespace RockFood.Interfaces
 {
     public interface ISerializable
     {
-        bool Serialize<T>(T obj);
+        bool Serialize<T>(T obj, bool rewriteFile = false);
         T Desialize<T>(T obj);      
     }
 }

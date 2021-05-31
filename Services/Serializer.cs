@@ -19,10 +19,11 @@ namespace RockFood.Services
             _fileName = fileName;
             _folderPath = CreateFolderPath("Serializations");
         }               
-        public bool Serialize<T>(T obj)
+        public bool Serialize<T>(T obj, bool rewriteFile = false)
         {
-            if (CheckFile())
-                return false;
+            if(!rewriteFile)
+                if (CheckFile())
+                    return false;
 
             if (!Directory.Exists(_folderPath))
                 Directory.CreateDirectory(_folderPath);
