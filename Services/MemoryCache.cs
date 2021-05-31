@@ -15,7 +15,6 @@ namespace RockFood.Services
         {
             SizeLimit = 5
         });
-        private delegate void MessageDelegate();
         public TItem GetOrCreate(object key, Func<TItem> createItem)
         {
             TItem cacheEntry;
@@ -31,7 +30,6 @@ namespace RockFood.Services
                 Console.Write("Read from cach ");
             }
             return cacheEntry;
-        }
-        private void 
+        } 
     }
 }
