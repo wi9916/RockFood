@@ -12,8 +12,10 @@ namespace RockFood.Services
     {
         private readonly IStoredable _storage;
         private readonly ILogger _logger;
+        private MemoryCache<IFoodable> _memoryCach;
         public StorageOperation(IStoredable sameFoods, ILogger logger)
         {
+            _memoryCach = new MemoryCache<IFoodable>();
             _storage = sameFoods;
             _logger = logger;
         }
@@ -64,8 +66,8 @@ namespace RockFood.Services
         }
         public bool OutputInfoAboutFood(int foodId)
         {
-            var foods = _storage.Foods.FirstOrDefault(f => f.Id == foodId);
-            if (foods is null)
+            var foods = _memoryCach.GetOrCreate(foodId, () => _storage.GetObject(foodId));
+            if (foods.Id == default)
                 return false;
 
             Speaker.Output("Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "

@@ -25,6 +25,14 @@ namespace RockFood.Services
             Customers.Add(new Customer { Id = 1, Name = "Jon" });
             Customers.Add(new Customer { Id = 2, Name = "Petro" });
             Customers.Add(new Customer { Id = 3, Name = "Van" });
-        }     
+        }
+        public Customer GetObject(int objectId)
+        {
+            var customer = Customers.FirstOrDefault(f => f.Id == objectId);
+            if (customer is null)
+                return new Customer();
+
+            return customer;
+        }       
     }
 }

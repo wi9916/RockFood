@@ -12,8 +12,10 @@ namespace RockFood.Services
     {
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
+        private MemoryCache<IPersonable> _memoryCach;
         public ResidentsOperation(IResidentable samePersons, ILogger logger)
         {
+            _memoryCach = new MemoryCache<IPersonable>();
             _storage = samePersons;
             _logger = logger;
         }
@@ -43,8 +45,8 @@ namespace RockFood.Services
         }
         public bool OutputInfoAboutCustomer(int customerId)
         {
-            var customer = _storage.Customers.FirstOrDefault(f => f.Id == customerId);
-            if (customer is null)           
+            var customer = _memoryCach.GetOrCreate(customerId, () => _storage.GetObject(customerId));
+            if (customer.Id == default)           
                 return false;
             
             Speaker.Output("Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);

@@ -80,8 +80,8 @@ namespace RockFood.Services
         public void DialogChooseCustomer()
         {
             Console.Clear();
-            Speaker.Output("List of Customer: ");           
-            if(!_sameCustomers.OutputInfoAboutCustomer())
+            Speaker.Output("List of Customer: ");
+            if (!_sameCustomers.OutputInfoAboutCustomer())
                     Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Customers id");

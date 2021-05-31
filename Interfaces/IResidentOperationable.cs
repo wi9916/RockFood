@@ -11,6 +11,6 @@ namespace RockFood.Interfaces
     {
         bool CreateNewCustomer(Customer person);
         bool OutputInfoAboutCustomer();
-        bool OutputInfoAboutCustomer(int customerId);
+        bool OutputInfoAboutCustomer(int customerId);        
     }
 }
