@@ -80,19 +80,14 @@ namespace RockFood.Services
         public void DialogChooseCustomer()
         {
             Console.Clear();
-            Speaker.Output("List of Customer: ");
-            if (!_sameCustomers.OutputInfoAboutCustomer())
-                    Speaker.Output("Output Error", "Error");
-
             Speaker.Output("Tap Customers id");
-
+            Speaker.Output("List of Customer: ");
+            _sameCustomers.OutputInfoAboutCustomer();
+                    
             var text = Console.ReadLine();           
             if (int.TryParse(text, out var customerId))
-            {
-                if (_sameCustomers.OutputInfoAboutCustomer(customerId))           
-                    DialogChooseProduct(customerId);
-                else
-                    Speaker.Output("Customer Choose Error", "Error");
+            {         
+                DialogChooseProduct(customerId);                
             }
             else
                 Speaker.Output("Customer Choose Error", "Error");
@@ -100,12 +95,10 @@ namespace RockFood.Services
         public void DialogChooseProduct(int customerId)
         {
             Console.Clear();
-            Speaker.Output("List of Products: ");
-            if (!_sameStorage.OutputInfoAboutFood())
-                Speaker.Output("Output Error", "Error");
-
             Speaker.Output("Tap Products id");
-
+            Speaker.Output("List of Products: ");
+            _sameStorage.OutputInfoAboutFood();            
+            
             var text = Console.ReadLine();            
             if (int.TryParse(text, out var foodId))
             {             
@@ -117,13 +110,11 @@ namespace RockFood.Services
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            if (_sameCustomers.OutputInfoAboutCustomer(customerId))
-                if (_sameStorage.OutputInfoAboutFood(foodId))
-                    if (!_sameStorage.TakeFood(foodId, 1))
-                    {
-                        Speaker.Output("Product bought Error", "Error");
-                        return false;
-                    }
+            if (!_sameStorage.TakeFood(foodId, 1))
+            {
+                Speaker.Output("Product bought Error", "Error");
+                return false;
+            }
             return true;                     
         }
         public void ValidatorDialog()

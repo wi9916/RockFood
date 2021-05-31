@@ -13,6 +13,7 @@ namespace RockFood.Services
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
         private MemoryCache<IPersonable> _memoryCach;
+        private readonly object _locker = new object();
         public ResidentsOperation(IResidentable samePersons, ILogger logger)
         {
             _memoryCach = new MemoryCache<IPersonable>();
@@ -32,25 +33,27 @@ namespace RockFood.Services
             _logger.Log(base.GetType() + message);
             return true;          
         }
-        public bool OutputInfoAboutCustomer()
+        public void OutputInfoAboutCustomer()
         {
             foreach (var customer in _storage.Customers)
-                if (!OutputInfoAboutCustomer(customer.Id))
-                {
-                    Speaker.Output("Output Error", "Error");
-                    return false;
-                }
-
-            return true;
+                Task.Run( ()=>OutputInfoAboutCustomer(customer.Id) );                               
         }
-        public bool OutputInfoAboutCustomer(int customerId)
+        public void OutputInfoAboutCustomer(int customerId)
         {
-            var customer = _memoryCach.GetOrCreate(customerId, () => _storage.GetObject(customerId));
-            if (customer.Id == default)           
-                return false;
-            
-            Speaker.Output("Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);
-            return true;           
-        }       
+            Del del = new Del(Message);
+            var message = default(string);
+            var customer = _memoryCach.GetOrCreate(customerId, () => _storage.GetObject(customerId),out message);
+
+            if (customer.Id != default)
+                del(customer, message);          
+        } 
+        public void Message(IPersonable customer, string message)
+        {
+            lock (_locker)
+            {
+                Speaker.Output(message + "Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);
+            }
+        }
+        public delegate void Del(IPersonable customer, string message);
     }
 }

@@ -15,19 +15,16 @@ namespace RockFood.Services
         {
             SizeLimit = 5
         });
-        public TItem GetOrCreate(object key, Func<TItem> createItem)
+        public TItem GetOrCreate(object key, Func<TItem> createItem, out string message)
         {
+            message = "Read from cache ";
             TItem cacheEntry;
             if (!_cache.TryGetValue(key, out cacheEntry))
             {
                 cacheEntry = createItem();
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetSize(1).SetSlidingExpiration(TimeSpan.FromSeconds(120));                          
                 _cache.Set(key, cacheEntry, cacheEntryOptions);
-                Console.Write("Write in cach ");
-            }
-            else
-            {
-                Console.Write("Read from cach ");
+                message = "Write in cache ";
             }
             return cacheEntry;
         } 
