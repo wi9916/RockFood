@@ -12,11 +12,10 @@ namespace RockFood.Services
     {
         private readonly IStoredable _storage;
         private readonly ILogger _logger;
-        private MemoryCache<IFoodable> _memoryCach;
-        private readonly object _locker = new object();
-        public StorageOperation(IStoredable sameFoods, ILogger logger)
+        private readonly MemoryCache<IFoodable> _memoryCach;
+        public StorageOperation(IStoredable sameFoods, ILogger logger, MemoryCache<IFoodable> memoryCach)
         {
-            _memoryCach = new MemoryCache<IFoodable>();
+            _memoryCach = memoryCach; ;
             _storage = sameFoods;
             _logger = logger;
         }
@@ -65,11 +64,8 @@ namespace RockFood.Services
             var message = default(string);
             var foods = _memoryCach.GetOrCreate(foodId, () => _storage.GetObject(foodId), out message);
 
-            lock (_locker)
-            {
-                Speaker.Output(message + "Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
-                    + foods.Count.ToString() + " $ - " + foods.Price);
-            }
+            Speaker.Output(message + "Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
+                + foods.Count.ToString() + " $ - " + foods.Price);
         }
     }
 }

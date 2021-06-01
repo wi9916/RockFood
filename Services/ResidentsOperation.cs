@@ -12,13 +12,12 @@ namespace RockFood.Services
     {
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
-        private MemoryCache<IPersonable> _memoryCach;
-        private readonly object _locker = new object();
-        public ResidentsOperation(IResidentable samePersons, ILogger logger)
-        {
-            _memoryCach = new MemoryCache<IPersonable>();
+        private readonly MemoryCache<IPersonable> _memoryCach;
+        public ResidentsOperation(IResidentable samePersons, ILogger logger, MemoryCache<IPersonable> memoryCach)
+        {            
             _storage = samePersons;
             _logger = logger;
+            _memoryCach = memoryCach;
         }
         public bool CreateNewCustomer(Customer person)
         {
@@ -40,20 +39,9 @@ namespace RockFood.Services
         }
         public void OutputInfoAboutCustomer(int customerId)
         {
-            Del del = new Del(Message);
             var message = default(string);
             var customer = _memoryCach.GetOrCreate(customerId, () => _storage.GetObject(customerId),out message);
-
-            if (customer.Id != default)
-                del(customer, message);          
-        } 
-        public void Message(IPersonable customer, string message)
-        {
-            lock (_locker)
-            {
-                Speaker.Output(message + "Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);
-            }
-        }
-        public delegate void Del(IPersonable customer, string message);
+            Speaker.Output(message + "Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);        
+        }         
     }
 }

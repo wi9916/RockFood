@@ -15,16 +15,21 @@ namespace RockFood.Services
         {
             SizeLimit = 5
         });
+        private readonly object _locker = new object();
         public TItem GetOrCreate(object key, Func<TItem> createItem, out string message)
         {
             message = "Read from cache ";
             TItem cacheEntry;
-            if (!_cache.TryGetValue(key, out cacheEntry))
+            lock (_locker)
             {
-                cacheEntry = createItem();
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSize(1).SetSlidingExpiration(TimeSpan.FromSeconds(120));                          
-                _cache.Set(key, cacheEntry, cacheEntryOptions);
-                message = "Write in cache ";
+                if (!_cache.TryGetValue(key, out cacheEntry))
+                {
+                
+                    cacheEntry = createItem();
+                    var cacheEntryOptions = new MemoryCacheEntryOptions().SetSize(1).SetSlidingExpiration(TimeSpan.FromSeconds(120));
+                    _cache.Set(key, cacheEntry, cacheEntryOptions);
+                    message = "Write in cache ";
+                }
             }
             return cacheEntry;
         } 
