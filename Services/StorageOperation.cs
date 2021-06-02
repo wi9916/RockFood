@@ -56,7 +56,7 @@ namespace RockFood.Services
         public void OutputInfoAboutFood()
         {
             foreach (var food in _storage.Foods)
-                Task.Run(() => OutputInfoAboutFood(food.Id) );                
+                OutputInfoAboutFood(food.Id);                
 
         }
         public void OutputInfoAboutFood(int foodId)

@@ -35,7 +35,7 @@ namespace RockFood.Services
         public void OutputInfoAboutCustomer()
         {
             foreach (var customer in _storage.Customers)
-                Task.Run( ()=>OutputInfoAboutCustomer(customer.Id) );                               
+                OutputInfoAboutCustomer(customer.Id);                               
         }
         public void OutputInfoAboutCustomer(int customerId)
         {
