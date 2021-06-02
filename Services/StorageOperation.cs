@@ -57,7 +57,6 @@ namespace RockFood.Services
         {
             foreach (var food in _storage.Foods)
                 OutputInfoAboutFood(food.Id);                
-
         }
         public void OutputInfoAboutFood(int foodId)
         {
