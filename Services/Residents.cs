@@ -10,15 +10,16 @@ namespace RockFood.Services
 {
     public class Residents: IResidentable
     {
-        public List<Customer> Customers { get; }
-        public Residents()
+        private readonly SerializeStorage _serializeStorage;
+        public List<Customer> Customers { get; }      
+        public Residents(SerializeStorage serializeStorage)
         {
-            var ser = new Serializer("customers");
+            _serializeStorage = serializeStorage; 
             Customers = new List<Customer>();           
             CreateNewResidents();
 
-            if (!ser.Serialize(Customers))
-                Customers = ser.Desialize(Customers);
+            if (!_serializeStorage.Serialize(Customers))
+                Customers = _serializeStorage.Desialize(Customers);
         }
         private void CreateNewResidents()
         {           

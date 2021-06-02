@@ -18,7 +18,7 @@ namespace RockFood.Services
             _logger = logger;
         }
         
-        public bool PutNewFood(Food food)
+        public bool AddFood(Food food)
         {
             if (_storage is null)
                 return false;
@@ -33,7 +33,7 @@ namespace RockFood.Services
             _logger.Log(base.GetType() + message);
             return true;
         }
-        public bool TakeFood(int foodId, double number)
+        public bool GetFood(int foodId, double number)
         {            
             var index = _storage.Foods.FindIndex(f => f.Id == foodId);
             if (index == -1)
@@ -51,10 +51,10 @@ namespace RockFood.Services
             _logger.Log(base.GetType() + message);
             return true;
         }
-        public bool OutputInfoAboutFood()
+        public bool GetFoodInfo()
         {
             foreach (var food in _storage.Foods)
-                if (!OutputInfoAboutFood(food.Id))
+                if (!GetFoodInfoById(food.Id))
                 {
                     Speaker.Output("Output Error", "Error");
                     return false;
@@ -62,7 +62,7 @@ namespace RockFood.Services
 
             return true;
         }
-        public bool OutputInfoAboutFood(int foodId)
+        public bool GetFoodInfoById(int foodId)
         {
             var foods = _storage.Foods.FirstOrDefault(f => f.Id == foodId);
             if (foods is null)

@@ -9,9 +9,9 @@ namespace RockFood.Interfaces
 {
     public interface IStoredOperationable
     {
-        bool PutNewFood(Food food);
-        bool TakeFood(int foodId, double number);
-        bool OutputInfoAboutFood();
-        bool OutputInfoAboutFood(int foodId);       
+        bool AddFood(Food food);
+        bool GetFood(int foodId, double number);
+        bool GetFoodInfo();
+        bool GetFoodInfoById(int foodId);       
     }
 }

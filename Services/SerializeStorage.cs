@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class Serializer: ISerializable
+    public class SerializeStorage: ISerializeStoragable
     {
         private readonly string _folderPath;
         private readonly string _fileName;
-        public Serializer(string fileName)
+        public SerializeStorage(string fileName)
         {
             _fileName = fileName;
             _folderPath = CreateFolderPath("Serializations");

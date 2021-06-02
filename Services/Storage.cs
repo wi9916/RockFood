@@ -11,15 +11,16 @@ namespace RockFood.Services
 {
     public class Storage: IStoredable
     {
+        private readonly SerializeStorage _serializeStorage;
         public List<Food> Foods { get; set; }
-        public Storage()
+        public Storage(SerializeStorage serializeStorage)
         {
-            var ser = new Serializer("foods");
+            _serializeStorage = serializeStorage;               
             Foods = new List<Food>();
             CreateNewBaseStorage();
 
-            if (!ser.Serialize(Foods))
-                Foods = ser.Desialize(Foods);           
+            if (!_serializeStorage.Serialize(Foods))
+                Foods = _serializeStorage.Desialize(Foods);           
         }
         private void CreateNewBaseStorage()
         {

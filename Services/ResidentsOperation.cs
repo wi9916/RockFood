@@ -17,7 +17,7 @@ namespace RockFood.Services
             _storage = samePersons;
             _logger = logger;
         }
-        public bool CreateNewCustomer(Customer person)
+        public bool CreateCustomer(Customer person)
         {
             if (_storage.Customers is null)
                 return false;
@@ -30,10 +30,10 @@ namespace RockFood.Services
             _logger.Log(base.GetType() + message);
             return true;          
         }
-        public bool OutputInfoAboutCustomer()
+        public bool GetCustomerInfo()
         {
             foreach (var customer in _storage.Customers)
-                if (!OutputInfoAboutCustomer(customer.Id))
+                if (!GetCustomerInfoById(customer.Id))
                 {
                     Speaker.Output("Output Error", "Error");
                     return false;
@@ -41,7 +41,7 @@ namespace RockFood.Services
 
             return true;
         }
-        public bool OutputInfoAboutCustomer(int customerId)
+        public bool GetCustomerInfoById(int customerId)
         {
             var customer = _storage.Customers.FirstOrDefault(f => f.Id == customerId);
             if (customer is null)           
