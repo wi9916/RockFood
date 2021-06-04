@@ -18,37 +18,34 @@ namespace RockFood.Services
             _logger = logger;
         }
         
-        public bool AddFood(Food food)
+        public void AddFood(Food food)
         {
-            if (_storage is null)
-                return false;
-
-            food.Id = _storage.Foods.Max(f => f.Id) + 1;
-            _storage.Foods.Add(food);
+            _storage.AddItem(food);
 
             var message = " Put new food Name: " + food.Name + ", Count: "
                 + food.Count + ", Price: " + food.Price;
 
             Speaker.Output(message, "Customer");
             _logger.Log(base.GetType() + message);
-            return true;
         }
         public bool GetFood(int foodId, double number)
-        {            
-            var index = _storage.Foods.FindIndex(f => f.Id == foodId);
-            if (index == -1)
+        {
+            var food = _storage.GetFoodById(foodId);
+            if(food == default)
+                return false;           
+
+            if(food.Count - number < 1)
+                number = food.Count;
+
+            if (!_storage.GetItem(food))
                 return false;
 
-            if(_storage.Foods[index].Count- number < 1)
-                number = _storage.Foods[index].Count;            
+            var message = " Bought food Name: " + food.Name + ", Take: " + number +
+                " / " + food.Count + ", For price: " + food.Price;
 
-            var message = " Bought food Name: " + _storage.Foods[index].Name + ", Take: " + number +
-                " / " + _storage.Foods[index].Count + ", For price: " + _storage.Foods[index].Price;
-
-            _storage.Foods[index].Count -= number;
+            food.Count -= number;
             Speaker.Output(message, "Customer");
 
-            _logger.Log(base.GetType() + message);
             return true;
         }
         public bool GetFoodInfo()
@@ -64,7 +61,7 @@ namespace RockFood.Services
         }
         public bool GetFoodInfoById(int foodId)
         {
-            var foods = _storage.Foods.FirstOrDefault(f => f.Id == foodId);
+            var foods = _storage.GetFoodById(foodId);
             if (foods is null)
                 return false;
 

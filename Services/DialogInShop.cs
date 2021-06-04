@@ -74,7 +74,7 @@ namespace RockFood.Services
             var text = Console.ReadLine().ToString();
             var person = new Customer {Name = text };
             if (text != "9")
-                if (!_sameCustomers.CreateCustomer(person))
+                if (!_sameCustomers.AddCustomer(person))
                     Speaker.Output("Customer creation Error", "Error");
         }
         public void DialogChooseCustomer()

@@ -16,16 +16,43 @@ namespace RockFood.Services
         {
             _serializeStorage = serializeStorage; 
             Customers = new List<Customer>();           
-            CreateNewResidents();
 
-            if (!_serializeStorage.Serialize(Customers))
-                Customers = _serializeStorage.Desialize(Customers);
+            if (!_serializeStorage.CheckFileAvailability())
+            {
+                CreateNewResidents();
+                _serializeStorage.WriteFileSerialize(Customers);
+            }                
+            else
+            {
+                Customers = _serializeStorage.ReadFileSerialize(Customers);
+            }                                   
         }
         private void CreateNewResidents()
         {           
             Customers.Add(new Customer { Id = 1, Name = "Jon" });
             Customers.Add(new Customer { Id = 2, Name = "Petro" });
             Customers.Add(new Customer { Id = 3, Name = "Van" });
-        }     
+        }
+        public void AddItem(Customer item)
+        {
+            item.Id = Customers.Max(f => f.Id) + 1;
+            Customers.Add(item);
+            _serializeStorage.WriteFileSerialize(Customers);
+        }
+        public bool GetItem(Customer item)
+        {
+            var index = Customers.FindIndex(f => f.Id == item.Id);
+            if (index == -1)
+                return false;
+
+            Customers[index] = item;
+            _serializeStorage.WriteFileSerialize(Customers);
+
+            return true;
+        }
+        public Customer GetCustomerById(int itemId)
+        {
+            return Customers.FirstOrDefault(f => f.Id == itemId);
+        }
     }
 }

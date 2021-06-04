@@ -17,17 +17,17 @@ namespace RockFood.Services
             _storage = samePersons;
             _logger = logger;
         }
-        public bool CreateCustomer(Customer person)
+        public bool AddCustomer(Customer person)
         {
             if (_storage.Customers is null)
                 return false;
 
-            var message = " Create new customer Name: " + person.Name;
-            
-            person.Id = _storage.Customers.Max(f => f.Id) + 1;
-            _storage.Customers.Add(person);
+            _storage.AddItem(person);
+
+            var message = " Create new customer Name: " + person.Name;            
             Speaker.Output(message, "Create");
             _logger.Log(base.GetType() + message);
+
             return true;          
         }
         public bool GetCustomerInfo()
@@ -43,7 +43,7 @@ namespace RockFood.Services
         }
         public bool GetCustomerInfoById(int customerId)
         {
-            var customer = _storage.Customers.FirstOrDefault(f => f.Id == customerId);
+            var customer = _storage.GetCustomerById(customerId);
             if (customer is null)           
                 return false;
             

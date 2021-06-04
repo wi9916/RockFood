@@ -17,14 +17,10 @@ namespace RockFood.Services
         public SerializeStorage(string fileName)
         {
             _fileName = fileName;
-            _folderPath = CreateFolderPath("Serializations");
+            _folderPath = GenerateFolderPath("Serializations");
         }               
-        public bool Serialize<T>(T obj, bool rewriteFile = false)
-        {
-            if(!rewriteFile)
-                if (CheckFile())
-                    return false;
-
+        public bool WriteFileSerialize<T>(T obj)
+        {           
             if (!Directory.Exists(_folderPath))
                 Directory.CreateDirectory(_folderPath);
 
@@ -34,17 +30,17 @@ namespace RockFood.Services
 
             return true;
         }
-        public T Desialize<T>(T obj)
+        public T ReadFileSerialize<T>(T obj)
         {
             var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
             Speaker.Output("Desialization " + obj.GetType(), "Serializer");
             return JsonSerializer.Deserialize<T>(jsonString);
         }
-        private bool CheckFile()
+        public bool CheckFileAvailability()
         {           
             return File.Exists(Path.Combine(_folderPath, _fileName));
         }    
-        private string CreateFolderPath(string folderName)
+        private string GenerateFolderPath(string folderName)
         {
             var pathParts = new[]
             {
