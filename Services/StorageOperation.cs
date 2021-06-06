@@ -20,7 +20,7 @@ namespace RockFood.Services
         
         public void AddFood(Food food)
         {
-            _storage.AddItem(food);
+            _storage.AddFood(food);
 
             var message = " Put new food Name: " + food.Name + ", Count: "
                 + food.Count + ", Price: " + food.Price;
@@ -30,14 +30,14 @@ namespace RockFood.Services
         }
         public bool GetFood(int foodId, double number)
         {
-            var food = _storage.GetItemById(foodId);
+            var food = _storage.GetFoodById(foodId);
             if(food == default)
                 return false;           
 
             if(food.Count - number < 1)
                 number = food.Count;
 
-            if (!_storage.GetItem(food))
+            if (!_storage.GetFood(food))
                 return false;
 
             var message = " Bought food Name: " + food.Name + ", Take: " + number +
@@ -61,7 +61,7 @@ namespace RockFood.Services
         }
         public bool GetFoodInfoById(int foodId)
         {
-            var foods = _storage.GetItemById(foodId);
+            var foods = _storage.GetFoodById(foodId);
             if (foods is null)
                 return false;
 

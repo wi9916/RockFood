@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class StorageDate: IStoragDatable
+    public class DataStorage: IDataStorage
     {
         private readonly string _folderPath;
         private readonly string _fileName;
-        public StorageDate(string fileName)
+        public DataStorage(string fileName)
         {
             var pathParts = new[]
             {
@@ -23,10 +23,9 @@ namespace RockFood.Services
             };
 
             _folderPath = Path.Combine(pathParts);
-            _fileName = fileName;            
-            
+            _fileName = fileName;                       
         }               
-        public bool WriteFile<T>(T obj)
+        public bool SaveData<T>(T obj)
         {           
             if (!Directory.Exists(_folderPath))
                 Directory.CreateDirectory(_folderPath);
@@ -37,13 +36,13 @@ namespace RockFood.Services
 
             return true;
         }
-        public T ReadFile<T>(T obj)
+        public T LoadData<T>(T obj)
         {
             var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
             Speaker.Output("Desialization " + obj.GetType(), "Serializer");
             return JsonSerializer.Deserialize<T>(jsonString);
         }
-        public bool CheckFileAvailability()
+        public bool CheckStorageDataAvailability()
         {           
             return File.Exists(Path.Combine(_folderPath, _fileName));
         }            

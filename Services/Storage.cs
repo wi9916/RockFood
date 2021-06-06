@@ -10,21 +10,21 @@ namespace RockFood.Services
 {
     public class Storage : IStoredable
     {
-        private readonly IStoragDatable _storageDate;
+        private readonly IDataStorage _storageDate;
         public List<Food> Foods { get; set; }
-        public Storage(IStoragDatable storageDate)
+        public Storage(IDataStorage storageDate)
         {
             _storageDate = storageDate;
             Foods = new List<Food>();
 
-            if (!_storageDate.CheckFileAvailability())
+            if (!_storageDate.CheckStorageDataAvailability())
             {
                 CreateNewBaseStorage();
-                _storageDate.WriteFile(Foods);
+                _storageDate.SaveData(Foods);
             }
             else
             {
-                Foods = _storageDate.ReadFile(Foods);
+                Foods = _storageDate.LoadData(Foods);
             }
         }
         private void CreateNewBaseStorage()
@@ -34,24 +34,24 @@ namespace RockFood.Services
             Foods.Add(new Food { Id = 3, Name = "Same Cakes", Price = 10, Count = 5 });
             Foods.Add(new Food { Id = 4, Name = "Gem", Price = 10, Count = 5 });
         }
-        public void AddItem(Food item)
+        public void AddFood(Food item)
         {
             item.Id = Foods.Max(f => f.Id) + 1;
             Foods.Add(item);
-            _storageDate.WriteFile(Foods);
+            _storageDate.SaveData(Foods);
         }
-        public bool GetItem(Food item)
+        public bool GetFood(Food item)
         {
             var index = Foods.FindIndex(f => f.Id == item.Id);
             if (index == -1)
                 return false;
 
             Foods[index] = item;
-            _storageDate.WriteFile(Foods);
+            _storageDate.SaveData(Foods);
 
             return true;
         }
-        public Food GetItemById(int itemId)
+        public Food GetFoodById(int itemId)
         {
             return Foods.FirstOrDefault(f => f.Id == itemId);
         }

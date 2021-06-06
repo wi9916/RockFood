@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RockFood.Interfaces
 {
-    public interface IStoragDatable
+    public interface IDataStorage
     {
-        bool WriteFile<T>(T obj);
-        T ReadFile<T>(T obj);
-        bool CheckFileAvailability();
+        bool SaveData<T>(T obj);
+        T LoadData<T>(T obj);
+        bool CheckStorageDataAvailability();
     }
 }

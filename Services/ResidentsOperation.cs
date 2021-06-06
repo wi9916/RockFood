@@ -22,7 +22,7 @@ namespace RockFood.Services
             if (_storage.Customers is null)
                 return false;
 
-            _storage.AddItem(person);
+            _storage.AddResident(person);
 
             var message = " Create new customer Name: " + person.Name;            
             Speaker.Output(message, "Create");
@@ -43,7 +43,7 @@ namespace RockFood.Services
         }
         public bool GetCustomerInfoById(int customerId)
         {
-            var customer = _storage.GetItemById(customerId);
+            var customer = _storage.GetResidentById(customerId);
             if (customer is null)           
                 return false;
             
