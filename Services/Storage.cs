@@ -51,7 +51,7 @@ namespace RockFood.Services
 
             return true;
         }
-        public Food GetFoodById(int itemId)
+        public Food GetFoodById(int objectId)
         {
             var food = Foods.FirstOrDefault(f => f.Id == objectId);
             if (food is null)
