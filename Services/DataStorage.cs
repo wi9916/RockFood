@@ -31,15 +31,13 @@ namespace RockFood.Services
                 Directory.CreateDirectory(_folderPath);
 
             var jsonString = JsonSerializer.Serialize(obj);
-            File.WriteAllText(Path.Combine(_folderPath, _fileName), jsonString);
-            Speaker.Output("Serialization " +  obj.GetType(), "Serializer");
+            File.WriteAllText(Path.Combine(_folderPath, _fileName), jsonString);           
 
             return true;
         }
         public T LoadData<T>(T obj)
         {
             var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
-            Speaker.Output("Desialization " + obj.GetType(), "Serializer");
             return JsonSerializer.Deserialize<T>(jsonString);
         }
         public bool CheckStorageDataAvailability()
