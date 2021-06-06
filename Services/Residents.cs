@@ -50,7 +50,7 @@ namespace RockFood.Services
 
             return true;
         }
-        public Customer GetCustomerById(int itemId)
+        public Customer GetItemById(int itemId)
         {
             return Customers.FirstOrDefault(f => f.Id == itemId);
         }

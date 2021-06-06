@@ -43,7 +43,7 @@ namespace RockFood.Services
         }
         public bool GetCustomerInfoById(int customerId)
         {
-            var customer = _storage.GetCustomerById(customerId);
+            var customer = _storage.GetItemById(customerId);
             if (customer is null)           
                 return false;
             

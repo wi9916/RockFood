@@ -16,8 +16,15 @@ namespace RockFood.Services
         private readonly string _fileName;
         public StorageDate(string fileName)
         {
-            _fileName = fileName;
-            _folderPath = GenerateFoldersPath("Serializations");
+            var pathParts = new[]
+            {
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Serializations"
+            };
+
+            _folderPath = Path.Combine(pathParts);
+            _fileName = fileName;            
+            
         }               
         public bool WriteFile<T>(T obj)
         {           
@@ -39,15 +46,6 @@ namespace RockFood.Services
         public bool CheckFileAvailability()
         {           
             return File.Exists(Path.Combine(_folderPath, _fileName));
-        }    
-        private string GenerateFoldersPath(string folderName)
-        {
-            var pathParts = new[]
-            {
-                AppDomain.CurrentDomain.BaseDirectory,
-                folderName
-            };
-            return Path.Combine(pathParts);
-        }
+        }            
     }
 }
