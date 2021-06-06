@@ -30,7 +30,7 @@ namespace RockFood.Services
         }
         public bool GetFood(int foodId, double number)
         {
-            var food = _storage.GetFoodById(foodId);
+            var food = _storage.GetItemById(foodId);
             if(food == default)
                 return false;           
 
@@ -61,7 +61,7 @@ namespace RockFood.Services
         }
         public bool GetFoodInfoById(int foodId)
         {
-            var foods = _storage.GetFoodById(foodId);
+            var foods = _storage.GetItemById(foodId);
             if (foods is null)
                 return false;
 

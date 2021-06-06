@@ -12,9 +12,9 @@ namespace RockFood.Services
     {
         private readonly StorageDate _storageDate;
         public List<Customer> Customers { get; }      
-        public Residents(StorageDate serializeStorage)
+        public Residents(StorageDate storageDate)
         {
-            _storageDate = serializeStorage; 
+            _storageDate = storageDate; 
             Customers = new List<Customer>();           
 
             if (!_storageDate.CheckFileAvailability())

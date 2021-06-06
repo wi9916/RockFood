@@ -12,6 +12,6 @@ namespace RockFood.Interfaces
         List<Food> Foods { get; set; }
         void AddItem(Food item);
         bool GetItem(Food item);
-        Food GetFoodById(int itemId);       
+        Food GetItemById(int itemId);       
     }
 }
