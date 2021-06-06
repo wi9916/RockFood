@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RockFood.Interfaces
 {
-    public interface ISerializeStoragable
+    public interface IStoragDatable
     {
-        bool WriteFileSerialize<T>(T obj);
-        T ReadFileSerialize<T>(T obj);
+        bool WriteFile<T>(T obj);
+        T ReadFile<T>(T obj);
         bool CheckFileAvailability();
     }
 }

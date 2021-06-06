@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class SerializeStorage: ISerializeStoragable
+    public class StorageDate: IStoragDatable
     {
         private readonly string _folderPath;
         private readonly string _fileName;
-        public SerializeStorage(string fileName)
+        public StorageDate(string fileName)
         {
             _fileName = fileName;
-            _folderPath = GenerateFolderPath("Serializations");
+            _folderPath = GenerateFoldersPath("Serializations");
         }               
-        public bool WriteFileSerialize<T>(T obj)
+        public bool WriteFile<T>(T obj)
         {           
             if (!Directory.Exists(_folderPath))
                 Directory.CreateDirectory(_folderPath);
@@ -30,7 +30,7 @@ namespace RockFood.Services
 
             return true;
         }
-        public T ReadFileSerialize<T>(T obj)
+        public T ReadFile<T>(T obj)
         {
             var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
             Speaker.Output("Desialization " + obj.GetType(), "Serializer");
@@ -40,7 +40,7 @@ namespace RockFood.Services
         {           
             return File.Exists(Path.Combine(_folderPath, _fileName));
         }    
-        private string GenerateFolderPath(string folderName)
+        private string GenerateFoldersPath(string folderName)
         {
             var pathParts = new[]
             {

@@ -10,9 +10,9 @@ namespace RockFood.Services
 {
     public class Storage : IStoredable
     {
-        private readonly ISerializeStoragable _serializeStorage;
+        private readonly IStoragDatable _serializeStorage;
         public List<Food> Foods { get; set; }
-        public Storage(ISerializeStoragable serializeStorage)
+        public Storage(IStoragDatable serializeStorage)
         {
             _serializeStorage = serializeStorage;
             Foods = new List<Food>();
@@ -20,11 +20,11 @@ namespace RockFood.Services
             if (!_serializeStorage.CheckFileAvailability())
             {
                 CreateNewBaseStorage();
-                _serializeStorage.WriteFileSerialize(Foods);
+                _serializeStorage.WriteFile(Foods);
             }
             else
             {
-                Foods = _serializeStorage.ReadFileSerialize(Foods);
+                Foods = _serializeStorage.ReadFile(Foods);
             }
         }
         private void CreateNewBaseStorage()
@@ -38,7 +38,7 @@ namespace RockFood.Services
         {
             item.Id = Foods.Max(f => f.Id) + 1;
             Foods.Add(item);
-            _serializeStorage.WriteFileSerialize(Foods);
+            _serializeStorage.WriteFile(Foods);
         }
         public bool GetItem(Food item)
         {
@@ -47,7 +47,7 @@ namespace RockFood.Services
                 return false;
 
             Foods[index] = item;
-            _serializeStorage.WriteFileSerialize(Foods);
+            _serializeStorage.WriteFile(Foods);
 
             return true;
         }

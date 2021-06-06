@@ -10,21 +10,21 @@ namespace RockFood.Services
 {
     public class Residents: IResidentable
     {
-        private readonly SerializeStorage _serializeStorage;
+        private readonly StorageDate _storageDate;
         public List<Customer> Customers { get; }      
-        public Residents(SerializeStorage serializeStorage)
+        public Residents(StorageDate serializeStorage)
         {
-            _serializeStorage = serializeStorage; 
+            _storageDate = serializeStorage; 
             Customers = new List<Customer>();           
 
-            if (!_serializeStorage.CheckFileAvailability())
+            if (!_storageDate.CheckFileAvailability())
             {
                 CreateNewResidents();
-                _serializeStorage.WriteFileSerialize(Customers);
+                _storageDate.WriteFile(Customers);
             }                
             else
             {
-                Customers = _serializeStorage.ReadFileSerialize(Customers);
+                Customers = _storageDate.ReadFile(Customers);
             }                                   
         }
         private void CreateNewResidents()
@@ -37,7 +37,7 @@ namespace RockFood.Services
         {
             item.Id = Customers.Max(f => f.Id) + 1;
             Customers.Add(item);
-            _serializeStorage.WriteFileSerialize(Customers);
+            _storageDate.WriteFile(Customers);
         }
         public bool GetItem(Customer item)
         {
@@ -46,7 +46,7 @@ namespace RockFood.Services
                 return false;
 
             Customers[index] = item;
-            _serializeStorage.WriteFileSerialize(Customers);
+            _storageDate.WriteFile(Customers);
 
             return true;
         }
