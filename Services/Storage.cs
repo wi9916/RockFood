@@ -53,7 +53,11 @@ namespace RockFood.Services
         }
         public Food GetFoodById(int itemId)
         {
-            return Foods.FirstOrDefault(f => f.Id == itemId);
+            var food = Foods.FirstOrDefault(f => f.Id == objectId);
+            if (food is null)
+                return new Food();
+
+            return food;
         }
     }
 }
