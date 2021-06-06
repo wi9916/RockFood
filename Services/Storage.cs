@@ -28,7 +28,7 @@ namespace RockFood.Services
             Foods.Add(new Food { Id = 3, Name = "Same Cakes", Price = 10, Count = 5 });
             Foods.Add(new Food { Id = 4, Name = "Gem", Price = 10, Count = 5 });
         }
-        public IFoodable GetObject(int objectId)
+        public Food GetObject(int objectId)
         {
             var food = Foods.FirstOrDefault(f => f.Id == objectId);
             if (food is null)
