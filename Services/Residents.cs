@@ -38,18 +38,7 @@ namespace RockFood.Services
             item.Id = Customers.Max(f => f.Id) + 1;
             Customers.Add(item);
             _storageDate.SaveData(Customers);
-        }
-        public bool GetResident(Customer item)
-        {
-            var index = Customers.FindIndex(f => f.Id == item.Id);
-            if (index == -1)
-                return false;
-
-            Customers[index] = item;
-            _storageDate.SaveData(Customers);
-
-            return true;
-        }
+        }        
         public Customer GetResidentById(int itemId)
         {
             return Customers.FirstOrDefault(f => f.Id == itemId);

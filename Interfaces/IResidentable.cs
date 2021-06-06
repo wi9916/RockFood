@@ -11,7 +11,6 @@ namespace RockFood.Interfaces
     {
         List<Customer> Customers { get;}
         void AddResident(Customer item);
-        bool GetResident(Customer item);
         Customer GetResidentById(int itemId);
     }
 }

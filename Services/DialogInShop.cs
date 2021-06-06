@@ -127,8 +127,7 @@ namespace RockFood.Services
             return true;                     
         }
         public void ValidatorDialog()
-        {
-            
+        {          
             while(true)
             {
                 Speaker.Output("Tap you phone number: ");
@@ -144,7 +143,6 @@ namespace RockFood.Services
 
             while (true)
             {
-
                 Speaker.Output("Tap you address: ");
                 var address = Console.ReadLine();
                 if (ContactInfoValidator.CheckAddress(address))
