@@ -9,8 +9,6 @@ namespace RockFood.Interfaces
 {
     public interface IResidentable
     {
-        List<Customer> Customers { get;}
-        void AddResident(Customer item);
-        Customer GetResidentById(int itemId);
+        List<Customer> Customers { get; set; }       
     }
 }

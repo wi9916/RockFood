@@ -12,15 +12,20 @@ namespace RockFood.Services
     {
         private readonly IStoredable _storage;
         private readonly ILogger _logger;
-        public StorageOperation(IStoredable sameFoods, ILogger logger)
+        private readonly IDataStorage _dateStorage;
+        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dateStorage)
         {
             _storage = sameFoods;
             _logger = logger;
+            _dateStorage = dateStorage;
+            _storage.Foods = _dateStorage.LoadData(_storage.Foods);            
         }
         
         public void AddFood(Food food)
         {
-            _storage.AddFood(food);
+            food.Id = _storage.Foods.Max(f => f.Id) + 1;
+            _storage.Foods.Add(food);
+            _dateStorage.SaveData(_storage.Foods);
 
             var message = " Put new food Name: " + food.Name + ", Count: "
                 + food.Count + ", Price: " + food.Price;
@@ -30,22 +35,19 @@ namespace RockFood.Services
         }
         public bool GetFood(int foodId, double number)
         {
-            var food = _storage.GetFoodById(foodId);
-            if(food == default)
-                return false;           
+            var index = _storage.Foods.FindIndex(f => f.Id == foodId);
+            if (index == -1)
+                return false;                                
 
-            if(food.Count - number < 1)
-                number = food.Count;
+            if(_storage.Foods[index].Count - number < 1)
+                number = _storage.Foods[index].Count;
 
-            if (!_storage.GetFood(food))
-                return false;
+            var message = " Bought food Name: " + _storage.Foods[index].Name + ", Take: " + number +
+                " / " + _storage.Foods[index].Count + ", For price: " + _storage.Foods[index].Price;
 
-            var message = " Bought food Name: " + food.Name + ", Take: " + number +
-                " / " + food.Count + ", For price: " + food.Price;
-
-            food.Count -= number;
+            _storage.Foods[index].Count -= number;
+            _dateStorage.SaveData(_storage.Foods);
             Speaker.Output(message, "Customer");
-
             return true;
         }
         public bool GetFoodInfo()
@@ -61,12 +63,12 @@ namespace RockFood.Services
         }
         public bool GetFoodInfoById(int foodId)
         {
-            var foods = _storage.GetFoodById(foodId);
-            if (foods is null)
+            var food = _storage.Foods.FirstOrDefault(f => f.Id == foodId);;
+            if (food is null)
                 return false;
 
-            Speaker.Output("Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
-                    + foods.Count.ToString() + " $ - " + foods.Price);
+            Speaker.Output("Food Id - " + food.Id.ToString() + " " + food.Name + ", Count - "
+                    + food.Count.ToString() + " $ - " + food.Price);
 
             return true;          
         }       

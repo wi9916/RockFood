@@ -9,9 +9,6 @@ namespace RockFood.Interfaces
 {
     public interface IStoredable
     {
-        List<Food> Foods { get; set; }
-        void AddFood(Food item);
-        bool GetFood(Food item);
-        Food GetFoodById(int itemId);       
+        List<Food> Foods { get; set; }               
     }
 }

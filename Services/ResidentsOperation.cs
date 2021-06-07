@@ -12,21 +12,24 @@ namespace RockFood.Services
     {
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
-        public ResidentsOperation(IResidentable samePersons, ILogger logger)
+        private readonly DataStorage _dateStorage;
+        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dateStorage)
         {
             _storage = samePersons;
             _logger = logger;
+            _dateStorage = dateStorage;
+            _storage.Customers = _dateStorage.LoadData(_storage.Customers);
         }
         public bool AddCustomer(Customer person)
         {
             if (_storage.Customers is null)
                 return false;
 
-            _storage.AddResident(person);
-
+            person.Id = _storage.Customers.Max(f => f.Id) + 1;            
             var message = " Create new customer Name: " + person.Name;            
             Speaker.Output(message, "Create");
             _logger.Log(base.GetType() + message);
+            _dateStorage.SaveData(_storage.Customers);
 
             return true;          
         }
@@ -43,7 +46,7 @@ namespace RockFood.Services
         }
         public bool GetCustomerInfoById(int customerId)
         {
-            var customer = _storage.GetResidentById(customerId);
+            var customer = _storage.Customers.FirstOrDefault(f => f.Id == customerId); ;
             if (customer is null)           
                 return false;
             
