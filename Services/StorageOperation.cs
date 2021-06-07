@@ -12,10 +12,12 @@ namespace RockFood.Services
     {
         private readonly IStoredable _storage;
         private readonly ILogger _logger;
-        public StorageOperation(IStoredable sameFoods, ILogger logger)
+        private readonly IExchangerable _currencyExchanger;
+        public StorageOperation(IStoredable sameFoods, ILogger logger, IExchangerable currencyExchanger)
         {
             _storage = sameFoods;
             _logger = logger;
+            _currencyExchanger = currencyExchanger;
         }
         
         public void AddFood(Food food)
@@ -48,27 +50,20 @@ namespace RockFood.Services
 
             return true;
         }
-        public bool GetFoodInfo()
+        public async Task GetFoodInfoAsync()
         {
             foreach (var food in _storage.Foods)
-                if (!GetFoodInfoById(food.Id))
-                {
-                    Speaker.Output("Output Error", "Error");
-                    return false;
-                }
-
-            return true;
+               await GetFoodInfoByIdAsync(food.Id);               
         }
-        public bool GetFoodInfoById(int foodId)
+        public async Task GetFoodInfoByIdAsync(int foodId)
         {
             var foods = _storage.GetFoodById(foodId);
-            if (foods is null)
-                return false;
-
-            Speaker.Output("Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
-                    + foods.Count.ToString() + " $ - " + foods.Price);
-
-            return true;          
+            if (foods is not null)
+            {
+                Speaker.Output("Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
+                        + foods.Count.ToString() + " UAN - " + foods.Price +
+                        " USD - " + foods.Price / await _currencyExchanger.GetCurrencyAsync("USD"));
+            }
         }       
     }
 }

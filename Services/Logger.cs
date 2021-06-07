@@ -25,7 +25,7 @@ namespace RockFood.Services
                 _directoryName
             };
             var folderPath = Path.Combine(pathParts);
-            var filePath = Path.Combine(folderPath, _fileName + DateTime.Today.ToString("d-MM-yyyy") + ".txt");
+            var filePath = Path.Combine(folderPath, _fileName + DateTime.Today.ToString("DD-MM-yyyy") + ".txt");
 
             if (!File.Exists(filePath))
                 CreateFile(filePath, folderPath);

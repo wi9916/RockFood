@@ -7,9 +7,11 @@ namespace RockFood
     class Program
     {
         static void Main(string[] args)
-        {
-            var dialog = new DialogInShop(new StorageOperation(new Storage(new DataStorage("foods")), new Logger()), 
-                new ResidentsOperation(new Residents(new DataStorage("customers")), new Logger()));
+        {            
+            var dialog = new DialogInShop(
+                new StorageOperation(new Storage(new DataStorage("foods")), new Logger(), new CurrencyExchanger()), 
+                new ResidentsOperation(new Residents(new DataStorage("customers")), new Logger())
+                );
             dialog.DialogStartWorking();
         }
     }
