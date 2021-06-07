@@ -42,7 +42,6 @@ namespace RockFood.Services
                 }
             }
         }
-
         public void DialogPutNewFood()
         {
             var correctInputFlag = true;
