@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace RockFood.Interfaces
 {
-    public interface IResidentOperationable
+    public interface IDataStorage
     {
-        bool AddCustomer(Customer person);
-        bool GetCustomerInfo();
-        bool GetCustomerInfoById(int customerId);
+        bool SaveData<T>(T obj);
+        T LoadData<T>(T obj);
     }
 }

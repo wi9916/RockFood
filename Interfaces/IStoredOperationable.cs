@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RockFood.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,9 @@ namespace RockFood.Interfaces
 {
     public interface IStoredOperationable
     {
-        bool PutNewFood(IFoodable food);
-        bool TakeFood(int foodId, double number);
-        bool OutputInfoAboutFood();
-        bool OutputInfoAboutFood(int foodId);       
+        void AddFood(Food food);
+        bool GetFood(int foodId, double number);
+        bool GetFoodInfo();
+        bool GetFoodInfoById(int foodId);       
     }
 }

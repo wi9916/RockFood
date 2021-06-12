@@ -11,12 +11,12 @@ namespace RockFood.Services
 {
     public class DialogInShop: IDialogable
     {
-        private readonly IStoredOperationable sameStorage;
-        private readonly IResidentOperationable sameCustomers;      
+        private readonly IStoredOperationable _sameStorage;
+        private readonly IResidentOperationable _sameCustomers;      
         public DialogInShop(IStoredOperationable sameStorage, IResidentOperationable sameCustomers)
         {
-            this.sameStorage = sameStorage;
-            this.sameCustomers = sameCustomers;
+            _sameStorage = sameStorage;
+            _sameCustomers = sameCustomers;          
         }
         public void DialogStartWorking()
         {
@@ -42,7 +42,6 @@ namespace RockFood.Services
                 }
             }
         }
-
         public void DialogPutNewFood()
         {
             var correctInputFlag = true;
@@ -62,7 +61,7 @@ namespace RockFood.Services
                 correctInputFlag = false;
 
             if (correctInputFlag)
-                sameStorage.PutNewFood(new Food { Name = name, Price = price, Count = count });
+                _sameStorage.AddFood(new Food { Name = name, Price = price, Count = count });
             else
                 Speaker.Output("Put food Error", "Error");
         }
@@ -74,14 +73,14 @@ namespace RockFood.Services
             var text = Console.ReadLine().ToString();
             var person = new Customer {Name = text };
             if (text != "9")
-                if (!sameCustomers.CreateNewCustomer(person))
+                if (!_sameCustomers.AddCustomer(person))
                     Speaker.Output("Customer creation Error", "Error");
         }
         public void DialogChooseCustomer()
         {
             Console.Clear();
             Speaker.Output("List of Customer: ");           
-            if(!sameCustomers.OutputInfoAboutCustomer())
+            if(!_sameCustomers.GetCustomerInfo())
                     Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Customers id");
@@ -89,7 +88,7 @@ namespace RockFood.Services
             var text = Console.ReadLine();           
             if (int.TryParse(text, out var customerId))
             {
-                if (sameCustomers.OutputInfoAboutCustomer(customerId))           
+                if (_sameCustomers.GetCustomerInfoById(customerId))           
                     DialogChooseProduct(customerId);
                 else
                     Speaker.Output("Customer Choose Error", "Error");
@@ -101,7 +100,7 @@ namespace RockFood.Services
         {
             Console.Clear();
             Speaker.Output("List of Products: ");
-            if (!sameStorage.OutputInfoAboutFood())
+            if (!_sameStorage.GetFoodInfo())
                 Speaker.Output("Output Error", "Error");
 
             Speaker.Output("Tap Products id");
@@ -117,9 +116,9 @@ namespace RockFood.Services
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            if (sameCustomers.OutputInfoAboutCustomer(customerId))
-                if (sameStorage.OutputInfoAboutFood(foodId))
-                    if (!sameStorage.TakeFood(foodId, 1))
+            if (_sameCustomers.GetCustomerInfoById(customerId))
+                if (_sameStorage.GetFoodInfoById(foodId))
+                    if (!_sameStorage.GetFood(foodId, 1))
                     {
                         Speaker.Output("Product bought Error", "Error");
                         return false;
@@ -127,8 +126,7 @@ namespace RockFood.Services
             return true;                     
         }
         public void ValidatorDialog()
-        {
-            
+        {          
             while(true)
             {
                 Speaker.Output("Tap you phone number: ");
@@ -144,7 +142,6 @@ namespace RockFood.Services
 
             while (true)
             {
-
                 Speaker.Output("Tap you address: ");
                 var address = Console.ReadLine();
                 if (ContactInfoValidator.CheckAddress(address))

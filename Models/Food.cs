@@ -15,5 +15,4 @@ namespace RockFood.Models
         public DateTime UseToDate { get; set; }
         public string ProductsTypeName { get; set; }
     }
-    
 }

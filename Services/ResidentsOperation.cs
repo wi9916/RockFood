@@ -12,28 +12,31 @@ namespace RockFood.Services
     {
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
-        public ResidentsOperation(IResidentable samePersons, ILogger logger)
+        private readonly DataStorage _dateStorage;
+        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dateStorage)
         {
             _storage = samePersons;
             _logger = logger;
+            _dateStorage = dateStorage;
+            _storage.Customers = _dateStorage.LoadData(_storage.Customers);
         }
-        public bool CreateNewCustomer(IPersonable person)
+        public bool AddCustomer(Customer person)
         {
             if (_storage.Customers is null)
                 return false;
 
-            var message = " Create new customer Name: " + person.Name;
-            
-            person.Id = _storage.Customers.Max(f => f.Id) + 1;
-            _storage.Customers.Add(person);
+            person.Id = _storage.Customers.Max(f => f.Id) + 1;            
+            var message = " Create new customer Name: " + person.Name;            
             Speaker.Output(message, "Create");
             _logger.Log(base.GetType() + message);
+            _dateStorage.SaveData(_storage.Customers);
+
             return true;          
         }
-        public bool OutputInfoAboutCustomer()
+        public bool GetCustomerInfo()
         {
             foreach (var customer in _storage.Customers)
-                if (!OutputInfoAboutCustomer(customer.Id))
+                if (!GetCustomerInfoById(customer.Id))
                 {
                     Speaker.Output("Output Error", "Error");
                     return false;
@@ -41,9 +44,9 @@ namespace RockFood.Services
 
             return true;
         }
-        public bool OutputInfoAboutCustomer(int customerId)
+        public bool GetCustomerInfoById(int customerId)
         {
-            var customer = _storage.Customers.FirstOrDefault(f => f.Id == customerId);
+            var customer = _storage.Customers.FirstOrDefault(f => f.Id == customerId); ;
             if (customer is null)           
                 return false;
             
