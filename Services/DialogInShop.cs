@@ -94,7 +94,7 @@ namespace RockFood.Services
         {
             Console.Clear();
             Speaker.Output("List of Products: ");
-            _sameStorage.OutputInfoAboutFood();
+            _sameStorage.OutputInfoAboutFoodAsync();
 
             Speaker.Output("Tap Products id");
 
@@ -110,7 +110,7 @@ namespace RockFood.Services
         public bool DialogBuyProduct(int customerId, int foodId)
         {
             _sameCustomers.GetCustomerInfoById(customerId);
-            _sameStorage.OutputInfoAboutFood(foodId);
+            _sameStorage.OutputInfoAboutFoodAsync(foodId);
                     if (!_sameStorage.GetFood(foodId, 1))
                     {
                         Speaker.Output("Product bought Error", "Error");

@@ -14,12 +14,15 @@ namespace RockFood.Services
         private readonly ILogger _logger;
         private readonly IDataStorage _dateStorage;
         private readonly MemoryCache<IFoodable> _memoryCach;
-        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dateStorage, MemoryCache<IFoodable> memoryCach)
+        private readonly IExchangerable _currencyExchanger;
+        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dateStorage,
+            MemoryCache<IFoodable> memoryCach, IExchangerable currencyExchanger)
         {
             _storage = sameFoods;
             _logger = logger;
             _dateStorage = dateStorage;
             _memoryCach = memoryCach;
+            _currencyExchanger = currencyExchanger;
             _storage.Foods = _dateStorage.LoadData(_storage.Foods);
         }
         
@@ -52,18 +55,19 @@ namespace RockFood.Services
             Speaker.Output(message, "Customer");
             return true;
         }        
-        public void OutputInfoAboutFood()
+        public async Task OutputInfoAboutFoodAsync()
         {
             foreach (var food in _storage.Foods)
-                OutputInfoAboutFood(food.Id);
+                await OutputInfoAboutFoodAsync(food.Id);
         }
-        public void OutputInfoAboutFood(int foodId)
+        public async Task OutputInfoAboutFoodAsync(int foodId)
         {
             var message = default(string);
             var foods = _memoryCach.GetOrCreate(foodId, () => GetObjectById(foodId), out message);
 
             Speaker.Output(message + "Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
-                + foods.Count.ToString() + " $ - " + foods.Price);
+                + foods.Count.ToString() + " $ - " + foods.Price +
+                " USD - " + foods.Price / await _currencyExchanger.GetCurrencyAsync("USD"));
         }
         private IFoodable GetObjectById(int foodId)
         {
