@@ -1,4 +1,4 @@
-﻿using RockFood.Interfaces;
+using RockFood.Interfaces;
 using RockFood.Models;
 using RockFood.Services;
 using System;
@@ -81,7 +81,6 @@ namespace RockFood.Services
             Console.Clear();
             Speaker.Output("List of Customer: ");           
             _sameCustomers.GetCustomerInfo();
-
             Speaker.Output("Tap Customers id");
 
             var text = Console.ReadLine();           
@@ -95,7 +94,6 @@ namespace RockFood.Services
             Console.Clear();
             Speaker.Output("List of Products: ");
             _sameStorage.OutputInfoAboutFoodAsync();
-
             Speaker.Output("Tap Products id");
 
             var text = Console.ReadLine();            

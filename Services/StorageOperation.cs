@@ -1,4 +1,4 @@
-﻿using RockFood.Interfaces;
+using RockFood.Interfaces;
 using RockFood.Models;
 using System;
 using System.Collections.Generic;
@@ -64,6 +64,7 @@ namespace RockFood.Services
         {
             var message = default(string);
             var foods = _memoryCach.GetOrCreate(foodId, () => GetObjectById(foodId), out message);
+
 
             Speaker.Output(message + "Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
                 + foods.Count.ToString() + " $ - " + foods.Price +
