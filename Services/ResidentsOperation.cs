@@ -12,36 +12,43 @@ namespace RockFood.Services
     {
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
+        private readonly DataStorage _dateStorage;
         private readonly MemoryCache<IPersonable> _memoryCach;
-        public ResidentsOperation(IResidentable samePersons, ILogger logger, MemoryCache<IPersonable> memoryCach)
-        {            
+        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dateStorage, MemoryCache<IPersonable> memoryCach)
+        {
             _storage = samePersons;
             _logger = logger;
+            _dateStorage = dateStorage;
             _memoryCach = memoryCach;
+            _storage.Customers = _dateStorage.LoadData(_storage.Customers);
         }
-        public bool CreateNewCustomer(Customer person)
+        public bool AddCustomer(Customer person)
         {
             if (_storage.Customers is null)
                 return false;
 
-            var message = " Create new customer Name: " + person.Name;
-            
-            person.Id = _storage.Customers.Max(f => f.Id) + 1;
-            _storage.Customers.Add(person);
+            person.Id = _storage.Customers.Max(f => f.Id) + 1;            
+            var message = " Create new customer Name: " + person.Name;            
             Speaker.Output(message, "Create");
             _logger.Log(base.GetType() + message);
+            _dateStorage.SaveData(_storage.Customers);
+
             return true;          
         }
-        public void OutputInfoAboutCustomer()
+        public void GetCustomerInfo()
         {
             foreach (var customer in _storage.Customers)
-                OutputInfoAboutCustomer(customer.Id);                               
+                GetCustomerInfoById(customer.Id);
         }
-        public void OutputInfoAboutCustomer(int customerId)
+        public void GetCustomerInfoById(int customerId)
         {
             var message = default(string);
-            var customer = _memoryCach.GetOrCreate(customerId, () => _storage.GetObject(customerId),out message);
-            Speaker.Output(message + "Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);        
-        }         
+            var customer = _memoryCach.GetOrCreate(customerId, () => GetObjectById(customerId), out message);                      
+            Speaker.Output(message + "Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);         
+        }
+        private IPersonable GetObjectById(int customerId)
+        {
+            return _storage.Customers.FirstOrDefault(f => f.Id == customerId);
+        }
     }
 }

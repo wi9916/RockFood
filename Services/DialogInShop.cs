@@ -42,7 +42,6 @@ namespace RockFood.Services
                 }
             }
         }
-
         public void DialogPutNewFood()
         {
             var correctInputFlag = true;
@@ -62,7 +61,7 @@ namespace RockFood.Services
                 correctInputFlag = false;
 
             if (correctInputFlag)
-                _sameStorage.PutNewFood(new Food { Name = name, Price = price, Count = count });
+                _sameStorage.AddFood(new Food { Name = name, Price = price, Count = count });
             else
                 Speaker.Output("Put food Error", "Error");
         }
@@ -74,31 +73,31 @@ namespace RockFood.Services
             var text = Console.ReadLine().ToString();
             var person = new Customer {Name = text };
             if (text != "9")
-                if (!_sameCustomers.CreateNewCustomer(person))
+                if (!_sameCustomers.AddCustomer(person))
                     Speaker.Output("Customer creation Error", "Error");
         }
         public void DialogChooseCustomer()
         {
             Console.Clear();
+            Speaker.Output("List of Customer: ");           
+            _sameCustomers.GetCustomerInfo();
+
             Speaker.Output("Tap Customers id");
-            Speaker.Output("List of Customer: ");
-            _sameCustomers.OutputInfoAboutCustomer();
-                    
+
             var text = Console.ReadLine();           
             if (int.TryParse(text, out var customerId))
-            {         
-                DialogChooseProduct(customerId);                
-            }
+                DialogChooseProduct(customerId);               
             else
                 Speaker.Output("Customer Choose Error", "Error");
         }
         public void DialogChooseProduct(int customerId)
         {
             Console.Clear();
-            Speaker.Output("Tap Products id");
             Speaker.Output("List of Products: ");
-            _sameStorage.OutputInfoAboutFood();            
-            
+            _sameStorage.OutputInfoAboutFood();
+
+            Speaker.Output("Tap Products id");
+
             var text = Console.ReadLine();            
             if (int.TryParse(text, out var foodId))
             {             
@@ -110,16 +109,17 @@ namespace RockFood.Services
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            if (!_sameStorage.TakeFood(foodId, 1))
-            {
-                Speaker.Output("Product bought Error", "Error");
-                return false;
-            }
+            _sameCustomers.GetCustomerInfoById(customerId);
+            _sameStorage.OutputInfoAboutFood(foodId);
+                    if (!_sameStorage.GetFood(foodId, 1))
+                    {
+                        Speaker.Output("Product bought Error", "Error");
+                        return false;
+                    }
             return true;                     
         }
         public void ValidatorDialog()
-        {
-            
+        {          
             while(true)
             {
                 Speaker.Output("Tap you phone number: ");
@@ -135,7 +135,6 @@ namespace RockFood.Services
 
             while (true)
             {
-
                 Speaker.Output("Tap you address: ");
                 var address = Console.ReadLine();
                 if (ContactInfoValidator.CheckAddress(address))

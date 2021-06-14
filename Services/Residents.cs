@@ -10,29 +10,10 @@ namespace RockFood.Services
 {
     public class Residents: IResidentable
     {
-        public List<Customer> Customers { get; }
+        public List<Customer> Customers { get; set;}    
         public Residents()
-        {
-            var ser = new Serializer("customers");
-            Customers = new List<Customer>();           
-            CreateNewResidents();
-
-            if (!ser.Serialize(Customers))
-                Customers = ser.Desialize(Customers);
-        }
-        private void CreateNewResidents()
-        {           
-            Customers.Add(new Customer { Id = 1, Name = "Jon" });
-            Customers.Add(new Customer { Id = 2, Name = "Petro" });
-            Customers.Add(new Customer { Id = 3, Name = "Van" });
-        }
-        public Customer GetObject(int objectId)
-        {
-            var customer = Customers.FirstOrDefault(f => f.Id == objectId);
-            if (customer is null)
-                return new Customer();
-
-            return customer;
-        }       
+        {            
+            Customers = new List<Customer>();                                  
+        }        
     }
 }

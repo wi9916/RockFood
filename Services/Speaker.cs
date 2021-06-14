@@ -14,11 +14,11 @@ namespace RockFood.Services
         public static void Output(string message, string messageAuthor = "System")
         {
             Console.WriteLine("{0}: {1}", messageAuthor, message);
-            if (messageAuthor != "System")
+            if (messageAuthor != "System")                            
                 Console.ReadKey();
 
             if (messageAuthor == "Error")
-                _logger.Log(message, MessageTypes.Error);
-        }
+                _logger.Log(message,MessageTypes.Error);
+        }      
     }
 }

@@ -12,59 +12,62 @@ namespace RockFood.Services
     {
         private readonly IStoredable _storage;
         private readonly ILogger _logger;
+        private readonly IDataStorage _dateStorage;
         private readonly MemoryCache<IFoodable> _memoryCach;
-        public StorageOperation(IStoredable sameFoods, ILogger logger, MemoryCache<IFoodable> memoryCach)
+        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dateStorage, MemoryCache<IFoodable> memoryCach)
         {
-            _memoryCach = memoryCach; ;
             _storage = sameFoods;
             _logger = logger;
+            _dateStorage = dateStorage;
+            _memoryCach = memoryCach;
+            _storage.Foods = _dateStorage.LoadData(_storage.Foods);
         }
         
-        public bool PutNewFood(Food food)
+        public void AddFood(Food food)
         {
-            if (_storage is null)
-                return false;
-
             food.Id = _storage.Foods.Max(f => f.Id) + 1;
             _storage.Foods.Add(food);
+            _dateStorage.SaveData(_storage.Foods);
 
             var message = " Put new food Name: " + food.Name + ", Count: "
                 + food.Count + ", Price: " + food.Price;
 
             Speaker.Output(message, "Customer");
             _logger.Log(base.GetType() + message);
-            return true;
         }
-        public bool TakeFood(int foodId, double number)
-        {            
+        public bool GetFood(int foodId, double number)
+        {
             var index = _storage.Foods.FindIndex(f => f.Id == foodId);
             if (index == -1)
-                return false;
+                return false;                                
 
-            if(_storage.Foods[index].Count- number < 1)
-                number = _storage.Foods[index].Count;            
+            if(_storage.Foods[index].Count - number < 1)
+                number = _storage.Foods[index].Count;
 
             var message = " Bought food Name: " + _storage.Foods[index].Name + ", Take: " + number +
                 " / " + _storage.Foods[index].Count + ", For price: " + _storage.Foods[index].Price;
 
             _storage.Foods[index].Count -= number;
+            _dateStorage.SaveData(_storage.Foods);
             Speaker.Output(message, "Customer");
-
-            _logger.Log(base.GetType() + message);
             return true;
-        }
+        }        
         public void OutputInfoAboutFood()
         {
             foreach (var food in _storage.Foods)
-                OutputInfoAboutFood(food.Id);                
+                OutputInfoAboutFood(food.Id);
         }
         public void OutputInfoAboutFood(int foodId)
         {
             var message = default(string);
-            var foods = _memoryCach.GetOrCreate(foodId, () => _storage.GetObject(foodId), out message);
+            var foods = _memoryCach.GetOrCreate(foodId, () => GetObjectById(foodId), out message);
 
             Speaker.Output(message + "Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
                 + foods.Count.ToString() + " $ - " + foods.Price);
+        }
+        private IFoodable GetObjectById(int foodId)
+        {
+            return _storage.Foods.FirstOrDefault(f => f.Id == foodId);
         }
     }
 }

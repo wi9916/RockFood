@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace RockFood.Interfaces
 {
-    public interface IResidentable
+    public interface IDataStorage
     {
-        List<Customer> Customers { get; set; }       
+        bool SaveData<T>(T obj);
+        T LoadData<T>(T obj);
     }
 }
