@@ -1,4 +1,4 @@
-﻿using RockFood.Interfaces;
+using RockFood.Interfaces;
 using RockFood.Models;
 using System;
 using System.Collections.Generic;
@@ -21,8 +21,7 @@ namespace RockFood.Services
             _dateStorage = dateStorage;
             _memoryCach = memoryCach;
             _storage.Foods = _dateStorage.LoadData(_storage.Foods);
-        }
-        
+        }      
         public void AddFood(Food food)
         {
             food.Id = _storage.Foods.Max(f => f.Id) + 1;
