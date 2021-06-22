@@ -5,7 +5,7 @@ SELECT *
   FROM [dbo].[Customers]
   Where  [Region] = 'SP' 
 
-INTERSECT
+EXCEPT
 
 SELECT *
   FROM [dbo].[Customers]
