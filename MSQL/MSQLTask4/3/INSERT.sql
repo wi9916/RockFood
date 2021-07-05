@@ -1,8 +1,11 @@
 USE [BdRockFood]
 GO
 
-INSERT INTO [dbo].[Person]           
+INSERT INTO [dbo].[Test]
+           ([TestId]
+           ,[Text])
      VALUES
-           ([dbo].[Function_GenerateID] (),'Alik Mercer','img/Avatar/Alik'
-		   ,'01222224212','Alik@mail.com','Function_GenerateId')
+           ([dbo].[Function_GenerateID]('Test'),'FunctionId')
 GO
+
+
