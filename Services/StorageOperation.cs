@@ -13,8 +13,8 @@ namespace RockFood.Services
         private readonly IStoredable _storage;
         private readonly ILogger _logger;
         private readonly IDataStorage _dateStorage;
-        private readonly MemoryCache<IFoodable> _memoryCach;
-        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dateStorage, MemoryCache<IFoodable> memoryCach)
+        private readonly MemoryCachable<IFoodable> _memoryCach;
+        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dateStorage, MemoryCachable<IFoodable> memoryCach)
         {
             _storage = sameFoods;
             _logger = logger;

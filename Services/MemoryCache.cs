@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using RockFood.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class MemoryCache<TItem>
+    public class MemoryCache<TItem>: MemoryCachable<TItem>
     {
         private MemoryCache _cache = new MemoryCache(new MemoryCacheOptions()
         {
