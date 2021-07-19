@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockFood.Models
+namespace Entity.Models
 {
     public class Product: Productable
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string ImageName { get; set; }
-        public int CompanyId { get; set; }
         public int CategoryId { get; set; }
         public string About { get; set; }
         public decimal Price { get; set; }

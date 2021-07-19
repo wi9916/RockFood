@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockFood.Models
+namespace Entity.Models
 {
     public class Order: Orderable
     {    

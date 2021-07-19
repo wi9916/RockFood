@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class Company: Companable
+    public class ProductsFromCompany: ProductsFromCompanable
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string ImageName { get; set; }
-        public string About { get; set; }
+        public int CompanyId { get; set; }
+        public int ProductId { get; set; }
+        
     }
 }
