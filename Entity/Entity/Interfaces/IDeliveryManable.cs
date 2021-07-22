@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entity.Interfaces
 {
-    public interface DeliveryManable: Personable
+    public interface IDeliveryManable: IPersonable
     {
         string WorkTime { get; set; }
-        IEnumerable<Orderable> Orders { get; set; }
+        IEnumerable<IOrderable> Orders { get; set; }
         bool IsAvailable { get; set; }
     }
 }

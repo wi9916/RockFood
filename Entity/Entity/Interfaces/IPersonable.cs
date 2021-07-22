@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Interfaces
 {
-    public interface Personable
+    public interface IPersonable
     {
         int Id { get; set; }
         string Name { get; set; }

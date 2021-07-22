@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class Delivery: Deliverable
+    public class Delivery: IDeliverable
     {
         public int Id { get; set; }        
         public int DeliveryDistance { get; set; }

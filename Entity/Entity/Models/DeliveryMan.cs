@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class DeliveryMan : Person, DeliveryManable
+    public class DeliveryMan : Person, IDeliveryManable
     {
         public string WorkTime { get; set; }
-        public IEnumerable<Orderable> Orders { get; set; }
+        public IEnumerable<IOrderable> Orders { get; set; }
         public bool IsAvailable { get; set; }
     }
 }

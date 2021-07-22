@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class Company: Companable
+    public class Company: ICompanable
     {
         public int Id { get; set; }
         public string Name { get; set; }

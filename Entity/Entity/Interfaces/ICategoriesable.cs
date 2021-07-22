@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entity.Interfaces
 {
-    public interface Customerable: Personable
+    public interface ICategoriesable
     {
-        double Discount { get; set; }
-        string Address { get; set; }
+        int Id { get; set; }
+        string Name { get; set; }
+        int ParentCategoryId { get; set; }
     }
 }

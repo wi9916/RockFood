@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class Product: Productable
+    public class Product: IProductable
     {
         public int Id { get; set; }
         public string Name { get; set; }

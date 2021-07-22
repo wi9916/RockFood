@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Entity.Interfaces
 {
-    public interface Deliverable
+    public interface IProductable
     {
         int Id { get; set; }
-        int DeliveryDistance { get; set; }
-        double SizeMin { get; set; }
-        double SizeMax { get; set; }
+        string Name { get; set; }
+        string ImageName { get; set; }
+        int CategoryId { get; set; }
+        string About { get; set; }
         decimal Price { get; set; }
     }
 }

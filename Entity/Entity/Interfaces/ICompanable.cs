@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entity.Interfaces
 {
-    public interface ProductsFromCompanable
+    public interface ICompanable
     {
         int Id { get; set; }
-        int CompanyId { get; set; }
-        int ProductId { get; set; }
+        string Name { get; set; }
+        string ImageName { get; set; }
+        string About { get; set; }
     }
 }

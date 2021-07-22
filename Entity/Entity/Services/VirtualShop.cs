@@ -10,17 +10,17 @@ namespace Entity.Services
 {
     public class VirtualShop
     {
-        public List<Productable> MyProducts { get; set; }
-        public List<Companable> MyCompanies { get; set; }
-        public List<Categoriesable> MyCategories { get; set; }
-        public List<ProductsFromCompanable> MyProductsFromCompanies { get; set; }
+        public List<IProductable> MyProducts { get; set; }
+        public List<ICompanable> MyCompanies { get; set; }
+        public List<ICategoriesable> MyCategories { get; set; }
+        public List<IProductsFromCompanable> MyProductsFromCompanies { get; set; }
 
         public VirtualShop()
         {
-            MyProducts = new List<Productable>();
-            MyCompanies = new List<Companable>();
-            MyCategories = new List<Categoriesable>();
-            MyProductsFromCompanies = new List<ProductsFromCompanable>();
+            MyProducts = new List<IProductable>();
+            MyCompanies = new List<ICompanable>();
+            MyCategories = new List<ICategoriesable>();
+            MyProductsFromCompanies = new List<IProductsFromCompanable>();
             StartValue();
         }
         private void StartValue()

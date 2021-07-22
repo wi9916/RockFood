@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class Order: Orderable
+    public class Order: IOrderable
     {    
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }

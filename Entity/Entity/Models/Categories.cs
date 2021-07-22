@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class Categories: Categoriesable
+    public class Categories: ICategoriesable
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Interfaces
 {
-    public interface Orderable
+    public interface IOrderable
     {
         int Id { get; set; }
         DateTime CreatedDate { get; set; }

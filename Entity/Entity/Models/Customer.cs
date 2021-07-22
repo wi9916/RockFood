@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class Customer : Person, Customerable
+    public class Customer : Person, ICustomerable
     {
         public double Discount { get; set; }
         public string Address { get; set; }
