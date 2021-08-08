@@ -10,7 +10,7 @@ namespace RockFood.Interfaces
     public interface IResidentOperationable
     {
         bool AddCustomer(Customer person);
-        void GetCustomerInfo();
-        void GetCustomerInfoById(int customerId);
+        void OutputCustomerInfo();
+        void OutputCustomerInfoById(int customerId);
     }
 }

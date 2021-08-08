@@ -9,9 +9,17 @@ namespace RockFood
     {
         static void Main(string[] args)
         {
+            var sameFoods = new Storage();
+            var foodDataStorage = new DataStorage("foods");
+            sameFoods.Foods = foodDataStorage.LoadData(sameFoods.Foods);
+
+            var samePersons= new Residents();
+            var customerDataStorage = new DataStorage("customers");
+            samePersons.Customers = customerDataStorage.LoadData(samePersons.Customers);
+
             var dialog = new DialogInShop(
-                new StorageOperation(new Storage(), new Logger(), new DataStorage("foods"), new MemoryCache<IFoodable>()), 
-                new ResidentsOperation(new Residents(), new Logger(), new DataStorage("customers"), new MemoryCache<IPersonable>())
+                new StorageOperation(sameFoods, new Logger(), foodDataStorage, new MemoryCache<IFoodable>()), 
+                new ResidentsOperation(samePersons, new Logger(), customerDataStorage, new MemoryCache<IPersonable>())
                 );
             dialog.DialogStartWorking();
         }

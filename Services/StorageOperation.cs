@@ -12,21 +12,20 @@ namespace RockFood.Services
     {
         private readonly IStoredable _storage;
         private readonly ILogger _logger;
-        private readonly IDataStorage _dateStorage;
-        private readonly MemoryCachable<IFoodable> _memoryCach;
-        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dateStorage, MemoryCachable<IFoodable> memoryCach)
+        private readonly IDataStorage _dataStorage;
+        private readonly MemoryCachable<IFoodable> _memoryCache;
+        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dataStorage, MemoryCachable<IFoodable> memoryCach)
         {
             _storage = sameFoods;
             _logger = logger;
-            _dateStorage = dateStorage;
-            _memoryCach = memoryCach;
-            _storage.Foods = _dateStorage.LoadData(_storage.Foods);
+            _dataStorage = dataStorage;
+            _memoryCache = memoryCach;
         }      
         public void AddFood(Food food)
         {
             food.Id = _storage.Foods.Max(f => f.Id) + 1;
             _storage.Foods.Add(food);
-            _dateStorage.SaveData(_storage.Foods);
+            _dataStorage.SaveData(_storage.Foods);
 
             var message = " Put new food Name: " + food.Name + ", Count: "
                 + food.Count + ", Price: " + food.Price;
@@ -47,7 +46,7 @@ namespace RockFood.Services
                 " / " + _storage.Foods[index].Count + ", For price: " + _storage.Foods[index].Price;
 
             _storage.Foods[index].Count -= number;
-            _dateStorage.SaveData(_storage.Foods);
+            _dataStorage.SaveData(_storage.Foods);
             Speaker.Output(message, "Customer");
             return true;
         }        
@@ -59,7 +58,7 @@ namespace RockFood.Services
         public void OutputInfoAboutFood(int foodId)
         {
             var message = default(string);
-            var foods = _memoryCach.GetOrCreate(foodId, () => GetObjectById(foodId), out message);
+            var foods = _memoryCache.GetOrCreate(foodId, () => GetObjectById(foodId), out message);
 
             Speaker.Output(message + "Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
                 + foods.Count.ToString() + " $ - " + foods.Price);

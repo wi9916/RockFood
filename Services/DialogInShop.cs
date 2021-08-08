@@ -80,7 +80,7 @@ namespace RockFood.Services
         {
             Console.Clear();
             Speaker.Output("List of Customer: ");           
-            _sameCustomers.GetCustomerInfo();
+            _sameCustomers.OutputCustomerInfo();
             Speaker.Output("Tap Customers id");
 
             var text = Console.ReadLine();           
@@ -107,7 +107,7 @@ namespace RockFood.Services
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            _sameCustomers.GetCustomerInfoById(customerId);
+            _sameCustomers.OutputCustomerInfoById(customerId);
             _sameStorage.OutputInfoAboutFood(foodId);
                     if (!_sameStorage.GetFood(foodId, 1))
                     {
