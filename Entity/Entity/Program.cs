@@ -9,10 +9,10 @@ namespace Entity
         {
             var SameShop = new VirtualShop();
 
-            //    SameShop.GetAllProduct();            
-            //    SameShop.GetAllProductWithCompany();
-            //    SameShop.GetAllCategories();
-            //    SameShop.GetAllCompany();
+            SameShop.GetAllProduct();
+            SameShop.GetAllProductWithCompany();
+            SameShop.GetAllCategories();
+            SameShop.GetAllCompany();
             SameShop.GetProductFromCompany(1,2);
         }
     }

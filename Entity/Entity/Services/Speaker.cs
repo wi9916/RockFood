@@ -10,7 +10,7 @@ namespace Entity.Services
     {        
         public static void Output(string message, string messageAuthor = "System")
         {
-            Console.WriteLine("{0}: {1}", messageAuthor, message);
+            Console.WriteLine($"{messageAuthor}: {message}");
             if (messageAuthor != "System")
                 Console.ReadKey();           
         }
