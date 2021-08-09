@@ -12,7 +12,6 @@ namespace EntityTest
         {
             _context = new DataContext();
             _context.Database.EnsureCreated();
-            //Add(new Person() {Name = "Vilamina" });
             GetPersons();
         }
         private static void Add<t>(t obj)
@@ -25,7 +24,7 @@ namespace EntityTest
             var people = _context.Persons.ToList();
             foreach(var p in people)
             {
-                Console.WriteLine($"Id:{p.Id} Name:{p.Name}");
+                Console.WriteLine($"Id:{p.Id} Name:{p.Name} Letter:{p.NameLetterCount}");
             }
         }
     }
