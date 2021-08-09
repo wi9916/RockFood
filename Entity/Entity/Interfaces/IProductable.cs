@@ -12,6 +12,7 @@ namespace Entity.Interfaces
         string Name { get; set; }
         string ImageName { get; set; }
         int CategoryId { get; set; }
+        int CompanyId { get; set; }
         string About { get; set; }
         decimal Price { get; set; }
     }

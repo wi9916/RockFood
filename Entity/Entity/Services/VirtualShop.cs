@@ -54,7 +54,11 @@ namespace Entity.Services
         {
             Speaker.Output("===========================================================================");
             Speaker.Output("All Product");
-            
+
+            //var products = from e in MyProduct
+            //               orderby e.Name
+            //               select e;
+
             var products = MyProducts.Select(e => e).OrderBy(e => e.Name);
 
             foreach (var p in products)
@@ -93,9 +97,8 @@ namespace Entity.Services
                         });
             foreach (var p in products)
             {
-                Speaker.Output("Name - " + p.Name + "; Count - " + p.Count);               
+                Speaker.Output("Name - " + p.Name + "; Count - " + p.Count);
             }
-           
         }
         public void GetAllCompany()
         {

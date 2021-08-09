@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "server=DESKTOP-4H5PP4L;database=BdRock; Trusted_Connection=Yes;"
+  }
+}
