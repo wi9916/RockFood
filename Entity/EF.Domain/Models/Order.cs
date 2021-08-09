@@ -1,5 +1,4 @@
-﻿using Entity.Interfaces;
-using Entity.Models;
+﻿using Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class Order: IOrderable
+    public class Order
     {    
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
