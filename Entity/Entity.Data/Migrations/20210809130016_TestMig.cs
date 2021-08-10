@@ -5,7 +5,7 @@ namespace Entity.Data.Migrations
     public partial class TestMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
+        {            
             migrationBuilder.AddColumn<string>(
                 name: "TestFild",
                 table: "Persons",
@@ -14,7 +14,7 @@ namespace Entity.Data.Migrations
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        {          
             migrationBuilder.DropColumn(
                 name: "TestFild",
                 table: "Persons");

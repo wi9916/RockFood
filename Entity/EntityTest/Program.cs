@@ -12,6 +12,10 @@ namespace EntityTest
         {
             _context = new DataContext();
             _context.Database.EnsureCreated();
+            
+            //var cust = new Customer() { Discount = 22 };
+            //var obj = new Person() { Name = "Tolik",Customer = cust};
+            //Add(obj);
             GetPersons();
         }
         private static void Add<t>(t obj)
