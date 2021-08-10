@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace RockFood.Models
 {
-    public class Customer : Person
+    public class Customer
     {
+        public int Id { get; set; }
+        public int PersonId { get; set; }
         public double Discount { get; set; }
         public string Address { get; set; }
     }
