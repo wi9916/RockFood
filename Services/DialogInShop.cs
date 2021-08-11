@@ -1,4 +1,4 @@
-﻿using RockFood.Interfaces;
+using RockFood.Interfaces;
 using RockFood.Models;
 using RockFood.Services;
 using System;
@@ -80,19 +80,12 @@ namespace RockFood.Services
         {
             Console.Clear();
             Speaker.Output("List of Customer: ");           
-            if(!_sameCustomers.GetCustomerInfo())
-                    Speaker.Output("Output Error", "Error");
-
+            _sameCustomers.OutputCustomerInfo();
             Speaker.Output("Tap Customers id");
 
             var text = Console.ReadLine();           
             if (int.TryParse(text, out var customerId))
-            {
-                if (_sameCustomers.GetCustomerInfoById(customerId))           
-                    DialogChooseProduct(customerId);
-                else
-                    Speaker.Output("Customer Choose Error", "Error");
-            }
+                DialogChooseProduct(customerId);               
             else
                 Speaker.Output("Customer Choose Error", "Error");
         }
@@ -100,9 +93,7 @@ namespace RockFood.Services
         {
             Console.Clear();
             Speaker.Output("List of Products: ");
-            if (!_sameStorage.GetFoodInfo())
-                Speaker.Output("Output Error", "Error");
-
+            _sameStorage.OutputInfoAboutFood();
             Speaker.Output("Tap Products id");
 
             var text = Console.ReadLine();            
@@ -116,8 +107,8 @@ namespace RockFood.Services
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            if (_sameCustomers.GetCustomerInfoById(customerId))
-                if (_sameStorage.GetFoodInfoById(foodId))
+            _sameCustomers.OutputCustomerInfoById(customerId);
+            _sameStorage.OutputInfoAboutFood(foodId);
                     if (!_sameStorage.GetFood(foodId, 1))
                     {
                         Speaker.Output("Product bought Error", "Error");

@@ -1,4 +1,4 @@
-﻿using RockFood.Interfaces;
+using RockFood.Interfaces;
 using RockFood.Models;
 using System;
 using System.Collections.Generic;
@@ -12,13 +12,14 @@ namespace RockFood.Services
     {
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
-        private readonly DataStorage _dateStorage;
-        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dateStorage)
+        private readonly DataStorage _dataStorage;
+        private readonly MemoryCachable<IPersonable> _memoryCache;
+        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dataStorage, MemoryCachable<IPersonable> memoryCach)
         {
             _storage = samePersons;
             _logger = logger;
-            _dateStorage = dateStorage;
-            _storage.Customers = _dateStorage.LoadData(_storage.Customers);
+            _dataStorage = dataStorage;
+            _memoryCache = memoryCach;
         }
         public bool AddCustomer(Customer person)
         {
@@ -29,29 +30,24 @@ namespace RockFood.Services
             var message = " Create new customer Name: " + person.Name;            
             Speaker.Output(message, "Create");
             _logger.Log(base.GetType() + message);
-            _dateStorage.SaveData(_storage.Customers);
+            _dataStorage.SaveData(_storage.Customers);
 
             return true;          
         }
-        public bool GetCustomerInfo()
+        public void OutputCustomerInfo()
         {
             foreach (var customer in _storage.Customers)
-                if (!GetCustomerInfoById(customer.Id))
-                {
-                    Speaker.Output("Output Error", "Error");
-                    return false;
-                }
-
-            return true;
+                OutputCustomerInfoById(customer.Id);
         }
-        public bool GetCustomerInfoById(int customerId)
+        public void OutputCustomerInfoById(int customerId)
         {
-            var customer = _storage.Customers.FirstOrDefault(f => f.Id == customerId); ;
-            if (customer is null)           
-                return false;
-            
-            Speaker.Output("Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);
-            return true;           
-        }       
+            var message = default(string);
+            var customer = _memoryCache.GetOrCreate(customerId, () => GetObjectById(customerId), out message);                      
+            Speaker.Output(message + "Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);         
+        }
+        private IPersonable GetObjectById(int customerId)
+        {
+            return _storage.Customers.FirstOrDefault(f => f.Id == customerId);
+        }
     }
 }
