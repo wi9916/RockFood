@@ -19,20 +19,12 @@ namespace RockFood.Services
 
             if (!_storageDate.CheckStorageDataAvailability())
             {
-                CreateNewBaseStorage();
                 _storageDate.SaveData(Foods);
             }
             else
             {
                 Foods = _storageDate.LoadData(Foods);
             }
-        }
-        private void CreateNewBaseStorage()
-        {
-            Foods.Add(new Food { Id = 1, Name = "The Best Cakes", Price = 20, Count = 100 });
-            Foods.Add(new Food { Id = 2, Name = "The Cakes", Price = 30, Count = 100 });
-            Foods.Add(new Food { Id = 3, Name = "Same Cakes", Price = 10, Count = 5 });
-            Foods.Add(new Food { Id = 4, Name = "Gem", Price = 10, Count = 5 });
         }
         public void AddFood(Food item)
         {
