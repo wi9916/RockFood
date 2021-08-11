@@ -11,7 +11,7 @@ namespace RockFood.Interfaces
     {
         void AddFood(Food food);
         bool GetFood(int foodId, double number);
-        Task GetFoodInfoAsync();
-        Task GetFoodInfoByIdAsync(int foodId);       
+        Task OutputInfoAboutFoodAsync();
+        Task OutputInfoAboutFoodAsync(int foodId);       
     }
 }

@@ -79,35 +79,27 @@ namespace RockFood.Services
         public void DialogChooseCustomer()
         {
             Console.Clear();
-            Speaker.Output("List of Customer: ");           
-            if(!_sameCustomers.GetCustomerInfo())
-                    Speaker.Output("Output Error", "Error");
-
+            Speaker.Output("List of Customer: ");
+            _sameCustomers.OutputCustomerInfo();
             Speaker.Output("Tap Customers id");
 
-            var text = Console.ReadLine();           
+            var text = Console.ReadLine();
             if (int.TryParse(text, out var customerId))
-            {
-                if (_sameCustomers.GetCustomerInfoById(customerId))           
-                    DialogChooseProduct(customerId);
-                else
-                    Speaker.Output("Customer Choose Error", "Error");
-            }
+                DialogChooseProduct(customerId);
             else
                 Speaker.Output("Customer Choose Error", "Error");
-        }
+        }      
         public void DialogChooseProduct(int customerId)
         {
             Console.Clear();
             Speaker.Output("List of Products: ");
-            _sameStorage.GetFoodInfoAsync();
-
+            _sameStorage.OutputInfoAboutFoodAsync();
             Speaker.Output("Tap Products id");
 
-            var text = Console.ReadLine();            
+            var text = Console.ReadLine();
             if (int.TryParse(text, out var foodId))
-            {             
-                if(!DialogBuyProduct(customerId, foodId))               
+            {
+                if (!DialogBuyProduct(customerId, foodId))
                     Speaker.Output("Product Choose Error", "Error");
             }
             else
@@ -115,15 +107,15 @@ namespace RockFood.Services
         }
         public bool DialogBuyProduct(int customerId, int foodId)
         {
-            if (_sameCustomers.GetCustomerInfoById(customerId))
-                _sameStorage.GetFoodInfoByIdAsync(foodId);
-                    if (!_sameStorage.GetFood(foodId, 1))
-                    {
-                        Speaker.Output("Product bought Error", "Error");
-                        return false;
-                    }
-            return true;                     
-        }
+            _sameCustomers.OutputCustomerInfoById(customerId);
+            _sameStorage.OutputInfoAboutFoodAsync(foodId);
+            if (!_sameStorage.GetFood(foodId, 1))
+            {
+                Speaker.Output("Product bought Error", "Error");
+                return false;
+            }
+            return true;
+        }        
         public void ValidatorDialog()
         {          
             while(true)
