@@ -16,5 +16,11 @@ namespace Entity.Data
         {
             builder.UseSqlServer("Data Source=DESKTOP-4H5PP4L; Integrated Security = true; Initial Catalog = EntityFTest");
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Person>()
+                .HasMany(p => p.Customers)
+                .WithOne(c => c.Person);
+        }
     }
 }

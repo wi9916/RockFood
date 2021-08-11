@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210810101859_AddTrigger")]
-    partial class AddTrigger
+    [Migration("20210811175942_TestMig")]
+    partial class TestMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,8 +38,7 @@ namespace Entity.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId")
-                        .IsUnique();
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Customers");
                 });
@@ -66,6 +65,9 @@ namespace Entity.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Test")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TestFild")
                         .HasColumnType("nvarchar(max)");
 
@@ -77,8 +79,8 @@ namespace Entity.Data.Migrations
             modelBuilder.Entity("Entity.Models.Customer", b =>
                 {
                     b.HasOne("Entity.Models.Person", "Person")
-                        .WithOne("Customer")
-                        .HasForeignKey("Entity.Models.Customer", "PersonId")
+                        .WithMany("Customers")
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -87,7 +89,7 @@ namespace Entity.Data.Migrations
 
             modelBuilder.Entity("Entity.Models.Person", b =>
                 {
-                    b.Navigation("Customer");
+                    b.Navigation("Customers");
                 });
 #pragma warning restore 612, 618
         }

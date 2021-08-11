@@ -1,6 +1,7 @@
 ﻿using Entity.Data;
 using Entity.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EntityTest
@@ -12,10 +13,16 @@ namespace EntityTest
         {
             _context = new DataContext();
             _context.Database.EnsureCreated();
-            
-            //var cust = new Customer() { Discount = 22 };
-            //var obj = new Person() { Name = "Tolik",Customer = cust};
-            //Add(obj);
+            {
+                var pers = new Person() { Name = "Vany" };
+                var cus = new Customer() { Address = "Streat 1" };
+                pers.Customers.Add(cus);
+                cus = new Customer() { Address = "Streat 2" };
+                pers.Customers.Add(cus);
+                cus = new Customer() { Address = "Streat 3" };
+                pers.Customers.Add(cus);
+                Add(pers);
+            }
             GetPersons();
         }
         private static void Add<t>(t obj)
