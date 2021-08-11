@@ -1,4 +1,4 @@
-﻿using RockFood.Interfaces;
+using RockFood.Interfaces;
 using RockFood.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace RockFood.Services
         private readonly IDataStorage _dataStorage;
         private readonly IMemoryCachable<IFoodable> _memoryCache;
         private readonly IExchangerable _currencyExchanger;
+        
         public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dataStorage, IMemoryCachable<IFoodable> memoryCach, IExchangerable currencyExchanger)
         {
             _storage = sameFoods;

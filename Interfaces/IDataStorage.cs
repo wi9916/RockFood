@@ -11,6 +11,5 @@ namespace RockFood.Interfaces
     {
         bool SaveData<T>(T obj);
         T LoadData<T>(T obj);
-        bool CheckStorageDataAvailability();
     }
 }

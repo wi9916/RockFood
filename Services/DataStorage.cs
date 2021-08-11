@@ -39,10 +39,6 @@ namespace RockFood.Services
         {
             var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
             return JsonSerializer.Deserialize<T>(jsonString);
-        }
-        public bool CheckStorageDataAvailability()
-        {           
-            return File.Exists(Path.Combine(_folderPath, _fileName));
-        }            
+        }           
     }
 }

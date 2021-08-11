@@ -1,0 +1,4 @@
+CREATE VIEW rndView
+AS
+SELECT LEFT(NEWID(), 13) Rnd
+GO
