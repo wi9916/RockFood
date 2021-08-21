@@ -18,7 +18,7 @@ namespace RockFood.Services
             _sameStorage = sameStorage;
             _sameCustomers = sameCustomers;          
         }
-        public void DialogStartWorking()
+        public async Task DialogStartWorkingAsync()
         {
             while (true)
             {
@@ -34,7 +34,7 @@ namespace RockFood.Services
                         DialogCreateNewCustomer();
                         break;
                     case "2":
-                        DialogChooseCustomer();
+                        await DialogChooseCustomerAsync();
                         break;
                     case "3":
                         DialogPutNewFood();
@@ -76,30 +76,30 @@ namespace RockFood.Services
                 if (!_sameCustomers.AddCustomer(person))
                     Speaker.Output("Customer creation Error", "Error");
         }
-        public void DialogChooseCustomer()
+        public async Task DialogChooseCustomerAsync()
         {
             Console.Clear();
-            Speaker.Output("List of Customer: ");           
+            Speaker.Output("List of Customer: ");
             _sameCustomers.OutputCustomerInfo();
             Speaker.Output("Tap Customers id");
 
-            var text = Console.ReadLine();           
+            var text = Console.ReadLine();
             if (int.TryParse(text, out var customerId))
-                DialogChooseProduct(customerId);               
+                await DialogChooseProductAsync(customerId);
             else
                 Speaker.Output("Customer Choose Error", "Error");
-        }
-        public void DialogChooseProduct(int customerId)
+        }      
+        public async Task DialogChooseProductAsync(int customerId)
         {
             Console.Clear();
             Speaker.Output("List of Products: ");
-            _sameStorage.OutputInfoAboutFood();
+            await _sameStorage.OutputInfoAboutFoodAsync();
             Speaker.Output("Tap Products id");
 
-            var text = Console.ReadLine();            
+            var text = Console.ReadLine();
             if (int.TryParse(text, out var foodId))
-            {             
-                if(!DialogBuyProduct(customerId, foodId))               
+            {
+                if (!DialogBuyProduct(customerId, foodId))
                     Speaker.Output("Product Choose Error", "Error");
             }
             else
@@ -108,14 +108,14 @@ namespace RockFood.Services
         public bool DialogBuyProduct(int customerId, int foodId)
         {
             _sameCustomers.OutputCustomerInfoById(customerId);
-            _sameStorage.OutputInfoAboutFood(foodId);
-                    if (!_sameStorage.GetFood(foodId, 1))
-                    {
-                        Speaker.Output("Product bought Error", "Error");
-                        return false;
-                    }
-            return true;                     
-        }
+            _sameStorage.OutputInfoAboutFoodAsync(foodId);
+            if (!_sameStorage.GetFood(foodId, 1))
+            {
+                Speaker.Output("Product bought Error", "Error");
+                return false;
+            }
+            return true;
+        }        
         public void ValidatorDialog()
         {          
             while(true)

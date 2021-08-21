@@ -13,8 +13,8 @@ namespace RockFood.Services
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
         private readonly DataStorage _dataStorage;
-        private readonly MemoryCachable<IPersonable> _memoryCache;
-        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dataStorage, MemoryCachable<IPersonable> memoryCach)
+        private readonly IMemoryCacheable<IPersonable> _memoryCache;
+        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dataStorage, IMemoryCacheable<IPersonable> memoryCach)
         {
             _storage = samePersons;
             _logger = logger;
@@ -26,13 +26,13 @@ namespace RockFood.Services
             if (_storage.Customers is null)
                 return false;
 
-            person.Id = _storage.Customers.Max(f => f.Id) + 1;            
-            var message = " Create new customer Name: " + person.Name;            
+            person.Id = _storage.Customers.Max(f => f.Id) + 1;
+            var message = " Create new customer Name: " + person.Name;
             Speaker.Output(message, "Create");
             _logger.Log(base.GetType() + message);
             _dataStorage.SaveData(_storage.Customers);
 
-            return true;          
+            return true;
         }
         public void OutputCustomerInfo()
         {
@@ -42,12 +42,12 @@ namespace RockFood.Services
         public void OutputCustomerInfoById(int customerId)
         {
             var message = default(string);
-            var customer = _memoryCache.GetOrCreate(customerId, () => GetObjectById(customerId), out message);                      
-            Speaker.Output(message + "Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);         
+            var customer = _memoryCache.GetOrCreate(customerId, () => GetObjectById(customerId), out message);
+            Speaker.Output(message + "Person Id - " + customer.Id.ToString() + " Name - " + customer.Name);
         }
         private IPersonable GetObjectById(int customerId)
         {
             return _storage.Customers.FirstOrDefault(f => f.Id == customerId);
-        }
+        }       
     }
 }

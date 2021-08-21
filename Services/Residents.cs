@@ -10,10 +10,10 @@ namespace RockFood.Services
 {
     public class Residents: IResidentable
     {
-        public List<Customer> Customers { get; set;}    
+        public List<Customer> Customers { get; set; }
         public Residents()
-        {            
-            Customers = new List<Customer>();                                  
-        }        
+        {
+            Customers = new List<Customer>();
+        }
     }
 }

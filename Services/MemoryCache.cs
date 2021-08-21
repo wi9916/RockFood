@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class MemoryCache<TItem>: MemoryCachable<TItem>
+    public class MemoryCache<TItem> : IMemoryCacheable<TItem>
     {
         private MemoryCache _cache = new MemoryCache(new MemoryCacheOptions()
         {
@@ -18,13 +18,13 @@ namespace RockFood.Services
         });
         private readonly object _locker = new object();
         public TItem GetOrCreate(object key, Func<TItem> createItem, out string message)
-        {            
+        {
             TItem cacheEntry;
             lock (_locker)
             {
                 message = "Read from cache ";
                 if (!_cache.TryGetValue(key, out cacheEntry))
-                {                
+                {
                     cacheEntry = createItem();
                     var cacheEntryOptions = new MemoryCacheEntryOptions().SetSize(1).SetSlidingExpiration(TimeSpan.FromSeconds(120));
                     _cache.Set(key, cacheEntry, cacheEntryOptions);
@@ -32,6 +32,6 @@ namespace RockFood.Services
                 }
             }
             return cacheEntry;
-        } 
+        }
     }
 }
