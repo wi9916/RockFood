@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace RockFood.Interfaces
 {
     public interface IDialogable
-    {     
-        void DialogStartWorking();
+    {
+        Task DialogStartWorkingAsync();
         void DialogPutNewFood();
         void DialogCreateNewCustomer();
-        void DialogChooseCustomer();
-        void DialogChooseProduct(int customerId);
+        Task DialogChooseCustomerAsync();
+        Task DialogChooseProductAsync(int customerId);
         bool DialogBuyProduct(int customerId, int foodId);       
     }
 }

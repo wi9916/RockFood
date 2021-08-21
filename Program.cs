@@ -7,7 +7,7 @@ namespace RockFood
 {
     class Program
     {
-        static void Main(string[] args)
+        static async System.Threading.Tasks.Task Main(string[] args)
         {
             var sameFoods = new Storage();
             var foodDataStorage = new DataStorage("foods");
@@ -21,7 +21,7 @@ namespace RockFood
                 new StorageOperation(sameFoods, new Logger(), foodDataStorage, new MemoryCache<IFoodable>(), new CurrencyExchanger()),
                 new ResidentsOperation(samePersons, new Logger(), customerDataStorage, new MemoryCache<IPersonable>())
                 );
-            dialog.DialogStartWorking();          
+            await dialog.DialogStartWorkingAsync();          
         }
     }
 }

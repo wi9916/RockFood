@@ -9,6 +9,6 @@ namespace RockFood.Interfaces
 {
     public interface IExchangerable
     {
-        Task<decimal> GetCurrencyAsync(string currencyName);
+        Task<decimal> GetExchangeRateAsync(string currencyName);
     }
 }

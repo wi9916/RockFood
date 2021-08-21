@@ -12,30 +12,30 @@ namespace RockFood.Services
 {
     public class CurrencyExchanger: IExchangerable
     {
-        private CurrencyRate Currency { get; set; }
-        private string Date{ get; set; }
+        private CurrencyRate currency;
+        private DateTime date;
         public async Task GetNewCurrencyAsync()
         {
-            Date = DateTime.Today.AddDays(-1).ToString("DD-MM-yyyy");
-            var client = new HttpClient();
-
+            date = DateTime.Today.AddDays(-1);
+            var client = new HttpClient();            
             var request = new HttpRequestMessage(HttpMethod.Get,
-                "https://api.privatbank.ua/p24api/exchange_rates?json&date=01.12.2019?currency=CAD");
+                "https://api.privatbank.ua/p24api/exchange_rates?json&date="+date.ToString("dd.MM.yyyy"));
 
             var response = await client.SendAsync(request).ConfigureAwait(false);
 
-            Currency = JsonSerializer.Deserialize<CurrencyRate>(
+            currency = JsonSerializer.Deserialize<CurrencyRate>(
                 await response.Content.ReadAsStringAsync(),
-                new JsonSerializerOptions { IncludeFields = true });           
+                new JsonSerializerOptions{PropertyNameCaseInsensitive = true}
+                );           
         } 
-        public async Task<decimal> GetCurrencyAsync(string currencyName)
+        public async Task<decimal> GetExchangeRateAsync(string currencyName)
         {
-            if (DateTime.Today.AddDays(-1).ToString("DD-MM-yyyy") != Date)
+            if (date != DateTime.Today.AddDays(-1))
                 await GetNewCurrencyAsync();
 
-            var currentCurrency = Currency.exchangeRate.FirstOrDefault(x => x.currency == currencyName);
+            var currentCurrency = currency.ExchangeRate.FirstOrDefault(x => x.Currency == currencyName);
 
-            return currentCurrency.saleRate;
+            return currentCurrency.SaleRate;
         }
     }
 }

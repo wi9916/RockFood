@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class MemoryCache<TItem> : IMemoryCachable<TItem>
+    public class MemoryCache<TItem> : IMemoryCacheable<TItem>
     {
         private MemoryCache _cache = new MemoryCache(new MemoryCacheOptions()
         {

@@ -7,8 +7,11 @@
 
   <ItemGroup>
     <Compile Remove="Entity\**" />
+    <Compile Remove="MSQL\**" />
     <EmbeddedResource Remove="Entity\**" />
+    <EmbeddedResource Remove="MSQL\**" />
     <None Remove="Entity\**" />
+    <None Remove="MSQL\**" />
   </ItemGroup>
 
   <ItemGroup>

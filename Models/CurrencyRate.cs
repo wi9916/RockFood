@@ -10,26 +10,26 @@ namespace RockFood.Models
     public class CurrencyRate
     {
 		[JsonProperty(PropertyName = "exchangeRate")]
-		public List<ExchangeRate> exchangeRate { get; set; }				
+		public List<ExchangeRate> ExchangeRate { get; set; }				
 	}
 	public class ExchangeRate
     {
 		[JsonProperty(PropertyName = "baseCurrency")]
-		public string baseCurrency { get; set; }
+		public string BaseCurrency { get; set; }
 
 		[JsonProperty(PropertyName = "currency")]
-		public string currency { get; set; }
+		public string Currency { get; set; }
 
         [JsonProperty(PropertyName = "saleRateNB")]
-        public decimal saleRateNB { get; set; }
+        public decimal SaleRateNB { get; set; }
 
         [JsonProperty(PropertyName = "purchaseRateNB")]
-        public decimal purchaseRateNB { get; set; }
+        public decimal PurchaseRateNB { get; set; }
 
         [JsonProperty(PropertyName = "saleRate")]
-        public decimal saleRate { get; set; }
+        public decimal SaleRate { get; set; }
 
         [JsonProperty(PropertyName = "purchaseRate")]
-        public decimal purchaseRate { get; set; }
+        public decimal PurchaseRate { get; set; }
     }
 }

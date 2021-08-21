@@ -13,8 +13,8 @@ namespace RockFood.Services
         private readonly IResidentable _storage;
         private readonly ILogger _logger;
         private readonly DataStorage _dataStorage;
-        private readonly IMemoryCachable<IPersonable> _memoryCache;
-        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dataStorage, IMemoryCachable<IPersonable> memoryCach)
+        private readonly IMemoryCacheable<IPersonable> _memoryCache;
+        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dataStorage, IMemoryCacheable<IPersonable> memoryCach)
         {
             _storage = samePersons;
             _logger = logger;

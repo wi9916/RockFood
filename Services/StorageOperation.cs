@@ -13,15 +13,15 @@ namespace RockFood.Services
         private readonly IStoredable _storage;
         private readonly ILogger _logger;
         private readonly IDataStorage _dataStorage;
-        private readonly IMemoryCachable<IFoodable> _memoryCache;
+        private readonly IMemoryCacheable<IFoodable> _memoryCache;
         private readonly IExchangerable _currencyExchanger;
         
-        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dataStorage, IMemoryCachable<IFoodable> memoryCach, IExchangerable currencyExchanger)
+        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dataStorage, IMemoryCacheable<IFoodable> memoryCache, IExchangerable currencyExchanger)
         {
             _storage = sameFoods;
             _logger = logger;
             _dataStorage = dataStorage;
-            _memoryCache = memoryCach;
+            _memoryCache = memoryCache;
             _currencyExchanger = currencyExchanger;
         }       
         public void AddFood(Food food)
@@ -61,13 +61,14 @@ namespace RockFood.Services
         public async Task OutputInfoAboutFoodAsync(int foodId)
         {
             var message = default(string);
-            var foods = _memoryCache.GetOrCreate(foodId, () => GetObjectById(foodId), out message);
-
+            var foods = _memoryCache.GetOrCreate(foodId, () => GetObjectById(foodId), out message);           
             if (foods is not null)
-            {
-                Speaker.Output("Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
-                        + foods.Count.ToString() + " UAN - " + foods.Price +
-                        " USD - " + foods.Price / await _currencyExchanger.GetCurrencyAsync("USD"));
+            {                
+               Speaker.Output(
+                        "Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
+                        + foods.Count.ToString() + " UAN - " + foods.Price + " USD - " 
+                        + Decimal.Round(foods.Price / await _currencyExchanger.GetExchangeRateAsync("USD"),2)
+                        );
             }
         }      
         private IFoodable GetObjectById(int foodId)
