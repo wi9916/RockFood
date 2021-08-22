@@ -12,11 +12,12 @@ namespace RockFood.Services
     public class DialogInShop: IDialogable
     {
         private readonly IStoredOperationable _sameStorage;
-        private readonly IResidentOperationable _sameCustomers;      
+        private readonly IResidentOperationable _sameCustomers;
         public DialogInShop(IStoredOperationable sameStorage, IResidentOperationable sameCustomers)
         {
             _sameStorage = sameStorage;
-            _sameCustomers = sameCustomers;          
+            _sameCustomers = sameCustomers;   
+            
         }
         public async Task DialogStartWorkingAsync()
         {

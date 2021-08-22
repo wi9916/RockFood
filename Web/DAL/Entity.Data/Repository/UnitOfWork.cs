@@ -22,7 +22,7 @@ namespace Entity.Data.Repository
             }
         }
 
-        public FoodRepository Persons
+        public FoodRepository Foods
         {
             get
             {

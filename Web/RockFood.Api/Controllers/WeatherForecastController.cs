@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entity.Data.Repository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RockFood.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace RockFood.Api.Controllers
-{
+{    
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        public static UnitOfWork _unitOfWork;
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -21,6 +24,7 @@ namespace RockFood.Api.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            _unitOfWork = new UnitOfWork();
         }
 
         [HttpGet]
@@ -37,11 +41,11 @@ namespace RockFood.Api.Controllers
             .ToArray();
         }
         [HttpPost]
-        [Route("Test")]
-        public string PostTest()
+        [Route("Foods")]
+        public IEnumerable<Food> GetFoods()
         {
-            var rng = new Random();
-            return "Test" + rng.Next(1, 100);
+            var foods = _unitOfWork.Foods.GetAll();
+            return foods;
         }
 
     }
