@@ -1,11 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Bd\**" />
+    <Compile Remove="BLL\**" />
+    <Compile Remove="bl\**" />
+    <Compile Remove="DAL\**" />
+    <Content Remove="Bd\**" />
+    <Content Remove="BLL\**" />
+    <Content Remove="bl\**" />
+    <Content Remove="DAL\**" />
+    <EmbeddedResource Remove="Bd\**" />
+    <EmbeddedResource Remove="BLL\**" />
+    <EmbeddedResource Remove="bl\**" />
+    <EmbeddedResource Remove="DAL\**" />
+    <None Remove="Bd\**" />
+    <None Remove="BLL\**" />
+    <None Remove="bl\**" />
+    <None Remove="DAL\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="DAL\Entity.Data\Entity.Data.csproj" />
   </ItemGroup>
 
 </Project>
