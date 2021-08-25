@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entity.Data.Interface;
+using Microsoft.EntityFrameworkCore;
 using RockFood.Interfaces;
 using RockFood.Models;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Data
 {
-    public class DataContext: DbContext
+    public class DataContext: DbContext, IDataContext
     {
         public DbSet<Food> Foods { get; set; }
         public DbSet<Customer> Customers { get; set; }
