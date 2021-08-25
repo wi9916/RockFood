@@ -40,7 +40,7 @@ namespace RockFood.Api.Controllers
             })
             .ToArray();
         }
-        [HttpPost]
+        [HttpGet]
         [Route("Foods")]
         public IEnumerable<Food> GetFoods()
         {
