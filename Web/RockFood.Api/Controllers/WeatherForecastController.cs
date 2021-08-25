@@ -11,40 +11,23 @@ namespace RockFood.Api.Controllers
 {    
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : Controller
     {
-        public static UnitOfWork _unitOfWork;
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        public static ShopService _shopService;        
 
         private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _unitOfWork = new UnitOfWork();
+            _shopService = new ShopService();
         }
 
-        [HttpGet]
-        [Route("Home")]
-        public IEnumerable<WeatherForecast> Get()
-        {           
-            var rng = new Random();
-            return Enumerable.Range(1,2).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
         [HttpGet]
         [Route("Foods")]
         public IEnumerable<Food> GetFoods()
         {
-            var foods = _unitOfWork.Foods.GetAll();
+            var foods = _shopService.Foods.GetAll();
             return foods;
         }
 

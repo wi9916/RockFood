@@ -1,87 +1,71 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Entity.Data;
+using RockFood.Models;
+using Entity.Data.Interface;
 
 namespace RockFood.Api.Controllers
 {
-    public class FoodController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class FoodController : ControllerBase
     {
-        // GET: FoodController
-        public ActionResult Index()
+        private readonly IShopService _context;
+
+        public FoodController(IShopService context)
         {
-            return View();
+            _context = context;
         }
 
-        // GET: FoodController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet("GetFoods")]
+        public IEnumerable<Food> GetFood()
         {
-            return View();
+            return _context.Foods.GetAll();
         }
 
-        // GET: FoodController/Create
-        public ActionResult Create()
+        [HttpGet("GetFood")]
+        public ActionResult<Food> GetFood(int id)
         {
-            return View();
+            var food =  _context.Foods.Get(id);            
+            return food;
         }
 
-        // POST: FoodController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [HttpPut("BuyFood")]
+        public ActionResult<Food> PutFood(int id)
         {
-            try
+            var food = _context.Foods.Get(id);
+            food.Count--;
+            _context.Foods.Update(food);
+            _context.Save();           
+            return NoContent();
+        }
+
+        [HttpPost("AddFood")]
+        public ActionResult<Food> AddFood(Food food)
+        {
+            _context.Foods.Create(food);
+            _context.Save();
+
+            return CreatedAtAction("GetFood", new { id = food.Id }, food);
+        }
+
+        [HttpDelete("DeleteFood")]
+        public ActionResult<string> DeleteFood(int id)
+        {
+            var food = _context.Foods.Get(id);
+            if (food == null)
             {
-                return RedirectToAction(nameof(Index));
+                return "Not Found";
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: FoodController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: FoodController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: FoodController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: FoodController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Foods.Delete(id);
+            _context.Save();
+            return "Delate";
         }
     }
 }

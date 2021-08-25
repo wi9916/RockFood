@@ -13,7 +13,7 @@ namespace Entity.Data.Repository
         private DataContext _db;
         public FoodRepository(DataContext context)
         {
-            this._db = context;
+            _db = context;
         }
         public IEnumerable<Food> GetAll()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Data.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Data.Repository
 {
-    public class UnitOfWork : IDisposable
+    public class ShopService : IDisposable, IShopService
     {
         private DataContext _db = new DataContext();
         private CustomerRepository _customerRepository;
