@@ -13,16 +13,16 @@ namespace EntityTest
         {
             _context = new DataContext();
             _context.Database.EnsureCreated();
-            //{
-            //    var pers = new Person() { Name = "Vany" };
-            //    var cus = new Customer() { Address = "Streat 1" };
-            //    pers.Customers.Add(cus);
-            //    cus = new Customer() { Address = "Streat 2" };
-            //    pers.Customers.Add(cus);
-            //    cus = new Customer() { Address = "Streat 3" };
-            //    pers.Customers.Add(cus);
-            //    Add(pers);
-            //}
+            {
+                var pers = new Person() { Name = "Vany" };
+                var cus = new Customer() { Address = "Streat 1" };
+                pers.Customers.Add(cus);
+                cus = new Customer() { Address = "Streat 2" };
+                pers.Customers.Add(cus);
+                cus = new Customer() { Address = "Streat 3" };
+                pers.Customers.Add(cus);
+                Add(pers);
+            }
             GetPersons();
         }
         private static void Add<t>(t obj)
