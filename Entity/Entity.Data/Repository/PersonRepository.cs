@@ -13,7 +13,7 @@ namespace Entity.Data
         private DataContext _db;
         public PersonRepository(DataContext context)
         {
-            _db = context;
+            this._db = context;
         }
         public IEnumerable<Person> GetAll()
         {
@@ -23,7 +23,6 @@ namespace Entity.Data
         {
             return _db.Persons.Find(id);
         }
-
         public void Create(Person person)
         {
             _db.Persons.Add(person);

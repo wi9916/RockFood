@@ -14,9 +14,6 @@ namespace Entity.Models
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string About { get; set; }       
-        //public string TestFild { get; set; }        
-        //public Customer Customer { get; set; }
-
         public List<Customer> Customers = new List<Customer>();
         public int NameLetterCount
         {

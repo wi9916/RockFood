@@ -13,7 +13,6 @@ namespace EntityTest
         static void Main(string[] args)
         {            
             _unitOfWork = new UnitOfWork();
-            Add();
             GetPersons();
         }
         private static void Add()

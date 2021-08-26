@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,11 @@ namespace Entity.Data.Repository
 {
     public class UnitOfWork : IDisposable
     {
-        private DataContext _db = new DataContext();
-        private CustomerRepository _customerRepository;
-        private PersonRepository _personRepository;
+        private readonly DataContext _db = new DataContext();
+        private IRepository<Customer> _customerRepository;
+        private IRepository<Person> _personRepository;
 
-        public CustomerRepository Customers
+        public IRepository<Customer> Customers
         {
             get
             {
@@ -22,7 +23,7 @@ namespace Entity.Data.Repository
             }
         }
 
-        public PersonRepository Persons
+        public IRepository<Person> Persons
         {
             get
             {
@@ -31,7 +32,6 @@ namespace Entity.Data.Repository
                 return _personRepository;
             }
         }
-
         public void Save()
         {
             _db.SaveChanges();
