@@ -12,9 +12,11 @@ namespace Entity.Data
     {
         public DbSet<Person> Persons { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Company> Companys { get; set; }
+        public DbSet<Product> Products { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer("Data Source=DESKTOP-4H5PP4L; Integrated Security = true; Initial Catalog = EntityFTest");
+            builder.UseSqlServer("Data Source=DESKTOP-4H5PP4L; Integrated Security = true; Initial Catalog = EntityUnitOfWork");
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

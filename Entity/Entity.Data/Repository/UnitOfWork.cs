@@ -12,7 +12,8 @@ namespace Entity.Data.Repository
         private readonly DataContext _db = new DataContext();
         private IRepository<Customer> _customerRepository;
         private IRepository<Person> _personRepository;
-
+        private IRepository<Product> _productRepository;
+        private IRepository<Company> _companyRepository;
         public IRepository<Customer> Customers
         {
             get
@@ -22,7 +23,6 @@ namespace Entity.Data.Repository
                 return _customerRepository;
             }
         }
-
         public IRepository<Person> Persons
         {
             get
@@ -32,13 +32,29 @@ namespace Entity.Data.Repository
                 return _personRepository;
             }
         }
+        public IRepository<Product> Products
+        {
+            get
+            {
+                if (_productRepository == null)
+                    _productRepository = new ProductRepository(_db);
+                return _productRepository;
+            }
+        }
+        public IRepository<Company> Companys
+        {
+            get
+            {
+                if (_companyRepository == null)
+                    _companyRepository = new CompanyRepository(_db);
+                return _companyRepository;
+            }
+        }
         public void Save()
         {
             _db.SaveChanges();
         }
-
         private bool disposed = false;
-
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -50,7 +66,6 @@ namespace Entity.Data.Repository
                 this.disposed = true;
             }
         }
-
         public void Dispose()
         {
             Dispose(true);
