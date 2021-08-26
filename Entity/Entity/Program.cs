@@ -33,27 +33,30 @@ namespace Entity
             SameShop.GetProductFromCompany(1, 2);
         }
         private static void TestMetodRepo()
-        {            
+        {
             var config = Initialize();
             var repo = new Repo(config.GetConnectionString("DefaultConnection"));
-
-            var rez = repo.GetById(1);
-            Console.WriteLine($"{rez.Id}; {rez.Name}");
-
-            var rezGetByIdMulty = repo.GetByIdMulty(1);
-
-            Console.WriteLine($"{rez.Id}; {rez.Name}");
-            foreach (var r in rezGetByIdMulty.Products)
-                Console.WriteLine($"{r.Id}; {r.Name}; {r.Price} ");
-
-            var rezGetAllMulty = repo.GetAllMulty();
-            foreach (var r in rezGetAllMulty)
             {
-                Console.WriteLine($"{r.Id}; {r.Name}");
-                foreach (var p in r.Products)
+                var rez = repo.GetById(1);
+                Console.WriteLine($"{rez.Id}; {rez.Name}");
+            }
+            {
+                var rez = repo.GetByIdMulty(1);
+
+                Console.WriteLine($"{rez.Id}; {rez.Name}");
+                foreach (var r in rez.Products)
+                    Console.WriteLine($"{r.Id}; {r.Name}; {r.Price} ");
+            }
+            {
+                var rez = repo.GetAllMulty();
+                foreach (var r in rez)
                 {
-                    if (p is not null)
-                        Console.WriteLine($"{p.Id}; {p.Name}; {p.Price} ");
+                    Console.WriteLine($"{r.Id}; {r.Name}");
+                    foreach (var p in r.Products)
+                    {
+                        if (p is not null)
+                            Console.WriteLine($"{p.Id}; {p.Name}; {p.Price} ");
+                    }
                 }
             }
         }
