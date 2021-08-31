@@ -42,6 +42,8 @@ namespace RockFood.Api
             services.AddSingleton<IFoodOperation, FoodOperation>();
 
             services.AddControllers();
+            services.AddControllersWithViews();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RockFood.Api", Version = "v1" });
@@ -64,9 +66,15 @@ namespace RockFood.Api
 
             app.UseAuthorization();
 
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
