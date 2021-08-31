@@ -27,31 +27,28 @@ namespace RockFood.Api.Controllers
             return await _context.GetAsync();
         }
         [HttpGet("GetFood")]
-        public async Task<ActionResult<string>> GetFoodAsync(int id)
+        public async Task<string> GetFoodAsync(int id)
         {
             var food = _context.GetAsync(id);
             return await food;
         }
 
         [HttpPut("BuyFood")]
-        public ActionResult<string> PutFood(int id,double number = 1)
+        public void PutFood(int id, double number = 1)
         {
-            _context.BuyFood(id, number);          
+            _context.BuyFood(id, number);
             _context.Save();
-            return NoContent();
         }
 
         [HttpPost("AddFood")]
-        public ActionResult<string> AddFood(Food food)
+        public void AddFood(Food food)
         {
             _context.Add(food);
             _context.Save();
-
-            return CreatedAtAction("GetFood", new { id = food.Id }, food);
         }
 
         [HttpDelete("DeleteFood")]
-        public ActionResult<string> DeleteFood(int id)
+        public string DeleteFood(int id)
         {
             var food = _context.GetAsync(id);
             if (food == default)

@@ -74,7 +74,7 @@ namespace RockFood.Api
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=FoodMVC}/{action=Index}/{id?}");
             });
         }
     }

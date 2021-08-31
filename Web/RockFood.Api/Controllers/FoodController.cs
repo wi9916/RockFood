@@ -29,33 +29,30 @@ namespace RockFood.Api.Controllers
         }
 
         [HttpGet("GetFood")]
-        public ActionResult<Food> GetFood(int id)
+        public Food GetFood(int id)
         {
-            var food =  _context.Foods.Get(id);            
+            var food = _context.Foods.Get(id);
             return food;
         }
 
         [HttpPut("BuyFood")]
-        public ActionResult<Food> PutFood(int id)
+        public void PutFood(int id)
         {
             var food = _context.Foods.Get(id);
             food.Count--;
             _context.Foods.Update(food);
-            _context.Save();           
-            return NoContent();
+            _context.Save();
         }
 
         [HttpPost("AddFood")]
-        public ActionResult<Food> AddFood(Food food)
+        public void AddFood(Food food)
         {
             _context.Foods.Create(food);
             _context.Save();
-
-            return CreatedAtAction("GetFood", new { id = food.Id }, food);
         }
 
         [HttpDelete("DeleteFood")]
-        public ActionResult<string> DeleteFood(int id)
+        public string DeleteFood(int id)
         {
             var food = _context.Foods.Get(id);
             if (food == null)

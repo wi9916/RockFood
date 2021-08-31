@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Entity.Data.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RockFood.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,19 @@ namespace RockFood.Api.Controllers
 {
     public class FoodMVCController : Controller
     {
-        // GET: FoodMVCController
+        //private readonly IFoodOperation _context;        
+        //public FoodMVCController(IFoodOperation context)
+        //{
+        //    _context = context;
+        //}
+        private readonly IShopService _context;
+        public FoodMVCController(IShopService context)
+        {
+            _context = context;
+        }
         public ActionResult Index()
         {
-            return View();
+            return View(_context.Foods.GetAll());
         }
 
         // GET: FoodMVCController/Details/5
