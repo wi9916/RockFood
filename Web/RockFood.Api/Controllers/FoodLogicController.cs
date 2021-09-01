@@ -22,15 +22,15 @@ namespace RockFood.Api.Controllers
         }
 
         [HttpGet("GetFoods")]
-        public async Task<IEnumerable<string>> GetFoodAsync()
+        public IEnumerable<IFoodable> GetFood()
         {
-            return await _context.GetAsync();
+            return _context.Get();
         }
         [HttpGet("GetFood")]
-        public async Task<string> GetFoodAsync(int id)
+        public IFoodable GetFood(int id)
         {
-            var food = _context.GetAsync(id);
-            return await food;
+            var food = _context.Get(id);
+            return food;
         }
 
         [HttpPut("BuyFood")]
@@ -50,7 +50,7 @@ namespace RockFood.Api.Controllers
         [HttpDelete("DeleteFood")]
         public string DeleteFood(int id)
         {
-            var food = _context.GetAsync(id);
+            var food = _context.Get(id);
             if (food == default)
             {
                 return "Not Found";

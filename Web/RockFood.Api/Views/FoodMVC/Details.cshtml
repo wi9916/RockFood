@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RockFood.Interfaces.IFoodable>
+﻿@model RockFood.Interfaces.IFoodable
 @{
     Layout = null;
 }
@@ -30,31 +30,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => Model.Name)
             </td>           
             <td>
-                @Html.DisplayFor(modelItem => item.About)
+                @Html.DisplayFor(modelItem => Model.About)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => Model.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Count)
+                @Html.DisplayFor(modelItem => Model.Count)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-               @Html.ActionLink("Details", "Details", "FoodMVC", new { id=@item.Id}, null)|
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
             </td>
         </tr>
-}
     </tbody>
 </table>
 <p>
-@Html.ActionLink("Create New", "Create", "FoodMVC", null, null)
+   @Html.ActionLink("Main", "Index", "FoodMVC", null, null)
 </p>
 </body>
 </html>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RockFood.Interfaces;
+using RockFood.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,46 +12,36 @@ namespace RockFood.Api.Controllers
 {
     public class FoodMVCController : Controller
     {
-        //private readonly IFoodOperation _context;        
-        //public FoodMVCController(IFoodOperation context)
-        //{
-        //    _context = context;
-        //}
-        private readonly IShopService _context;
-        public FoodMVCController(IShopService context)
+        private readonly IFoodOperation _context;
+        public FoodMVCController(IFoodOperation context)
         {
             _context = context;
         }
         public ActionResult Index()
         {
-            return View(_context.Foods.GetAll());
+            return View(_context.Get());
         }
-
-        // GET: FoodMVCController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var food = _context.Get(id);           
+            return View(food);
         }
-
-        // GET: FoodMVCController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: FoodMVCController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create([Bind("Composition,ProductionDate,UseToDate,ProductsTypeName,Id,Name,ImageName,CompanyId,SellerId,About,Price,Count")] Food food)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _context.Add(food);
+                _context.Save();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(food);
         }
 
         // GET: FoodMVCController/Edit/5

@@ -12,5 +12,6 @@ namespace RockFood.Interfaces
         string Name { get; set; }
         decimal Price { get; set; }
         double Count { get; set; }
+        string About { get; set; }
     }
 }

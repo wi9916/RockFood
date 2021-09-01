@@ -11,8 +11,8 @@ namespace RockFood.Interfaces
     {
         string Add(Food food);
         string BuyFood(int foodId, double number);
-        Task<List<string>> GetAsync();
-        Task<string> GetAsync(int id);
+        List<IFoodable> Get();
+        IFoodable Get(int id);
         void Delete(int id);
         void Save();
     }

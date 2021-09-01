@@ -51,25 +51,19 @@ namespace RockFood.Services
             _db.Entry(food).State = EntityState.Modified;
             return message;
         }
-        public async Task<List<string>> GetAsync()
+        public List<IFoodable> Get()
         {
-            var foods = new List<string>();
+            var foods = new List<IFoodable>();
             foreach (var food in _db.Foods)
-                foods.Add( await GetAsync(food.Id));
+                foods.Add( Get(food.Id));
 
             return foods;
         }
-        public async Task<string> GetAsync(int id)
+        public IFoodable Get(int id)
         {
             var message = default(string);
-            var foods = _memoryCache.GetOrCreate(id, () => _db.Foods.Find(id), out message);
-            if (foods is not null)
-            {
-                message ="Food Id - " + foods.Id.ToString() + " " + foods.Name + ", Count - "
-                         + foods.Count.ToString() + " UAN - " + foods.Price + " USD - "
-                         + Decimal.Round(foods.Price / await _currencyExchanger.GetExchangeRateAsync("USD"));                
-            }
-            return message;
+            var food = _memoryCache.GetOrCreate(id, () => _db.Foods.Find(id), out message);           
+            return food;
         }
         public void Delete(int id)
         {
