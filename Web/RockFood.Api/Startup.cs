@@ -69,6 +69,11 @@ namespace RockFood.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "mvcFood",
+                    pattern: "mvc/food/{action=Index}/{id?}",
+                    defaults: new { controller = "FoodMVC"});
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=FoodMVC}/{action=Index}/{id?}");
             });

@@ -38,14 +38,12 @@ namespace RockFood.Api.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Food food)
         {
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(food);
-                _context.Save();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(food);
+            if (!ModelState.IsValid)
+                return View(food);
+                
+            _context.Add(food);
+            _context.Save();
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult Edit(int id)
@@ -61,6 +59,9 @@ namespace RockFood.Api.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Food food)
         {
+            if(!ModelState.IsValid)
+                return View(food);
+
             _context.Edit(food);
             _context.Save();
             return RedirectToAction("Index");

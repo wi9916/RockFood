@@ -11,7 +11,7 @@ using Entity.Data.Interface;
 
 namespace RockFood.Api.Controllers
 {
-    [Route("api/FoodController")]
+    [Route("api/routeFood")]
     [ApiController]
     public class FoodController : ControllerBase
     {
