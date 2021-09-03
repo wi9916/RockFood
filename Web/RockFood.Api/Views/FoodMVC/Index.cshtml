@@ -46,7 +46,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-               @Html.ActionLink("Details", "Details", "FoodMVC", new { id=@item.Id}, null)|
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>|
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
@@ -54,7 +54,7 @@
     </tbody>
 </table>
 <p>
-@Html.ActionLink("Create New", "Create", "FoodMVC", null, null)
+    <a asp-action="Create">Create New</a>
 </p>
 </body>
 </html>

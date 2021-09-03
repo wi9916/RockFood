@@ -65,6 +65,15 @@ namespace RockFood.Services
             var food = _memoryCache.GetOrCreate(id, () => _db.Foods.Find(id), out message);           
             return food;
         }
+        public void Edit(Food food)
+        {
+            var baseFood = _db.Foods.Find(food.Id);
+            baseFood.Name = food.Name;
+            baseFood.About = food.About;
+            baseFood.Count = food.Count;
+            baseFood.Price = food.Price;
+            _db.Entry(baseFood).State = EntityState.Modified;
+        }
         public void Delete(int id)
         {
             Food food = _db.Foods.Find(id);

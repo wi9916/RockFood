@@ -23,8 +23,11 @@ namespace RockFood.Api.Controllers
         }
         public ActionResult Details(int id)
         {
-            var food = _context.Get(id);           
-            return View(food);
+            var food = _context.Get(id);
+            if (food != null)
+                return View(food);
+
+            return NotFound();
         }
         public ActionResult Create()
         {
@@ -33,8 +36,9 @@ namespace RockFood.Api.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Composition,ProductionDate,UseToDate,ProductsTypeName,Id,Name,ImageName,CompanyId,SellerId,About,Price,Count")] Food food)
+        public IActionResult Create(Food food)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(food);
@@ -44,46 +48,35 @@ namespace RockFood.Api.Controllers
             return View(food);
         }
 
-        // GET: FoodMVCController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var food = _context.Get(id);
+            if (food != null)
+                return View(food);
+
+            return NotFound();
         }
 
-        // POST: FoodMVCController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Food food)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Edit(food);
+            _context.Save();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Buy(int id)
+        {
+            _context.BuyFood(id);
+            _context.Save();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: FoodMVCController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: FoodMVCController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Delete(id);
+            _context.Save();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
