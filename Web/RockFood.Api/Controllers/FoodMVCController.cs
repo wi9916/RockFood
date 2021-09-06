@@ -17,10 +17,12 @@ namespace RockFood.Api.Controllers
         {
             _context = context;
         }
+        [HttpGet]
         public ActionResult Index()
         {
             return View(_context.Get());
         }
+        [HttpGet]
         public ActionResult Details(int id)
         {
             var food = _context.Get(id);
@@ -29,6 +31,7 @@ namespace RockFood.Api.Controllers
 
             return NotFound();
         }
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -45,7 +48,7 @@ namespace RockFood.Api.Controllers
             _context.Save();
             return RedirectToAction(nameof(Index));
         }
-
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             var food = _context.Get(id);
@@ -66,13 +69,14 @@ namespace RockFood.Api.Controllers
             _context.Save();
             return RedirectToAction("Index");
         }
+        [HttpGet]
         public ActionResult Buy(int id)
         {
             _context.BuyFood(id);
             _context.Save();
             return RedirectToAction(nameof(Index));
         }
-
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             _context.Delete(id);

@@ -1,6 +1,6 @@
 ﻿@model RockFood.Models.Food
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 <!DOCTYPE html>
 
@@ -10,9 +10,6 @@
     <title>Edit</title>
 </head>
 <body>
-    <div>
-        <a asp-action="Index">Main</a>
-    </div>
     <h4>Food</h4>
     <hr />
     <form asp-action="Edit" asp-controller="FoodMVC" asp-route-id="@Model.Id">
