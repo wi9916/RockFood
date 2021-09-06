@@ -65,8 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BLL\RockFood.csproj" />
-    <ProjectReference Include="..\DAL\Entity.Data\Entity.Data.csproj" />
+    <ProjectReference Include="..\BLL\RockFood\RockFood.csproj" />
   </ItemGroup>
 
 </Project>
