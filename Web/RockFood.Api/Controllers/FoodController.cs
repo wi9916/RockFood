@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace RockFood.Api.Controllers
 {
-    [Route("api/routeFoodLogic")]
+    [Route("api/Food")]
     [ApiController]
-    public class FoodLogicController : ControllerBase
+    public class FoodController : ControllerBase
     {
         private readonly IFoodOperation _context;
-        public FoodLogicController(IFoodOperation context)
+        public FoodController(IFoodOperation context)
         {
             _context = context;
         }
