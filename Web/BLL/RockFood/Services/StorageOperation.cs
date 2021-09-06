@@ -11,15 +11,13 @@ namespace RockFood.Services
     public class StorageOperation : IStoredOperationable
     {
         private readonly IStoredable _storage;
-        private readonly ILogger _logger;
         private readonly IDataStorage _dataStorage;
         private readonly IMemoryCacheable<IFoodable> _memoryCache;
         private readonly IExchangerable _currencyExchanger;
         
-        public StorageOperation(IStoredable sameFoods, ILogger logger, IDataStorage dataStorage, IMemoryCacheable<IFoodable> memoryCache, IExchangerable currencyExchanger)
+        public StorageOperation(IStoredable sameFoods, IDataStorage dataStorage, IMemoryCacheable<IFoodable> memoryCache, IExchangerable currencyExchanger)
         {
             _storage = sameFoods;
-            _logger = logger;
             _dataStorage = dataStorage;
             _memoryCache = memoryCache;
             _currencyExchanger = currencyExchanger;
@@ -34,7 +32,6 @@ namespace RockFood.Services
                 + food.Count + ", Price: " + food.Price;
 
             Speaker.Output(message, "Customer");
-            _logger.Log(base.GetType() + message);
         }
         public bool GetFood(int foodId, double number)
         {

@@ -1,4 +1,5 @@
 ﻿using Entity.Data.Interface;
+using RockFood.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,10 @@ namespace Entity.Data.Repository
     public class ShopService : IDisposable, IShopService
     {
         private DataContext _db = new DataContext();
-        private CustomerRepository _customerRepository;
-        private FoodRepository _foodRepository;
+        private IRepository<Customer> _customerRepository;
+        private IRepository<Food> _foodRepository;
 
-        public CustomerRepository Customers
+        public IRepository<Customer> Customers
         {
             get
             {
@@ -23,7 +24,7 @@ namespace Entity.Data.Repository
             }
         }
 
-        public FoodRepository Foods
+        public IRepository<Food> Foods
         {
             get
             {

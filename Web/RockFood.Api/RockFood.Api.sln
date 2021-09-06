@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RockFood.Api", "RockFood.Api.csproj", "{32690C77-1FB7-4711-A605-C31706B36C49}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RockFood", "..\BLL\RockFood.csproj", "{9D6517CE-7C4F-46E6-949C-CE244E50E282}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity.Data", "..\DAL\Entity.Data\Entity.Data.csproj", "{5AC09DFB-F53A-497D-87E3-495D668AFC7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{0AE60B3A-4D80-483D-ACC8-036DCCA064EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{72C415FB-0886-42C2-BE9F-D7E05247E2E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockFood", "..\BLL\RockFood\RockFood.csproj", "{F61F6E77-D18C-49A6-9A37-0EB89E84D228}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +21,18 @@ Global
 		{32690C77-1FB7-4711-A605-C31706B36C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32690C77-1FB7-4711-A605-C31706B36C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32690C77-1FB7-4711-A605-C31706B36C49}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D6517CE-7C4F-46E6-949C-CE244E50E282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D6517CE-7C4F-46E6-949C-CE244E50E282}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D6517CE-7C4F-46E6-949C-CE244E50E282}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D6517CE-7C4F-46E6-949C-CE244E50E282}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5AC09DFB-F53A-497D-87E3-495D668AFC7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5AC09DFB-F53A-497D-87E3-495D668AFC7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AC09DFB-F53A-497D-87E3-495D668AFC7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AC09DFB-F53A-497D-87E3-495D668AFC7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AE60B3A-4D80-483D-ACC8-036DCCA064EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AE60B3A-4D80-483D-ACC8-036DCCA064EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AE60B3A-4D80-483D-ACC8-036DCCA064EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AE60B3A-4D80-483D-ACC8-036DCCA064EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C415FB-0886-42C2-BE9F-D7E05247E2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C415FB-0886-42C2-BE9F-D7E05247E2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C415FB-0886-42C2-BE9F-D7E05247E2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C415FB-0886-42C2-BE9F-D7E05247E2E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F61F6E77-D18C-49A6-9A37-0EB89E84D228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F61F6E77-D18C-49A6-9A37-0EB89E84D228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F61F6E77-D18C-49A6-9A37-0EB89E84D228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F61F6E77-D18C-49A6-9A37-0EB89E84D228}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

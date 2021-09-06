@@ -10,9 +10,10 @@ namespace RockFood.Interfaces
     public interface IFoodOperation
     {
         string Add(Food food);
-        string BuyFood(int foodId, double number);
-        Task<List<string>> GetAsync();
-        Task<string> GetAsync(int id);
+        string BuyFood(int foodId, double number = 1);
+        List<IFoodable> Get();
+        IFoodable Get(int id);
+        void Edit(Food food);
         void Delete(int id);
         void Save();
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,5 @@ namespace RockFood.Models
         public OrderStatus Status { get; set; }
         public IEnumerable<Food> Foods { get; set; }
         public IEnumerable<Product> Containers { get; set; }
-    }
-    public enum OrderStatus
-    {
-        None,
-        Waiting,
-        Confirmation,
-        OnTheRoad,
-        Performed,
-        Denied,
-    }
+    }   
 }

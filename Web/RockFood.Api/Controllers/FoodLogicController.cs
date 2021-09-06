@@ -10,33 +10,32 @@ using System.Threading.Tasks;
 
 namespace RockFood.Api.Controllers
 {
-    [Route("api/FoodLogicController")]
+    [Route("api/routeFoodLogic")]
     [ApiController]
     public class FoodLogicController : ControllerBase
     {
         private readonly IFoodOperation _context;
-
         public FoodLogicController(IFoodOperation context)
         {
             _context = context;
         }
 
         [HttpGet("GetFoods")]
-        public async Task<IEnumerable<string>> GetFoodAsync()
+        public IEnumerable<IFoodable> GetFood()
         {
-            return await _context.GetAsync();
+            return _context.Get();
         }
         [HttpGet("GetFood")]
-        public async Task<string> GetFoodAsync(int id)
+        public IFoodable GetFood(int id)
         {
-            var food = _context.GetAsync(id);
-            return await food;
+            var food = _context.Get(id);
+            return food;
         }
 
         [HttpPut("BuyFood")]
-        public void PutFood(int id,double number = 1)
+        public void PutFood(int id, double number = 1)
         {
-            _context.BuyFood(id, number);          
+            _context.BuyFood(id, number);
             _context.Save();
         }
 
@@ -48,17 +47,16 @@ namespace RockFood.Api.Controllers
         }
 
         [HttpDelete("DeleteFood")]
-        public string DeleteFood(int id)
+        public void DeleteFood(int id)
         {
-            var food = _context.GetAsync(id);
-            if (food == default)
+            var food = _context.Get(id);
+            if (food != default)
             {
-                return "Not Found";
+                _context.Delete(id);
+                _context.Save();
             }
 
-            _context.Delete(id);
-            _context.Save();
-            return "Delate";
+            
         }
     }
 }

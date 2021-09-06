@@ -22,7 +22,7 @@ namespace RockFood.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("GetFoods")]
+        //[HttpGet("GetFoods")]
         public IEnumerable<Food> GetFood()
         {
             return _context.Foods.GetAll();
@@ -52,17 +52,14 @@ namespace RockFood.Api.Controllers
         }
 
         [HttpDelete("DeleteFood")]
-        public string DeleteFood(int id)
+        public void DeleteFood(int id)
         {
             var food = _context.Foods.Get(id);
-            if (food == null)
+            if (food != null)
             {
-                return "Not Found";
+                _context.Foods.Delete(id);
+                _context.Save();
             }
-
-            _context.Foods.Delete(id);
-            _context.Save();
-            return "Delate";
         }
     }
 }

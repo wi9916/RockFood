@@ -10,8 +10,8 @@ namespace Entity.Data.Interface
 {
     public interface IShopService : IDisposable
     {
-        public CustomerRepository Customers { get; }
-        public FoodRepository Foods { get; }
+        public IRepository<Customer> Customers { get; }
+        public IRepository<Food> Foods { get; }
         public void Save();      
     }
 }
