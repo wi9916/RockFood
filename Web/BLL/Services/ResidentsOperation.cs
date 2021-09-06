@@ -11,13 +11,11 @@ namespace RockFood.Services
     public class ResidentsOperation: IResidentOperationable
     {
         private readonly IResidentable _storage;
-        private readonly ILogger _logger;
         private readonly DataStorage _dataStorage;
         private readonly IMemoryCacheable<IPersonable> _memoryCache;
-        public ResidentsOperation(IResidentable samePersons, ILogger logger, DataStorage dataStorage, IMemoryCacheable<IPersonable> memoryCach)
+        public ResidentsOperation(IResidentable samePersons, DataStorage dataStorage, IMemoryCacheable<IPersonable> memoryCach)
         {
             _storage = samePersons;
-            _logger = logger;
             _dataStorage = dataStorage;
             _memoryCache = memoryCach;
         }
@@ -29,7 +27,6 @@ namespace RockFood.Services
             person.Id = _storage.Customers.Max(f => f.Id) + 1;
             var message = " Create new customer Name: " + person.Name;
             Speaker.Output(message, "Create");
-            _logger.Log(base.GetType() + message);
             _dataStorage.SaveData(_storage.Customers);
 
             return true;

@@ -28,14 +28,9 @@ namespace RockFood.Api
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IShopService, ShopService>();
-
             services.AddSingleton<DataContext, DataContext>();
-            services.AddSingleton<Interfaces.ILogger, Logger>();
             services.AddSingleton<IFoodable, Food>();
             services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
             services.AddSingleton<IExchangerable, CurrencyExchanger>();

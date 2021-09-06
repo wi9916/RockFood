@@ -10,8 +10,8 @@ namespace RockFood.Interfaces
     {
         int Id { get; set; }
         string Name { get; set; }
+        string About { get; set; }
         decimal Price { get; set; }
         double Count { get; set; }
-        string About { get; set; }
     }
 }
