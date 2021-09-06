@@ -20,7 +20,7 @@ namespace RockFood.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("GetFoods")]
+        [HttpGet("GetAllFoods")]
         public IEnumerable<IFoodable> GetFood()
         {
             return _context.Get();
@@ -33,7 +33,7 @@ namespace RockFood.Api.Controllers
         }
 
         [HttpPut("BuyFood")]
-        public void PutFood(int id, double number = 1)
+        public void BuyFood(int id, double number = 1)
         {
             _context.BuyFood(id, number);
             _context.Save();

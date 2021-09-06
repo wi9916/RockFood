@@ -30,8 +30,6 @@ namespace RockFood.Api
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IShopService, ShopService>();
-
             services.AddSingleton<DataContext, DataContext>();
             services.AddSingleton<IFoodable, Food>();
             services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
