@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BLL\RockFood\RockFood.csproj" />
+    <ProjectReference Include="..\BLL\RockFood.csproj" />
   </ItemGroup>
 
 </Project>

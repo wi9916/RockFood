@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RockFood.Api", "RockFood.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity.Data", "..\DAL\Entity.Data\Entity.Data.csproj", "{5AC09DFB-F53A-497D-87E3-495D668AFC7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{72C415FB-0886-42C2-BE9F-D7E05247E2E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "..\Models\Models.csproj", "{72C415FB-0886-42C2-BE9F-D7E05247E2E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockFood", "..\BLL\RockFood\RockFood.csproj", "{F61F6E77-D18C-49A6-9A37-0EB89E84D228}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RockFood", "..\BLL\RockFood.csproj", "{0AB1E065-EE20-409B-BCAD-BB4A435590ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{72C415FB-0886-42C2-BE9F-D7E05247E2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72C415FB-0886-42C2-BE9F-D7E05247E2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72C415FB-0886-42C2-BE9F-D7E05247E2E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F61F6E77-D18C-49A6-9A37-0EB89E84D228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F61F6E77-D18C-49A6-9A37-0EB89E84D228}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F61F6E77-D18C-49A6-9A37-0EB89E84D228}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F61F6E77-D18C-49A6-9A37-0EB89E84D228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB1E065-EE20-409B-BCAD-BB4A435590ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB1E065-EE20-409B-BCAD-BB4A435590ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB1E065-EE20-409B-BCAD-BB4A435590ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB1E065-EE20-409B-BCAD-BB4A435590ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
