@@ -33,29 +33,35 @@ namespace RockFood.Api.Controllers
         }
 
         [HttpPut("BuyFood")]
-        public ActionResult BuyFood(int id, double number = 1)
+        public IActionResult BuyFood(int id, double number = 1)
         {
+            if(_foodOperation.Get(id) is null)
+                return NotFound();
+
             _foodOperation.BuyFood(id, number);
             _foodOperation.Save();
-            return ;
+            return Ok();
         }
 
         [HttpPost("AddFood")]
-        public void AddFood(Food food)
+        public IActionResult AddFood(Food food)
         {
             _foodOperation.Add(food);
             _foodOperation.Save();
+            return Ok();
         }
 
         [HttpDelete("DeleteFood")]
-        public void DeleteFood(int id)
+        public IActionResult DeleteFood(int id)
         {
             var food = _foodOperation.Get(id);
             if (food != default)
             {
                 _foodOperation.Delete(id);
                 _foodOperation.Save();
+                return Ok();
             }
+            return NotFound();
         }
     }
 }
