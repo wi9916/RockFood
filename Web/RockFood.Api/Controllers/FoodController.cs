@@ -33,10 +33,11 @@ namespace RockFood.Api.Controllers
         }
 
         [HttpPut("BuyFood")]
-        public void BuyFood(int id, double number = 1)
+        public ActionResult BuyFood(int id, double number = 1)
         {
             _foodOperation.BuyFood(id, number);
             _foodOperation.Save();
+            return ;
         }
 
         [HttpPost("AddFood")]
