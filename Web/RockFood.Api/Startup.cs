@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RockFood.Api.Filter;
 using RockFood.Interfaces;
 using RockFood.Models;
 using RockFood.Services;
@@ -35,6 +36,8 @@ namespace RockFood.Api
             services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
             services.AddSingleton<IExchangerable, CurrencyExchanger>();
             services.AddSingleton<IFoodOperation, FoodOperation>();
+            services.AddSingleton<ILogger<MyExceptionFilter>, Logger<MyExceptionFilter>>();
+            services.AddSingleton<ILogger<BuyFoodActionFilter>, Logger<BuyFoodActionFilter>>();
 
             services.AddControllers();
             services.AddControllersWithViews();
@@ -43,6 +46,12 @@ namespace RockFood.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RockFood.Api", Version = "v1" });
             });
+            services.AddControllers(options=>
+            {
+                options.Filters.Add(typeof(MyExceptionFilter));
+            });
+
+            services.AddScoped<BuyFoodActionFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RockFood.Api.Filter;
 using RockFood.Interfaces;
 using RockFood.Models;
 using RockFood.Services;
@@ -28,11 +29,13 @@ namespace RockFood.Api.Controllers
         [HttpGet("GetFood")]
         public IFoodable GetFood(int id)
         {
+            //throw new ArgumentNullException();
             var food = _foodOperation.Get(id);
             return food;
         }
 
         [HttpPut("BuyFood")]
+        [ServiceFilter(typeof(BuyFoodActionFilter))]
         public IActionResult BuyFood(int id, double number = 1)
         {
             if(_foodOperation.Get(id) is null)
