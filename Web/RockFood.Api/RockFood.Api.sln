@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RockFood.Api", "RockFood.Api.csproj", "{32690C77-1FB7-4711-A605-C31706B36C49}"
 EndProject
+
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity.Data", "..\DAL\Entity.Data\Entity.Data.csproj", "{5AC09DFB-F53A-497D-87E3-495D668AFC7A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "..\Models\Models.csproj", "{0AE60B3A-4D80-483D-ACC8-036DCCA064EA}"
+
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RockFood", "..\BLL\RockFood\RockFood.csproj", "{8798364A-6490-4B21-A3B7-40FB32338E87}"
 EndProject
@@ -21,6 +23,12 @@ Global
 		{32690C77-1FB7-4711-A605-C31706B36C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32690C77-1FB7-4711-A605-C31706B36C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32690C77-1FB7-4711-A605-C31706B36C49}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{9D6517CE-7C4F-46E6-949C-CE244E50E282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D6517CE-7C4F-46E6-949C-CE244E50E282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D6517CE-7C4F-46E6-949C-CE244E50E282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D6517CE-7C4F-46E6-949C-CE244E50E282}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{5AC09DFB-F53A-497D-87E3-495D668AFC7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5AC09DFB-F53A-497D-87E3-495D668AFC7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AC09DFB-F53A-497D-87E3-495D668AFC7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
