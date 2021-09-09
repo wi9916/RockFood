@@ -15,26 +15,27 @@ namespace RockFood.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private readonly IFoodOperation _foodOperation;
-        public FoodController(IFoodOperation context)
+        private readonly IFoodService _foodOperation;
+        public FoodController(IFoodService foodOperation)
         {
-            _foodOperation = context;
+            _foodOperation = foodOperation;
         }
 
         [HttpGet("GetAllFoods")]
-        public IEnumerable<IFoodable> GetFood()
+        public IEnumerable<IFoodable> GetAllFoods()
         {
             return _foodOperation.Get();
         }
-        [HttpGet("GetFood")]
+
+        [HttpGet]
         public IFoodable GetFood(int id)
         {
-            //throw new ArgumentNullException();
+            throw new ArgumentNullException();
             var food = _foodOperation.Get(id);
             return food;
         }
 
-        [HttpPut("BuyFood")]
+        [HttpPut]
         [ServiceFilter(typeof(BuyFoodActionFilter))]
         public IActionResult BuyFood(int id, double number = 1)
         {
@@ -44,9 +45,9 @@ namespace RockFood.Api.Controllers
             _foodOperation.BuyFood(id, number);
             _foodOperation.Save();
             return Ok();
-        }
+        }      
 
-        [HttpPost("AddFood")]
+        [HttpPost]
         public IActionResult AddFood(Food food)
         {
             _foodOperation.Add(food);
@@ -54,7 +55,7 @@ namespace RockFood.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete("DeleteFood")]
+        [HttpDelete]
         public IActionResult DeleteFood(int id)
         {
             var food = _foodOperation.Get(id);
