@@ -20,7 +20,7 @@ namespace RockFood.Api.Controllers
             _foodService = foodService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllFoods")]
         public IEnumerable<IFoodable> GetAllFoods()
         {
             return _foodService.Get();
