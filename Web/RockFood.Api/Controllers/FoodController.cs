@@ -14,46 +14,46 @@ namespace RockFood.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private readonly IFoodOperation _foodOperation;
-        public FoodController(IFoodOperation context)
+        private readonly IFoodService _foodService;
+        public FoodController(IFoodService foodService)
         {
-            _foodOperation = context;
+            _foodService = foodService;
         }
 
-        [HttpGet("GetAllFoods")]
-        public IEnumerable<IFoodable> GetFood()
+        [HttpGet]
+        public IEnumerable<IFoodable> GetAllFoods()
         {
-            return _foodOperation.Get();
+            return _foodService.Get();
         }
-        [HttpGet("GetFood")]
+        [HttpGet]
         public IFoodable GetFood(int id)
         {
-            var food = _foodOperation.Get(id);
+            var food = _foodService.Get(id);
             return food;
         }
 
-        [HttpPut("BuyFood")]
+        [HttpPut]
         public void BuyFood(int id, double number = 1)
         {
-            _foodOperation.BuyFood(id, number);
-            _foodOperation.Save();
+            _foodService.BuyFood(id, number);
+            _foodService.Save();
         }
 
-        [HttpPost("AddFood")]
+        [HttpPost]
         public void AddFood(Food food)
         {
-            _foodOperation.Add(food);
-            _foodOperation.Save();
+            _foodService.Add(food);
+            _foodService.Save();
         }
 
-        [HttpDelete("DeleteFood")]
+        [HttpDelete]
         public void DeleteFood(int id)
         {
-            var food = _foodOperation.Get(id);
+            var food = _foodService.Get(id);
             if (food != default)
             {
-                _foodOperation.Delete(id);
-                _foodOperation.Save();
+                _foodService.Delete(id);
+                _foodService.Save();
             }            
         }
     }

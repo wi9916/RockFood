@@ -33,7 +33,7 @@ namespace RockFood.Api
             services.AddSingleton<IFoodable, Food>();
             services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
             services.AddSingleton<IExchangerable, CurrencyExchanger>();
-            services.AddSingleton<IFoodOperation, FoodOperation>();
+            services.AddSingleton<IFoodService, FoodService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

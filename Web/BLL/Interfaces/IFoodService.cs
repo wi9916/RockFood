@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RockFood.Interfaces
 {
-    public interface IFoodOperation
+    public interface IFoodService
     {
         string Add(Food food);
         string BuyFood(int foodId, double number = 1);

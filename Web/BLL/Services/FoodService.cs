@@ -11,15 +11,16 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class FoodOperation : IFoodOperation
+    public class FoodService : IFoodService
     {
         private readonly DataContext _db;
         private readonly IMemoryCacheable<IFoodable> _memoryCache;
-        public FoodOperation(DataContext dataContext, IMemoryCacheable<IFoodable> memoryCache)
+        public FoodService(DataContext dataContext, IMemoryCacheable<IFoodable> memoryCache)
         {
             _db = dataContext;
             _memoryCache = memoryCache;
         }
+
         public string Add(Food food)
         {
             _db.Foods.Add(food);
@@ -29,6 +30,7 @@ namespace RockFood.Services
 
             return message;
         }
+
         public string BuyFood(int foodId, double number = 1)
         {
             var food = _db.Foods.Find(foodId);
@@ -45,6 +47,7 @@ namespace RockFood.Services
             _db.Entry(food).State = EntityState.Modified;
             return message;
         }
+
         public List<IFoodable> Get()
         {
             var foods = new List<IFoodable>();
@@ -53,27 +56,26 @@ namespace RockFood.Services
 
             return foods;
         }
+
         public IFoodable Get(int id)
         {
             var message = default(string);
             var food = _memoryCache.GetOrCreate(id, () => _db.Foods.Find(id), out message);
             return food;
         }
+
         public void Edit(Food food)
-        {
-            var baseFood = _db.Foods.Find(food.Id);
-            baseFood.Name = food.Name;
-            baseFood.About = food.About;
-            baseFood.Count = food.Count;
-            baseFood.Price = food.Price;
-            _db.Entry(baseFood).State = EntityState.Modified;
+        {          
+            _db.Entry(food).State = EntityState.Modified;
         }
+
         public void Delete(int id)
         {
             Food food = _db.Foods.Find(id);
             if (food != null)
                 _db.Foods.Remove(food);
         }
+
         public void Save()
         {
             _db.SaveChanges();
