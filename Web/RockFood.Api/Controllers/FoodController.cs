@@ -14,51 +14,51 @@ namespace RockFood.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private readonly IFoodOperation _foodOperation;
-        public FoodController(IFoodOperation context)
+        private readonly IFoodServices _foodServices;
+        public FoodController(IFoodServices foodServices)
         {
-            _foodOperation = context;
+            _foodServices = foodServices;
         }
 
-        [HttpGet("GetAllFoods")]
-        public IEnumerable<IFoodable> GetFood()
+        [HttpGet]
+        public IEnumerable<IFoodable> GetAllFoods()
         {
-            return _foodOperation.Get();
+            return _foodServices.Get();
         }
-        [HttpGet("GetFood")]
+        [HttpGet]
         public IFoodable GetFood(int id)
         {
-            var food = _foodOperation.Get(id);
+            var food = _foodServices.Get(id);
             return food;
         }
 
-        [HttpPut("BuyFood")]
+        [HttpPut]
         public IActionResult BuyFood(int id, double number = 1)
         {
-            if(_foodOperation.Get(id) is null)
+            if(_foodServices.Get(id) is null)
                 return NotFound();
 
-            _foodOperation.BuyFood(id, number);
-            _foodOperation.Save();
+            _foodServices.BuyFood(id, number);
+            _foodServices.Save();
             return Ok();
         }
 
-        [HttpPost("AddFood")]
+        [HttpPost]
         public IActionResult AddFood(Food food)
         {
-            _foodOperation.Add(food);
-            _foodOperation.Save();
+            _foodServices.Add(food);
+            _foodServices.Save();
             return Ok();
         }
 
-        [HttpDelete("DeleteFood")]
+        [HttpDelete]
         public IActionResult DeleteFood(int id)
         {
-            var food = _foodOperation.Get(id);
+            var food = _foodServices.Get(id);
             if (food != default)
             {
-                _foodOperation.Delete(id);
-                _foodOperation.Save();
+                _foodServices.Delete(id);
+                _foodServices.Save();
                 return Ok();
             }
             return NotFound();
