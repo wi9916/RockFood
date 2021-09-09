@@ -1,3 +1,6 @@
+using Entity.Data;
+using Entity.Data.Interface;
+using Entity.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RockFood.Interfaces;
+using RockFood.Models;
+using RockFood.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +29,11 @@ namespace RockFood.Api
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<DataContext, DataContext>();
+            services.AddSingleton<IFoodable, Food>();
+            services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
+            services.AddSingleton<IExchangerable, CurrencyExchanger>();
+            services.AddSingleton<IFoodService, FoodService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
