@@ -12,8 +12,8 @@ namespace RockFood.Api.Controllers
 {
     public class FoodMVCController : Controller
     {
-        private readonly IFoodServices _foodServices;
-        public FoodMVCController(IFoodServices foodServices)
+        private readonly IFoodService _foodServices;
+        public FoodMVCController(IFoodService foodServices)
         {
             _foodServices = foodServices;
         }

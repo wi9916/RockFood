@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class FoodServices : IFoodServices
+    public class FoodService : IFoodService
     {
         private readonly DataContext _db;
         private readonly IMemoryCacheable<IFoodable> _memoryCache;
-        public FoodServices(DataContext dataContext, IMemoryCacheable<IFoodable> memoryCache)
+        public FoodService(DataContext dataContext, IMemoryCacheable<IFoodable> memoryCache)
         {
             _db = dataContext;
             _memoryCache = memoryCache;

@@ -34,7 +34,7 @@ namespace RockFood.Api
             services.AddSingleton<IFoodable, Food>();
             services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
             services.AddSingleton<IExchangerable, CurrencyExchanger>();
-            services.AddSingleton<IFoodServices, FoodServices>();
+            services.AddSingleton<IFoodService, FoodService>();
 
             services.AddControllers();
             services.AddControllersWithViews();
