@@ -14,11 +14,9 @@ namespace RockFood.Services
     public class FoodService : IFoodService
     {
         private readonly DataContext _db;
-        private readonly IMemoryCacheable<IFoodable> _memoryCache;
-        public FoodService(DataContext dataContext, IMemoryCacheable<IFoodable> memoryCache)
+        public FoodService(DataContext dataContext)
         {
             _db = dataContext;
-            _memoryCache = memoryCache;
         }
 
         public string Add(Food food)
@@ -58,13 +56,18 @@ namespace RockFood.Services
         }
         public IFoodable Get(int id)
         {
-            var message = default(string);
-            var food = _memoryCache.GetOrCreate(id, () => _db.Foods.Find(id), out message);
+            var food =  _db.Foods.Find(id);
             return food;
         }
         public void Edit(Food food)
         {
-            _db.Entry(food).State = EntityState.Modified;
+            var entity = _db.Foods.Find(food.Id);
+            if (entity == null)
+            {
+                return;
+            }
+
+            _db.Entry(entity).CurrentValues.SetValues(food);
         }
         public void Delete(int id)
         {
