@@ -29,8 +29,9 @@ namespace RockFood.Api.Controllers
 
         [HttpGet]
         public IFoodable GetFood(int id)
-        {
-            //throw new ArgumentNullException();
+        {           
+            throw new ArgumentNullException();
+
             var food = _foodOperation.Get(id);
             return food;
         }
