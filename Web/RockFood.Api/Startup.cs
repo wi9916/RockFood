@@ -31,7 +31,7 @@ namespace RockFood.Api
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<DataContext, DataContext>();
+            services.AddSingleton<DataContext>();
             services.AddSingleton<IFoodable, Food>();
             services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
             services.AddSingleton<IExchangerable, CurrencyExchanger>();
