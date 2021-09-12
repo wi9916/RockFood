@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RockFood.Api.Controllers
 {
-    [Route("api/Food")]
+    [Route("api/Foods")]
     [ApiController]
     public class FoodController : ControllerBase
     {
