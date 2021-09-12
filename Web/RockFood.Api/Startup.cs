@@ -3,6 +3,7 @@ using Entity.Data.Interface;
 using Entity.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -36,7 +37,7 @@ namespace RockFood.Api
             services.AddSingleton<IExchangerable, CurrencyExchanger>();
             services.AddSingleton<IFoodService, FoodService>();
             services.AddSingleton<ILogger<MyExceptionFilter>, Logger<MyExceptionFilter>>();
-            services.AddSingleton<ILogger<BuyFoodActionFilter>, Logger<BuyFoodActionFilter>>();
+            services.AddSingleton<ILogger<FoodActionFilter>, Logger<FoodActionFilter>>();
 
             services.AddControllers();
             services.AddControllersWithViews();
@@ -50,7 +51,7 @@ namespace RockFood.Api
                 options.Filters.Add(typeof(MyExceptionFilter));
             });
 
-            services.AddScoped<BuyFoodActionFilter>();
+            services.AddScoped<FoodActionFilter>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -67,6 +68,12 @@ namespace RockFood.Api
 
             app.UseAuthorization();
 
+            app.Use(next => context =>
+            {
+                context.Request.EnableBuffering();
+                return next(context);
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -78,6 +85,6 @@ namespace RockFood.Api
                     name: "default",
                     pattern: "{controller=FoodMVC}/{action=Index}/{id?}");
             });
-        }
+        }      
     }
 }

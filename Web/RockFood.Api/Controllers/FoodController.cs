@@ -20,7 +20,7 @@ namespace RockFood.Api.Controllers
         {
             _foodOperation = foodOperation;
         }
-
+        
         [HttpGet("GetAllFoods")]
         public IEnumerable<IFoodable> GetAllFoods()
         {
@@ -30,13 +30,12 @@ namespace RockFood.Api.Controllers
         [HttpGet]
         public IFoodable GetFood(int id)
         {
-            throw new ArgumentNullException();
+            //throw new ArgumentNullException();
             var food = _foodOperation.Get(id);
             return food;
         }
 
         [HttpPut]
-        [ServiceFilter(typeof(BuyFoodActionFilter))]
         public IActionResult BuyFood(int id, double number = 1)
         {
             if(_foodOperation.Get(id) is null)
@@ -48,6 +47,7 @@ namespace RockFood.Api.Controllers
         }      
 
         [HttpPost]
+        [ServiceFilter(typeof(FoodActionFilter))]
         public IActionResult AddFood(Food food)
         {
             _foodOperation.Add(food);

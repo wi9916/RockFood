@@ -1,6 +1,7 @@
 ﻿using Entity.Data.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RockFood.Api.Filter;
 using RockFood.Interfaces;
 using RockFood.Models;
 using System;
@@ -39,6 +40,7 @@ namespace RockFood.Api.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ServiceFilter(typeof(FoodActionFilter))]
         public IActionResult Create(Food food)
         {
             if (!ModelState.IsValid)
