@@ -14,6 +14,7 @@ namespace RockFood.Services
     public class FoodService : IFoodService
     {
         private readonly DataContext _db;
+
         public FoodService(DataContext dataContext)
         {
             _db = dataContext;
@@ -54,11 +55,13 @@ namespace RockFood.Services
 
             return foods;
         }
+
         public IFoodable Get(int id)
         {
             var food =  _db.Foods.Find(id);
             return food;
         }
+
         public void Edit(Food food)
         {
             var entity = _db.Foods.Find(food.Id);
@@ -69,12 +72,14 @@ namespace RockFood.Services
 
             _db.Entry(entity).CurrentValues.SetValues(food);
         }
+
         public void Delete(int id)
         {
             Food food = _db.Foods.Find(id);
             if (food != null)
                 _db.Foods.Remove(food);
         }
+
         public void Save()
         {
             _db.SaveChanges();
