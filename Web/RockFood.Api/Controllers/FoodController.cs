@@ -15,6 +15,7 @@ namespace RockFood.Api.Controllers
     public class FoodController : ControllerBase
     {
         private readonly IFoodService _foodService;
+
         public FoodController(IFoodService foodService)
         {
             _foodService = foodService;
@@ -25,6 +26,7 @@ namespace RockFood.Api.Controllers
         {
             return _foodService.Get();
         }
+
         [HttpGet]
         public IFoodable GetFood(int id)
         {

@@ -14,6 +14,7 @@ namespace RockFood.Services
     {
         private readonly string _folderPath;
         private readonly string _fileName;
+
         public DataStorage(string fileName)
         {
             var pathParts = new[]

@@ -32,8 +32,6 @@ namespace RockFood.Api
         {
             services.AddSingleton<DataContext, DataContext>();
             services.AddSingleton<IFoodable, Food>();
-            services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
-            services.AddSingleton<IExchangerable, CurrencyExchanger>();
             services.AddSingleton<IFoodService, FoodService>();
 
             services.AddControllers();
@@ -45,7 +43,6 @@ namespace RockFood.Api
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
