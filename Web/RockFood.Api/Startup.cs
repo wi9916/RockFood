@@ -29,12 +29,11 @@ namespace RockFood.Api
             Configuration = configuration;
         }
         public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<DataContext, DataContext>();
             services.AddSingleton<IFoodable, Food>();
-            services.AddSingleton<IMemoryCacheable<IFoodable>, MemoryCache<IFoodable> >();
-            services.AddSingleton<IExchangerable, CurrencyExchanger>();
             services.AddSingleton<IFoodService, FoodService>();
             services.AddSingleton<ILogger<MyExceptionFilter>, Logger<MyExceptionFilter>>();
             services.AddSingleton<ILogger<FoodActionFilter>, Logger<FoodActionFilter>>();
@@ -53,6 +52,7 @@ namespace RockFood.Api
 
             services.AddScoped<FoodActionFilter>();
         }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

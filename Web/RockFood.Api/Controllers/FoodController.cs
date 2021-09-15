@@ -16,6 +16,7 @@ namespace RockFood.Api.Controllers
     public class FoodController : ControllerBase
     {
         private readonly IFoodService _foodOperation;
+
         public FoodController(IFoodService foodOperation)
         {
             _foodOperation = foodOperation;

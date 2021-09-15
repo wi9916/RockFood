@@ -14,15 +14,18 @@ namespace RockFood.Api.Controllers
     public class FoodMVCController : Controller
     {
         private readonly IFoodService _context;
+
         public FoodMVCController(IFoodService context)
         {
             _context = context;
         }
+
         [HttpGet]
         public ActionResult Index()
         {
             return View(_context.Get());
         }
+
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -32,6 +35,7 @@ namespace RockFood.Api.Controllers
 
             return NotFound();
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -50,6 +54,7 @@ namespace RockFood.Api.Controllers
             _context.Save();
             return RedirectToAction(nameof(Index));
         }
+
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -71,6 +76,7 @@ namespace RockFood.Api.Controllers
             _context.Save();
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public ActionResult Buy(int id)
         {
@@ -78,6 +84,7 @@ namespace RockFood.Api.Controllers
             _context.Save();
             return RedirectToAction(nameof(Index));
         }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {
