@@ -1,0 +1,43 @@
+﻿@model RockFood.Models.Food
+@{
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <h4>Food</h4>
+    <hr />
+    <form asp-action="Edit" asp-controller="FoodMVC" asp-route-id="@Model.Id">
+        <div>
+            <div>
+                <label asp-for="Name" class="control-label">Name</label>
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div>
+                <label asp-for="About" class="control-label">About</label>
+                <input type="text" asp-for="About" class="form-control" />
+                <span asp-validation-for="About"></span>
+            </div>
+            <div>
+                <label asp-for="Price" class="control-label">Price</label>
+                <input type="number" asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price"></span>
+            </div>
+            <div>
+                <label asp-for="Count" class="control-label">Count</label>
+                <input type="number" asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-default" />
+            </div>
+        </div>
+    </form>
+</body>
+</html>
