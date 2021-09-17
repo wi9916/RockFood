@@ -15,54 +15,54 @@ namespace RockFood.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private readonly IFoodService _foodOperation;
+        private readonly IFoodService _foodService;
 
-        public FoodController(IFoodService foodOperation)
+        public FoodController(IFoodService foodService)
         {
-            _foodOperation = foodOperation;
+            _foodService = foodService;
         }
-        
+
         [HttpGet("GetAllFoods")]
         public IEnumerable<IFoodable> GetAllFoods()
         {
-            return _foodOperation.Get();
+            return _foodService.Get();
         }
 
         [HttpGet]
         public IFoodable GetFood(int id)
-        {           
-            var food = _foodOperation.Get(id);
+        {
+            var food = _foodService.Get(id);
             return food;
         }
 
         [HttpPut]
         public IActionResult BuyFood(int id, double number = 1)
         {
-            if(_foodOperation.Get(id) is null)
+            if(_foodService.Get(id) is null)
                 return NotFound();
 
-            _foodOperation.BuyFood(id, number);
-            _foodOperation.Save();
+            _foodService.BuyFood(id, number);
+            _foodService.Save();
             return Ok();
-        }      
+        }
 
         [HttpPost]
         [ServiceFilter(typeof(FoodActionFilter))]
         public IActionResult AddFood(Food food)
         {
-            _foodOperation.Add(food);
-            _foodOperation.Save();
+            _foodService.Add(food);
+            _foodService.Save();
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult DeleteFood(int id)
         {
-            var food = _foodOperation.Get(id);
+            var food = _foodService.Get(id);
             if (food != default)
             {
-                _foodOperation.Delete(id);
-                _foodOperation.Save();
+                _foodService.Delete(id);
+                _foodService.Save();
                 return Ok();
             }
             return NotFound();

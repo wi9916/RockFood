@@ -28,6 +28,7 @@ namespace RockFood.Api
         {
             Configuration = configuration;
         }
+
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -45,6 +46,7 @@ namespace RockFood.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RockFood.Api", Version = "v1" });
             });
+
             services.AddControllers(options=>
             {
                 options.Filters.Add(typeof(MyExceptionFilter));

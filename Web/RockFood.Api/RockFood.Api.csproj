@@ -67,11 +67,9 @@
   <ItemGroup>
     <ProjectReference Include="..\BLL\RockFood\RockFood.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
 </Project>

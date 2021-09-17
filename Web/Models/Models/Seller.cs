@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RockFood.Models
 {
-    public class Seller: Person
+    public class Seller : Person
     {
         public double RatingFromCustomers { get; set; } 
     }
