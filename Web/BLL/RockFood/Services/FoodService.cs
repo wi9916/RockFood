@@ -14,7 +14,7 @@ namespace RockFood.Services
     public class FoodService : IFoodService
     {
         private readonly DataContext _db;
-        
+
         public FoodService(DataContext dataContext)
         {
             _db = dataContext;

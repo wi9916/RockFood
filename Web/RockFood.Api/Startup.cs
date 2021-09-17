@@ -28,6 +28,7 @@ namespace RockFood.Api
         {
             Configuration = configuration;
         }
+
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -37,7 +38,6 @@ namespace RockFood.Api
             services.AddSingleton<IFoodService, FoodService>();
             services.AddSingleton<ILogger<MyExceptionFilter>, Logger<MyExceptionFilter>>();
             services.AddSingleton<ILogger<FoodActionFilter>, Logger<FoodActionFilter>>();
-
             services.AddControllers();
             services.AddControllersWithViews();
 
@@ -85,6 +85,6 @@ namespace RockFood.Api
                     name: "default",
                     pattern: "{controller=FoodMVC}/{action=Index}/{id?}");
             });
-        }      
+        }
     }
 }
