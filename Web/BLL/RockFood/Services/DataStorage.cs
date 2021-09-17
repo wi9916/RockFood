@@ -25,7 +25,8 @@ namespace RockFood.Services
 
             _folderPath = Path.Combine(pathParts);
             _fileName = fileName;                       
-        }               
+        }  
+        
         public bool SaveData<T>(T obj)
         {           
             if (!Directory.Exists(_folderPath))
@@ -36,6 +37,7 @@ namespace RockFood.Services
 
             return true;
         }
+
         public T LoadData<T>(T obj)
         {
             var jsonString = File.ReadAllText(Path.Combine(_folderPath, _fileName));
