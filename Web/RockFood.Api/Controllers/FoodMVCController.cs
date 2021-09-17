@@ -15,26 +15,26 @@ namespace RockFood.Api.Controllers
 {
     public class FoodMVCController : Controller
     {
-        private readonly IFoodService _context;
+        private readonly IFoodService _foodService;
         private readonly IWebHostEnvironment _env;
 
-        public FoodMVCController(IFoodService context, IWebHostEnvironment env)
+        public FoodMVCController(IFoodService foodService, IWebHostEnvironment env)
         {
-            _context = context;
+            _foodService = foodService;
             _env = env;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View(_context.Get());
+            return View(_foodService.Get());
         }
 
         [HttpGet]
         [ResponseCache(Duration = 120, Location = ResponseCacheLocation.Any, NoStore = false)]       
         public ActionResult Details(int id)
         {
-            var food = _context.Get(id);
+            var food = _foodService.Get(id);
             if (food != null)
             {
                 if(_env.IsDevelopment())
@@ -69,15 +69,15 @@ namespace RockFood.Api.Controllers
             if (!ModelState.IsValid)
                 return View(food);
                 
-            _context.Add(food);
-            _context.Save();
+            _foodService.Add(food);
+            _foodService.Save();
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var food = _context.Get(id);
+            var food = _foodService.Get(id);
             if (food != null)
                 return View(food);
 
@@ -91,23 +91,23 @@ namespace RockFood.Api.Controllers
             if(!ModelState.IsValid)
                 return View(food);
 
-            _context.Edit(food);
+            _foodService.Edit(food);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult Buy(int id)
         {
-            _context.BuyFood(id);
-            _context.Save();
+            _foodService.BuyFood(id);
+            _foodService.Save();
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            _context.Delete(id);
-            _context.Save();
+            _foodService.Delete(id);
+            _foodService.Save();
             return RedirectToAction(nameof(Index));
         }
     }
