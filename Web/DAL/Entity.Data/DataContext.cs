@@ -17,8 +17,6 @@ namespace Entity.Data
         public DbSet<Customer> Customers { get; set; }
         
         public DataContext(DbContextOptions<DataContext> options)
-        : base(options)
-        {
-        }
+        : base(options){}
     }
 }
