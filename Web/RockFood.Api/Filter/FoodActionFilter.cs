@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -23,23 +22,16 @@ namespace RockFood.Api.Filter
             ActionExecutedContext rContext = null;
             string stringContent = string.Empty;
 
-            try
+            context.HttpContext.Request.EnableBuffering();
+            context.HttpContext.Request.Body.Position = 0;
+
+            using (var reader = new StreamReader(context.HttpContext.Request.Body))
             {
-                context.HttpContext.Request.EnableBuffering();
+                stringContent = await reader.ReadToEndAsync();
                 context.HttpContext.Request.Body.Position = 0;
-
-                using (var reader = new StreamReader(context.HttpContext.Request.Body))
-                {
-                    stringContent = await reader.ReadToEndAsync();
-                    context.HttpContext.Request.Body.Position = 0;
-                }
-
-                rContext = await next();               
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
+            rContext = await next();
             _logger.LogInformation($"{DateTimeOffset.UtcNow} ActionFilter " +
                         $"Request of the Body: {stringContent}");
         }
