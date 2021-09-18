@@ -1,6 +1,7 @@
 ﻿using Entity.Data.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RockFood.Api.Filter;
 using RockFood.Interfaces;
 using RockFood.Models;
 using System;
@@ -12,23 +13,23 @@ namespace RockFood.Api.Controllers
 {
     public class FoodMVCController : Controller
     {
-        private readonly IFoodService _foodServices;
+        private readonly IFoodService _foodService;
 
-        public FoodMVCController(IFoodService foodServices)
+        public FoodMVCController(IFoodService foodService)
         {
-            _foodServices = foodServices;
+            _foodService = foodService;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View(_foodServices.Get());
+            return View(_foodService.Get());
         }
 
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var food = _foodServices.Get(id);
+            var food = _foodService.Get(id);
             if (food != null)
                 return View(food);
 
@@ -43,20 +44,21 @@ namespace RockFood.Api.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ServiceFilter(typeof(FoodActionFilter))]
         public IActionResult Create(Food food)
         {
             if (!ModelState.IsValid)
                 return View(food);
                 
-            _foodServices.Add(food);
-            _foodServices.Save();
+            _foodService.Add(food);
+            _foodService.Save();
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var food = _foodServices.Get(id);
+            var food = _foodService.Get(id);
             if (food != null)
                 return View(food);
 
@@ -70,24 +72,24 @@ namespace RockFood.Api.Controllers
             if(!ModelState.IsValid)
                 return View(food);
 
-            _foodServices.Edit(food);
-            _foodServices.Save();
+            _foodService.Edit(food);
+            _foodService.Save();
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult Buy(int id)
         {
-            _foodServices.BuyFood(id);
-            _foodServices.Save();
+            _foodService.BuyFood(id);
+            _foodService.Save();
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            _foodServices.Delete(id);
-            _foodServices.Save();
+            _foodService.Delete(id);
+            _foodService.Save();
             return RedirectToAction(nameof(Index));
         }
     }

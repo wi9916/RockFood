@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace RockFood.Services
 {
-    public class Residents: IResidentable
+    public class Residents : IResidentable
     {
         public List<Customer> Customers { get; set; }
+
         public Residents()
         {
             Customers = new List<Customer>();
