@@ -10,7 +10,7 @@ namespace RockFood.Api.App_Code
 {
     public static class ListHelper
     {
-        public static HtmlString CreateList(this IHtmlHelper html, IEnumerable<IFoodable> foods)
+        public static HtmlString CreateList(this IHtmlHelper html, IEnumerable<IFoodable> foods, string nameController = null)
         {
             var result = "<tbody>";
             foreach (var food in foods)
@@ -19,9 +19,12 @@ namespace RockFood.Api.App_Code
                 result = $"{result}<td>{food.About}</td>";
                 result = $"{result}<td>{food.Price}</td>";
                 result = $"{result}<td>{food.Count}</td>";
-                result = $"{result}<td><a href=\"/FoodMVC/Edit/{food.Id}\"> Edit </a> | ";
-                result = $"{result}<a href=\"/FoodMVC/Details/{food.Id}\"> Details </a> | ";
-                result = $"{result}<a href=\"/FoodMVC/Delete/{food.Id}\"> Delete </a></td></tr>";
+                if (nameController is not null)
+                {
+                    result = $"{result}<td><a href=\"/{nameController}/Edit/{food.Id}\"> Edit </a> | ";
+                    result = $"{result}<a href=\"/{nameController}/Details/{food.Id}\"> Details </a> | ";
+                    result = $"{result}<a href=\"/{nameController}/Delete/{food.Id}\"> Delete </a></td></tr>";
+                }
             }
             result = $"{result}</tbody>";
             return new HtmlString(result);
