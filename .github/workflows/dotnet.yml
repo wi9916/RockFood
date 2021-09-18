@@ -20,6 +20,6 @@ jobs:
       with:
         dotnet-version: '5.0.x'  
     - run: dotnet restore ./Web/RockFood.Api/RockFood.Api.csproj
-    - run: dotnet build RockFood.Api
+    - run: dotnet build ./Web/RockFood.Api/
     
   
