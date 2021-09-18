@@ -58,7 +58,7 @@ namespace RockFood.Services
 
         public IFoodable Get(int id)
         {
-            var food =  _db.Foods.Find(id);
+            var food = _db.Foods.Find(id);
             return food;
         }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,15 +33,18 @@ namespace RockFood.Api
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<DataContext>();
-            services.AddSingleton<IFoodable, Food>();
-            services.AddSingleton<IFoodService, FoodService>();
+        {            
+            services.AddScoped<DataContext>();
+            services.AddScoped<IFoodService, FoodService>();
+            services.AddSingleton<IFoodable, Food>();           
             services.AddSingleton<ILogger<MyExceptionFilter>, Logger<MyExceptionFilter>>();
             services.AddSingleton<ILogger<FoodActionFilter>, Logger<FoodActionFilter>>();
 
             services.AddControllers();
             services.AddControllersWithViews();
+
+            services.AddDbContext<DataContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("BdConnectionStrings")));
 
             services.AddSwaggerGen(c =>
             {

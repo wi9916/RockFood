@@ -13,16 +13,12 @@ namespace Entity.Data
 {
     public class DataContext: DbContext, IDataContext
     {
-        private readonly IConfiguration _configuration;
         public DbSet<Food> Foods { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DataContext(IConfiguration configuration)
+        
+        public DataContext(DbContextOptions<DataContext> options)
+        : base(options)
         {
-            _configuration = configuration;
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
-        {
-            builder.UseSqlServer(_configuration["BdConnectionStrings"]);          
         }
     }
 }

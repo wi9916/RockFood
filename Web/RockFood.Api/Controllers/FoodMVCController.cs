@@ -46,7 +46,7 @@ namespace RockFood.Api.Controllers
                 {
                     food.About += "IsQa";
                 }
-                if (_env.IsEnvironment("Production"))
+                if (_env.IsProduction())
                 {
                     food.About += "IsProduction";
                 }
