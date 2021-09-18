@@ -19,6 +19,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '5.0.x'  
-    - run: dotnet restore ./Web/RockFood.Api/RockFood1.Api.csproj
+    - run: dotnet restore ./Web/RockFood.Api/RockFood.Api.csproj
+    - run: dotnet build RockFood.Api
     
   
