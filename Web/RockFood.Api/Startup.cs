@@ -44,7 +44,7 @@ namespace RockFood.Api
             services.AddControllersWithViews();
 
             services.AddDbContext<DataContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("BdConnectionStrings")));
+                options => options.UseSqlServer(Configuration.GetConnectionString("DbConnectionStrings")));
 
             services.AddSwaggerGen(c =>
             {
