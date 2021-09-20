@@ -16,7 +16,7 @@ namespace RockFood.Api.Filter
         }
         public void OnException(ExceptionContext context)
         {
-            _logger.LogInformation($"{DateTimeOffset.UtcNow} Error: {context.Exception}");
+            _logger.LogError($"{DateTimeOffset.UtcNow} Error: {context.Exception}");
             context.ExceptionHandled = true;
         }
     }

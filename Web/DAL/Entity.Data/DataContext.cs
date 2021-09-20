@@ -1,5 +1,6 @@
 ﻿using Entity.Data.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using RockFood.Interfaces;
 using RockFood.Models;
 using System;
@@ -14,9 +15,8 @@ namespace Entity.Data
     {
         public DbSet<Food> Foods { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
-        {
-            builder.UseSqlServer("Data Source=DESKTOP-4H5PP4L; Integrated Security = true; Initial Catalog = WebRockFood");
-        }
+        
+        public DataContext(DbContextOptions<DataContext> options)
+        : base(options){}
     }
 }

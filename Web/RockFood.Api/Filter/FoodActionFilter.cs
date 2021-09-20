@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -22,6 +21,7 @@ namespace RockFood.Api.Filter
         {           
             ActionExecutedContext rContext = null;
             string stringContent = string.Empty;
+
             context.HttpContext.Request.EnableBuffering();
             context.HttpContext.Request.Body.Position = 0;
 
